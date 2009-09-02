@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testSuite name="Calculating the average time of execution of the main JCR API methods" xmlns="http://www.sun.com/japex/testSuite">
+
+  <param name="japex.reportsDirectory" value="../reports" />
+  <param name="japex.plotGroupSize" value="5" />
+  <param name="japex.resultUnit" value="tps" />
+  <param name="japex.warmupIterations" value="0" />
+  <param name="japex.runIterations" value="1" />  
+  <!--param name="japex.runTime" value="01:00" /-->
+  <!-- 10 for 10 sec -->
+  <!-- 15:00 for 15min -->
+
+  <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
+    <param name="japex.classPath" value="../lib/*.jar" />
+    <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
+    <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
+    <param name="jcr.user" value="root" />
+    <param name="jcr.password" value="exo" />
+    <param name="jcr.workspace" value="collaboration" />
+    <param name="jcr.sessionPolicy" value="multiple" />
+    <param name="exo.jaasConf" value="login.conf" />
+    <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
+    <driver name="JCRdriver">
+      <param name="japex.numberOfThreads" value="3" />
+    </driver>
+  </driverGroup>
+
+  <!--testCase name="RestoreOwnNodeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.versioning.RestoreOwnNodeTest" />
+  </testCase-->
+
+  <!--testCase name="CheckinCheckoutOwnNodeCleanDBOracleTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.versioning.CheckinCheckoutOwnNodeCleanDBOracleTest" />
+  </testCase-->
+
+  <!--testCase name="ImportOwnSubtreeSysViewCleanDBOracleTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.xml.ImportOwnSubtreeSysViewCleanDBOracleTest" />
+  </testCase-->
+
+  <!--testCase name="ImportOwnSubtreeDocViewCleanDBOracleTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.xml.ImportOwnSubtreeDocViewCleanDBOracleTest" />
+  </testCase-->
+
+  <!--testCase name="ExportOwnSubtreeSysViewTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.xml.ExportOwnSubtreeSysViewTest" />
+  </testCase-->
+
+  <!--testCase name="ExportOwnSubtreeDocViewTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.xml.ExportOwnSubtreeDocViewTest" />
+  </testCase-->
+
+  <!--testCase name="EditLockedCommonDeepNodeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.lock.EditLockedCommonDeepNodeTest" />
+  </testCase-->
+  
+  <!--testCase name="EditLockedCommonNodeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.lock.EditLockedCommonNodeTest" />
+  </testCase-->
+  
+  <!--testCase name="LockUnlockOwnNodeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.lock.LockUnlockOwnNodeTest" />
+  </testCase-->
+
+  <!--testCase name="SearchNodesByPropertyUsingLikeOperatorTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.query.SearchNodesByPropertyUsingLikeOperatorTest" />
+  </testCase-->
+
+  <!--testCase name="SearchNodesByPropertyTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.query.SearchNodesByPropertyTest" />
+  </testCase-->
+
+  <!--testCase name="SearchNodesByContentTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.query.SearchNodesByContentTest" />
+  </testCase-->
+
+  <!--testCase name="AddNtFileWithMetadataTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.AddNtFileWithMetadataTest" />
+  </testCase-->
+
+  <!--testCase name="AddNtFileWithMetadataTestCleanDBOracle">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.AddNtFileWithMetadataTestCleanDBOracle" />
+    <param name="japex.runIterationDelay" value="0" />
+    </testCase-->
+
+  <!--testCase name="RandomReadNtFileWithMetadataTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.RandomReadNtFileWithMetadataTest" />
+    <param name="jcr.rootPath" value="teststorage/root2" />
+    <param name="jcr.startIndex" value="8" />
+    <param name="jcr.level1NodesCount" value="1" />
+    <param name="jcr.level2NodesCount" value="2" />
+    <param name="jcr.level3NodesCount" value="10" />
+    <param name="jcr.level4NodesCount" value="50" />
+    <param name="japex.runIterationDelay" value="0" />
+    </testCase-->
+ 
+  <!--testCase name="TraverseInnerFoldersTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.TraverseInnerFoldersTest" />
+    <param name="jcr.amountOfInnerFolders" value="5" />
+    <param name="jcr.depthOfStructure" value="3" />
+    <param name="japex.runIterationDelay" value="700" />
+    </testCase-->
+
+  <testCase name="MultiWriteTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.MultiWriteTest" />
+  </testCase>
+
+</testSuite>

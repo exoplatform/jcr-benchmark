@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testSuite name="Stress testing of AsyncReplication" xmlns="http://www.sun.com/japex/testSuite">
+
+  <param name="japex.reportsDirectory" value="../reports" />
+  <param name="japex.plotGroupSize" value="5" />
+  <param name="japex.resultUnit" value="tps" />
+  <param name="japex.warmupIterations" value="0" />
+  <param name="japex.runIterations" value="1" />
+  <!--param name="japex.runTime" value="03" /-->
+  <!-- 10 for 10 sec -->
+  <!-- 15:00 for 15min -->
+
+  <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
+    <param name="japex.classPath" value="../lib/*.jar" />
+    <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.AsyncDriver" />
+    <param name="jcr.user" value="root" />
+    <param name="jcr.password" value="exo" />
+    <param name="jcr.workspace" value="collaboration" />
+    <param name="jcr.sessionPolicy" value="multiple" />
+    <param name="exo.jaasConf" value="login.conf" />
+    <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
+    <driver name="AsyncDriver">
+      <param name="japex.numberOfThreads" value="1" />
+    </driver>
+  </driverGroup>
+
+  <!-- testCase name="LoadFilesAndSynchronizeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.ext.asyncrep.LoadFilesAndSynchronizeTest" />
+    <param name="ext.fileSizeInKb" value="100" />
+    <param name="ext.filePerSaveCount" value="10" />
+    <param name="ext.savesCount" value="25" />
+    <param name="ext.rootFolder" value="folderFirst" />
+    <param name="ext.oponentRootFolder" value="folderSecond" />
+  </testCase-->
+
+  <!--testCase name="ConflictSynchronizeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.ext.asyncrep.ConflictSynchronizeTest" />
+    <param name="ext.fileSizeInKb" value="100" />
+    <param name="ext.filePerSaveCount" value="10" />
+    <param name="ext.savesCount" value="25" />
+  </testCase-->
+  
+  <!--testCase name="ConflictSynchronizeAndDeleteTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.ext.asyncrep.ConflictSynchronizeAndDeleteTest" />
+    <param name="ext.fileSizeInKb" value="1024"/>
+    <param name="ext.filePerSaveCount" value="100" />
+    <param name="ext.savesCount" value="25" />
+    <param name="ext.nodePriority" value="high" />
+  </testCase-->
+  
+  <!--tCase name="ConflictSunchronizeMoveTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.ext.asyncrep.ConflictSunchronizeMoveTest" />
+    <param name="ext.fileSizeInKb" value="100" />
+    <param name="ext.filePerSaveCount" value="10" />
+    <param name="ext.savesCount" value="25" />
+    <param name="ext.rootFolder" value="folderFirst" />
+  </testCase-->
+  
+  <!--testCase name="ConflictVersionTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.ext.asyncrep.ConflictVersionTest" />
+    <param name="ext.fileSizeInKb" value="100"/>
+    <param name="ext.filePerSaveCount" value="10" />
+    <param name="ext.savesCount" value="10" />
+    <param name="ext.nodePriority" value="high" />
+  </testCase-->
+
+  <testCase name="SimpleVersionTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.ext.asyncrep.SimpleVersionTest" />
+    <param name="ext.fileSizeInKb" value="100"/>
+    <param name="ext.filePerSaveCount" value="10" />
+    <param name="ext.savesCount" value="10" />
+    <param name="ext.nodePriority" value="high" />
+  </testCase>
+  
+  <!--testCase name="ExtendedVersionTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.ext.asyncrep.ExtendedVersionTest" />
+    <param name="ext.fileSizeInKb" value="100"/>
+    <param name="ext.filePerSaveCount" value="10" />
+    <param name="ext.savesCount" value="10" />
+    <param name="ext.nodePriority" value="high" />
+  </testCase-->
+  
+  
+</testSuite>

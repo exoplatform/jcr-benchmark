@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <parent>
+      <groupId>org.exoplatform.jcr</groupId>
+      <artifactId>jcrext-parent</artifactId>
+      <version>1.12.0-SNAPSHOT</version>
+   </parent>
+
+   <modelVersion>4.0.0</modelVersion>
+   <artifactId>exo.jcr.benchmark</artifactId>
+   <packaging>jar</packaging>
+   <name>eXo JCR benchmark</name>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.exoplatform.jcr</groupId>
+         <artifactId>exo.jcr.component.core</artifactId>
+         <version>${org.exoplatform.jcr.version}</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.exoplatform.jcr</groupId>
+         <artifactId>exo.jcr.component.ext</artifactId>
+         <version>${org.exoplatform.jcr.version}</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.sun.japex</groupId>
+         <artifactId>japex</artifactId>
+         <scope>compile</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>javax.xml.bind</groupId>
+               <artifactId>jaxb-api</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <dependency>
+         <groupId>ant</groupId>
+         <artifactId>ant</artifactId>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>jfree</groupId>
+         <artifactId>jfreechart</artifactId>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.sun.xml.bind</groupId>
+         <artifactId>jaxb-impl</artifactId>
+         <scope>compile</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>javax.xml</groupId>
+               <artifactId>jsr173</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+
+      <!-- For MySQL support -->
+      <dependency>
+         <groupId>mysql</groupId>
+         <artifactId>mysql-connector-java</artifactId>
+         <scope>compile</scope>
+      </dependency>
+
+      <!-- For PostgresSQL support -->
+      <dependency>
+         <groupId>postgresql</groupId>
+         <artifactId>postgresql</artifactId>
+         <scope>compile</scope>
+      </dependency>
+
+      <!-- For Oracle 10g support (local-jcr repository) -->
+      <dependency>
+         <groupId>ojdbc</groupId>
+         <artifactId>ojdbc</artifactId>
+         <scope>compile</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>ojdbc</groupId>
+         <artifactId>orai18n</artifactId>
+         <scope>compile</scope>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <resources>
+         <resource>
+            <directory>src/main</directory>
+            <includes>
+               <include>**/*.xsl</include>
+               <include>**/*.pdf</include>
+            </includes>
+         </resource>
+      </resources>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+               <archive>
+                  <manifest>
+                     <addClasspath>true</addClasspath>
+                     <!--<classpathPrefix>lib</classpathPrefix>-->
+                     <mainClass>com.sun.japex.Japex</mainClass>
+                  </manifest>
+               </archive>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+               <excludes>
+                  <exclude>*Driver.java</exclude>
+               </excludes>
+            </configuration>
+         </plugin>
+         <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.1</version>
+            <executions>
+               <execution>
+                  <phase>install</phase>
+                  <goals>
+                     <goal>attached</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <descriptors>
+                  <descriptor>assembly-descriptor.xml</descriptor>
+               </descriptors>
+               <finalName>exo.jcr.benchmark</finalName>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+</project>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testSuite name="Calculating the average time of execution of the main JCR API methods" xmlns="http://www.sun.com/japex/testSuite">
+
+  <param name="japex.reportsDirectory" value="../reports" />
+  <param name="japex.plotGroupSize" value="5" />
+  <param name="japex.resultUnit" value="tps" />
+  <param name="japex.warmupIterations" value="0" />
+  <param name="japex.runIterations" value="1000" />
+  <!--param name="japex.runTime" value="03" /-->
+  <!-- 10 for 10 sec -->
+  <!-- 15:00 for 15min -->
+
+  <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
+    <param name="japex.classPath" value="../lib/*.jar" />
+    <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
+    <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
+    <param name="jcr.user" value="root" />
+    <param name="jcr.password" value="exo" />
+    <param name="jcr.workspace" value="collaboration" />
+    <param name="jcr.sessionPolicy" value="multiple" />
+    <param name="exo.jaasConf" value="login.conf" />
+    <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
+    <driver name="JCRdriver">
+      <param name="japex.numberOfThreads" value="1" />
+    </driver>
+  </driverGroup>
+
+  <!-- Organization Service -->
+  <!-- Group methods -->
+  <testCase name="AddChildTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.group.AddChildTest" />
+  </testCase>
+
+  <testCase name="FindGroupByIdTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.group.FindGroupByIdTest" />
+  </testCase>
+
+  <testCase name="FindGroupByMembershipTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.group.FindGroupByMembershipTest" />
+  </testCase>
+
+  <testCase name="FindGroupsOfUserTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.group.FindGroupsOfUserTest" />
+  </testCase>
+
+  <testCase name="FindGroupsTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.group.FindGroupsTest" />
+  </testCase>
+
+  <testCase name="GetAllGroupsTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.group.GetAllGroupsTest" />
+  </testCase>
+
+  <testCase name="RemoveGroupTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.group.RemoveGroupTest" />
+  </testCase>
+
+  <testCase name="SaveGroupTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.group.SaveGroupTest" />
+  </testCase>
+
+  <!-- Membership methods -->
+  <testCase name="FindMembershipTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membership.FindMembershipTest" />
+  </testCase>
+
+  <testCase name="FindMembershipByUserGroupAndTypeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membership.FindMembershipByUserGroupAndTypeTest" />
+  </testCase>
+
+  <testCase name="FindMembershipsByGroupTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membership.FindMembershipsByGroupTest" />
+  </testCase>
+
+  <testCase name="FindMembershipsByUserAndGroupTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membership.FindMembershipsByUserAndGroupTest" />
+  </testCase>
+
+  <testCase name="FindMembershipsByUserTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membership.FindMembershipsByUserTest" />
+  </testCase>
+
+  <testCase name="LinkMembershipTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membership.LinkMembershipTest" />
+  </testCase>
+
+  <testCase name="RemoveMembershipByUserTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membership.RemoveMembershipByUserTest" />
+  </testCase>
+
+  <testCase name="RemoveMembershipTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membership.RemoveMembershipTest" />
+  </testCase>
+
+  <!-- MembershipType methods -->
+  <testCase name="CreateMembershipTypeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membershiptype.CreateMembershipTypeTest" />
+  </testCase>
+
+  <testCase name="FindMembershipTypesTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membershiptype.FindMembershipTypesTest" />
+  </testCase>
+
+  <testCase name="FindMembershipTypeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membershiptype.FindMembershipTypeTest" />
+  </testCase>
+
+  <testCase name="RemoveMembershipTypeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membershiptype.RemoveMembershipTypeTest" />
+  </testCase>
+
+  <testCase name="SaveMembershipTypeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.membershiptype.SaveMembershipTypeTest" />
+  </testCase>
+
+  <!-- User methods -->
+  <testCase name="AuthenticateTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.user.AuthenticateTest" />
+  </testCase>
+
+  <testCase name="CreateUserTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.user.CreateUserTest" />
+  </testCase>
+
+  <testCase name="FindUserByNameTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.user.FindUserByNameTest" />
+  </testCase>
+
+  <testCase name="FindUsersByGroupTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.user.FindUsersByGroupTest" />
+  </testCase>
+
+  <testCase name="FindUsersTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.user.FindUsersTest" />
+  </testCase>
+
+  <testCase name="GetUserPageListTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.user.GetUserPageListTest" />
+  </testCase>
+
+  <testCase name="RemoveUserTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.user.RemoveUserTest" />
+  </testCase>
+
+  <testCase name="SaveUserTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.user.SaveUserTest" />
+  </testCase>
+
+  <!-- UserProfile methods -->
+  <testCase name="FindUserProfileByNameTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.userprofile.FindUserProfileByNameTest" />
+  </testCase>
+
+  <testCase name="FindUserProfilesTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.userprofile.FindUserProfilesTest" />
+  </testCase>
+
+  <testCase name="RemoveUserProfileTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.userprofile.RemoveUserProfileTest" />
+  </testCase>
+
+  <testCase name="SaveUserProfileTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.userprofile.SaveUserProfileTest" />
+  </testCase>
+
+  <!-- Usecases -->
+  <testCase name="CreateNewUserTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.organization.usecases.CreateNewUserTest" />
+  </testCase>
+
+</testSuite>
