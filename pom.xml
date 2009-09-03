@@ -1,14 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <parent>
-      <groupId>org.exoplatform.jcr</groupId>
-      <artifactId>jcrext-parent</artifactId>
-      <version>1.12.0-SNAPSHOT</version>
+      <groupId>org.exoplatform</groupId>
+      <artifactId>parent</artifactId>
+      <version>1.1.1</version>
    </parent>
 
    <modelVersion>4.0.0</modelVersion>
-   <artifactId>exo.jcr.benchmark</artifactId>
+   <groupId>org.exoplatform.benchmark</groupId>
+   <artifactId>exo-jcr-benchmark</artifactId>
+   <version>1.12.0-SNAPSHOT</version>
    <packaging>jar</packaging>
    <name>eXo JCR benchmark</name>
+   
+   <properties>
+      <exo.product.name>exo-benchmark</exo.product.name>
+      <exo.product.specification>1.12</exo.product.specification>
+   </properties>
+   
+   <scm>
+      <connection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/trunk</connection>
+      <developerConnection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/trunk</developerConnection>
+      <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark/trunk</url>
+   </scm>
 
    <dependencies>
       <dependency>
@@ -26,6 +39,7 @@
       <dependency>
          <groupId>com.sun.japex</groupId>
          <artifactId>japex</artifactId>
+         <version>1.1.7</version>
          <scope>compile</scope>
          <exclusions>
             <exclusion>
@@ -37,16 +51,19 @@
       <dependency>
          <groupId>ant</groupId>
          <artifactId>ant</artifactId>
+         <version>1.6.5</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>jfree</groupId>
          <artifactId>jfreechart</artifactId>
+         <version>1.0.4</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>com.sun.xml.bind</groupId>
          <artifactId>jaxb-impl</artifactId>
+         <version>2.1.7</version>
          <scope>compile</scope>
          <exclusions>
             <exclusion>
@@ -60,6 +77,7 @@
       <dependency>
          <groupId>mysql</groupId>
          <artifactId>mysql-connector-java</artifactId>
+         <version>5.0.5</version>
          <scope>compile</scope>
       </dependency>
 
@@ -67,6 +85,7 @@
       <dependency>
          <groupId>postgresql</groupId>
          <artifactId>postgresql</artifactId>
+         <version>8.2-504.jdbc3</version>
          <scope>compile</scope>
       </dependency>
 
@@ -74,12 +93,14 @@
       <dependency>
          <groupId>ojdbc</groupId>
          <artifactId>ojdbc</artifactId>
+         <version>14</version>
          <scope>compile</scope>
       </dependency>
 
       <dependency>
          <groupId>ojdbc</groupId>
          <artifactId>orai18n</artifactId>
+         <version>14</version>
          <scope>compile</scope>
       </dependency>
    </dependencies>
@@ -132,9 +153,23 @@
                <descriptors>
                   <descriptor>assembly-descriptor.xml</descriptor>
                </descriptors>
-               <finalName>exo.jcr.benchmark</finalName>
+               <finalName>exo-jcr-benchmark</finalName>
             </configuration>
          </plugin>
       </plugins>
    </build>
+   <profiles>
+      <profile>
+         <id>default</id>
+         <activation>
+            <property>
+               <name>default</name>
+            </property>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <properties>
+            <org.exoplatform.jcr.version>1.12.0-Beta01</org.exoplatform.jcr.version>
+         </properties>
+      </profile>
+   </profiles>
 </project>
