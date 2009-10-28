@@ -10,7 +10,7 @@
    <artifactId>exo-jcr-benchmark</artifactId>
    <version>1.12.0-SNAPSHOT</version>
    <packaging>jar</packaging>
-   <name>eXo JCR benchmark</name>
+   <name>eXo JCR :: Benchmark</name>
    
    <properties>
       <exo.product.name>exo-benchmark</exo.product.name>
