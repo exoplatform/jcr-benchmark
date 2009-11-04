@@ -80,16 +80,16 @@
     </component-plugins>
   </component>
 
-  <!--component>
+  <component>
     <type>org.exoplatform.services.organization.impl.mock.DummyOrganizationService</type>
-  </component-->
+  </component>
 
   <!--component>
     <key>org.exoplatform.services.organization.OrganizationService</key>
     <type>org.exoplatform.services.organization.hibernate.OrganizationServiceImpl</type>
   </component-->
 
-  <component>
+  <!--component>
     <key>org.exoplatform.services.organization.OrganizationService</key>
     <type>org.exoplatform.services.jcr.ext.organization.JCROrganizationServiceImpl</type>
     <init-params>
@@ -99,7 +99,7 @@
         <value>system</value>
       </value-param>
     </init-params>
-  </component>
+  </component-->
 
 
   <component>
@@ -198,7 +198,7 @@
     </component-plugin>
   </external-component-plugins-->
 
-  <external-component-plugins>
+  <!--external-component-plugins>
     <target-component>org.exoplatform.services.organization.OrganizationService</target-component>
     <component-plugin>
       <name>init.service.listener</name>
@@ -641,7 +641,7 @@
         </object-param>
       </init-params>
     </component-plugin>
-  </external-component-plugins>
+  </external-component-plugins-->
 
   <external-component-plugins>
     <target-component>org.exoplatform.services.naming.InitialContextInitializer</target-component>
@@ -667,10 +667,10 @@
           <description>ref-addresses</description>
 
           <!-- HSQL-->
-          <property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+          <!--<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
           <property name="url" value="jdbc:hsqldb:file:../temp/data/portal" />
           <property name="username" value="sa" />
-          <property name="password" value="" />
+          <property name="password" value="" /> -->
 
           <!-- MySQL-->
           <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -682,13 +682,13 @@
           <property name="initialSize" value="5" />-->
 
           <!-- ORACLE-->
-          <!--<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+          <property name="driverClassName" value="oracle.jdbc.OracleDriver" />
           <property name="url" value="jdbc:oracle:thin:@tornado.exoua-int:1523:orcl" />
           <property name="username" value="exoperf" />
           <property name="password" value="exo12321" />
           <property name="maxActive" value="50" />
           <property name="maxIdle" value="2" />
-          <property name="initialSize" value="2" />-->
+          <property name="initialSize" value="2" />
 
           <!-- POSTGRESQL-->
           <!--property name="driverClassName" value="org.postgresql.Driver" />
