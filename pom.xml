@@ -114,7 +114,13 @@
                <include>**/*.pdf</include>
             </includes>
          </resource>
-      </resources>
+         <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+               <include>**/login.conf</include>
+            </includes>
+         </resource>
+      </resources>      
       <plugins>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -168,7 +174,7 @@
             <activeByDefault>true</activeByDefault>
          </activation>
          <properties>
-            <org.exoplatform.jcr.version>1.12.0-Beta01</org.exoplatform.jcr.version>
+            <org.exoplatform.jcr.version>1.12.0-Beta03-SNAPSHOT</org.exoplatform.jcr.version>
          </properties>
       </profile>
    </profiles>
