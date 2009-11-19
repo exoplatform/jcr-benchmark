@@ -31,8 +31,8 @@
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeAddNodeTest" />
   </testCase>
 
-  <testCase name="NodeGetNodesTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesTest" />
+  <testCase name="NodeGetNodesLargeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLargeTest" />
   </testCase>
 
 </testSuite>
