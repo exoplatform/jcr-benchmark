@@ -61,7 +61,7 @@ public abstract class AbstractGetNodesTest extends JCRTestBase
 
       int runIterations = tc.getIntParam("japex.runIterations");
 
-      for (int i = 0; i < runIterations; i++)
+      for (int i = 0; i < 10000; i++)
       {
          node.addNode(context.generateUniqueName("node"));
       }
