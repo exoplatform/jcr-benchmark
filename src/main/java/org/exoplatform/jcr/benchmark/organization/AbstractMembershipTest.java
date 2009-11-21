@@ -33,8 +33,7 @@ import com.sun.japex.TestCase;
  * @author <a href="mailto:anatoliy.bazko@exoplatform.com.ua">Anatoliy Bazko</a>
  * @version $Id: AbstractOrganizationTest.java 111 2008-11-11 11:11:11Z $
  */
-public abstract class AbstractMembershipTest
-   extends AbstractOrganizationTest
+public abstract class AbstractMembershipTest extends AbstractOrganizationTest
 {
 
    private List<Membership> memberships;
@@ -60,17 +59,17 @@ public abstract class AbstractMembershipTest
    {
       super.doPrepare(tc, context);
 
-      int runIterations = tc.getIntParam("japex.runIterations");
+      runIterations = tc.getIntParam("japex.runIterations");
 
       if (tc.hasParam("japex.warmupIterations"))
       {
          int warmUpIterations = tc.getIntParam("japex.warmupIterations");
-         if (warmUpIterations>0) 
+         if (warmUpIterations > 0)
          {
             runIterations += warmUpIterations;
          }
       }
-      
+
       users = new ArrayList<User>();
       groups = new ArrayList<Group>();
       membershipTypes = new ArrayList<MembershipType>();
@@ -113,9 +112,7 @@ public abstract class AbstractMembershipTest
             mHandler.linkMembership(user, g, mt, false);
 
             Membership m =
-                     mHandler
-                              .findMembershipByUserGroupAndType(user.getUserName(), "/" + g.getGroupName(), mt
-                                       .getName());
+               mHandler.findMembershipByUserGroupAndType(user.getUserName(), "/" + g.getGroupName(), mt.getName());
             memberships.add(m);
          }
       }

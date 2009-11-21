@@ -30,8 +30,7 @@ import com.sun.japex.TestCase;
  * @author <a href="mailto:anatoliy.bazko@exoplatform.com.ua">Anatoliy Bazko</a>
  * @version $Id: AbstractOrganizationTest.java 111 2008-11-11 11:11:11Z $
  */
-public abstract class AbstractUserTest
-   extends AbstractOrganizationTest
+public abstract class AbstractUserTest extends AbstractOrganizationTest
 {
 
    private List<User> users;
@@ -48,12 +47,12 @@ public abstract class AbstractUserTest
       if (tc.hasParam("japex.warmupIterations"))
       {
          int warmUpIterations = tc.getIntParam("japex.warmupIterations");
-         if (warmUpIterations>0) 
+         if (warmUpIterations > 0)
          {
             runIterations += warmUpIterations;
          }
       }
-      
+
       users = new ArrayList<User>();
       for (int i = 0; i < runIterations; i++)
       {
@@ -71,16 +70,6 @@ public abstract class AbstractUserTest
       for (User user : users)
       {
          uHandler.createUser(user, false);
-      }
-
-      users.clear();
-      List<User> allUsers = uHandler.getUserPageList(10).getAll();
-      for (int i = 0; i < allUsers.size(); i++)
-      {
-         if (allUsers.get(i).getUserName().startsWith("UserName"))
-         {
-            users.add(allUsers.get(i));
-         }
       }
    }
 
