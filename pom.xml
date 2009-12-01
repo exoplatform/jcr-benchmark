@@ -8,7 +8,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.exoplatform.benchmark</groupId>
    <artifactId>exo-jcr-benchmark</artifactId>
-   <version>1.12.1-SNAPSHOT</version>
+   <version>1.12.0-JBC-SNAPSHOT</version>
    <packaging>jar</packaging>
    <name>eXo JCR :: Benchmark</name>
    
@@ -182,7 +182,7 @@
             <activeByDefault>true</activeByDefault>
          </activation>
          <properties>
-            <org.exoplatform.jcr.version>1.12.0-Beta03-SNAPSHOT</org.exoplatform.jcr.version>
+            <org.exoplatform.jcr.version>1.12.0-JBC-SNAPSHOT</org.exoplatform.jcr.version>
          </properties>
       </profile>
    </profiles>

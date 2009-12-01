@@ -6,8 +6,9 @@
       <authentication-policy>org.exoplatform.services.jcr.impl.core.access.JAASAuthenticator</authentication-policy>
       <workspaces>
         <workspace name="system" auto-init-permissions="">
-          <container class="org.exoplatform.services.jcr.impl.storage.jdbc.JDBCWorkspaceDataContainer">
+          <container class="org.exoplatform.services.jcr.impl.storage.jbosscache.JBossCacheWorkspaceDataContainer">
             <properties>
+              <property name="jbosscache-configuration" value="../config/test-jbosscache-config-exoloader_repository_system.xml" />
               <property name="dialect" value="hsqldb" />
               <property name="source-name" value="jdbcexo" />
               <property name="multi-db" value="false" />
@@ -52,8 +53,9 @@
           </lock-manager>
         </workspace>
         <workspace name="collaboration">
-          <container class="org.exoplatform.services.jcr.impl.storage.jdbc.JDBCWorkspaceDataContainer">
+          <container class="org.exoplatform.services.jcr.impl.storage.jbosscache.JBossCacheWorkspaceDataContainer">
             <properties>
+              <property name="jbosscache-configuration" value="../config/test-jbosscache-config-exoloader_repository_collaboration.xml" />
               <property name="dialect" value="hsqldb" />
               <property name="source-name" value="jdbcexo" />
               <property name="multi-db" value="false" />
