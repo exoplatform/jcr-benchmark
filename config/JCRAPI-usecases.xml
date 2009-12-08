@@ -5,7 +5,7 @@
   <param name="japex.plotGroupSize" value="5" />
   <param name="japex.resultUnit" value="tps" />
   <param name="japex.warmupIterations" value="0" />
-  <param name="japex.runIterations" value="1" />  
+  <param name="japex.runIterations" value="10" />  
   <!--param name="japex.runTime" value="01:00" /-->
   <!-- 10 for 10 sec -->
   <!-- 15:00 for 15min -->
@@ -103,12 +103,12 @@
     </testCase-->
     
    <!-- Concurrent read test (https://jira.jboss.org/jira/browse/EXOJCR-281) -->
-   <!-- testCase name="NodeConcurrentReadTest">
+   <testCase name="NodeConcurrentReadTest">
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.NodeConcurrentReadTest" />
-   </testCase-->    
+   </testCase>    
 
-  <testCase name="MultiWriteTest">
+  <!-- testCase name="MultiWriteTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.MultiWriteTest" />
-  </testCase>
+  </testCase -->
 
 </testSuite>
