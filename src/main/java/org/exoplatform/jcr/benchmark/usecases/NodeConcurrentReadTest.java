@@ -21,7 +21,10 @@ import com.sun.japex.TestCase;
 import org.exoplatform.jcr.benchmark.JCRTestBase;
 import org.exoplatform.jcr.benchmark.JCRTestContext;
 
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import javax.jcr.Node;
 
@@ -31,32 +34,45 @@ import javax.jcr.Node;
  */
 public class NodeConcurrentReadTest extends JCRTestBase {
 
-  private Node   root;
+  private Node           rootNode    = null;
 
-  private Node   node;
+  private List<String>   parentNames = Collections.synchronizedList(new ArrayList<String>());
 
-  private int    iterations = 100;
+  private JCRTestContext context;
 
-  private Writer writer;
+  private volatile int   iterations;
 
-  @Override
-  public void doFinish(TestCase tc, JCRTestContext context) throws Exception {
-    super.doFinish(tc, context);
+  private int            threads;
 
-    writer.destroy();
-    node.remove();
-    context.getSession().save();
-  }
-
+  /**
+   * @see org.exoplatform.jcr.benchmark.JCRTestBase#doPrepare(com.sun.japex.TestCase,
+   *      org.exoplatform.jcr.benchmark.JCRTestContext)
+   */
   @Override
   public void doPrepare(TestCase tc, JCRTestContext context) throws Exception {
     super.doPrepare(tc, context);
 
-    root = context.getSession().getRootNode().addNode(context.generateUniqueName("testRoot"));
-    node = root.addNode(context.generateUniqueName("testConcurentNode"));
+    this.context = context;
 
-    writer = new Writer();
-    writer.start();
+    iterations = tc.getIntParam("japex.runIterations");
+    iterations = tc.getIntParam("japex.numberOfThreads");
+
+    rootNode = context.getSession().getRootNode().addNode(context.generateUniqueName("testRoot"));
+
+    for (int i = 0; i < iterations; i++) {
+      String parentName = context.generateUniqueName("parent");
+      Node parent = rootNode.addNode(parentName);
+      parent.setProperty("testProp", "testVal");
+      context.getSession().save();
+      parentNames.add(parentName);
+    }
+
+//    for (int i = 0; i < threads; i++) {
+//      new Writer().start();
+//    }
+    
+    Writer w = new Writer();
+    w.start();
 
   }
 
@@ -66,36 +82,32 @@ public class NodeConcurrentReadTest extends JCRTestBase {
    */
   @Override
   public void doRun(TestCase tc, JCRTestContext context) throws Exception {
-
-    try {
-      for (int i = 0; i < iterations; i++) {
-        node.getProperty("name");
-        node.getProperty("date");
-        node.getProperty("time");
-        node.getProperties();
-      }
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
+    readProp();
   }
 
-  class Writer extends Thread {
+  private class Writer extends Thread {
 
+    /**
+     * @see java.lang.Thread#run()
+     */
+    @Override
     public void run() {
+      super.run();
       try {
-        for (int i = 0; i < iterations; i++) {
-          node.setProperty("name", this.getName());
-          node.setProperty("date", Calendar.getInstance());
-          node.setProperty("time", System.currentTimeMillis());
-          this.wait(100);
-        }
+        String name = context.generateUniqueName(this.getName());
+        Node writeNode = rootNode.addNode(name);
+        writeNode.setProperty("testProp", this.getName());
+        context.getSession().save();
+        iterations++;
       } catch (Exception e) {
         e.printStackTrace();
       }
-
     }
+  }
+
+  private void readProp() throws Exception {
+    Node readNode = rootNode.getNode(parentNames.get(new Random().nextInt(iterations)));
+    readNode.getProperty("testProp").getValue().getString();
   }
 
 }
