@@ -1,528 +1,533 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testSuite name="Calculating the average time of execution of the main JCR API methods" xmlns="http://www.sun.com/japex/testSuite">
 
-  <param name="japex.reportsDirectory" value="../reports" />
-  <param name="japex.plotGroupSize" value="5" />
-  <param name="japex.resultUnit" value="tps" />
-  <param name="japex.warmupIterations" value="0" />
-  <param name="japex.runIterations" value="1000" />
-  <!--param name="japex.runTime" value="03" /-->
-  <!-- 10 for 10 sec -->
-  <!-- 15:00 for 15min -->
-
-  <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
-    <param name="japex.classPath" value="../lib/*.jar" />
-    <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
-    <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
-    <param name="jcr.user" value="root" />
-    <param name="jcr.password" value="exo" />
-    <param name="jcr.workspace" value="collaboration" />
-    <param name="jcr.sessionPolicy" value="multiple" />
-    <param name="exo.jaasConf" value="login.conf" />
-    <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
-    <driver name="JCRdriver">
-      <param name="japex.numberOfThreads" value="1" />
-    </driver>
-  </driverGroup>
-
-  <!-- Accessing the Repository -->
-  <testCase name="RepositoryLoginTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.accessing.RepositoryLoginTest" />
-  </testCase>
-
-  <testCase name="SessionLogoutTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.accessing.SessionLogoutTest" />
-  </testCase>
-
-  <!-- Session read methods -->
-  <testCase name="SessionGetRootNodeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionGetRootNodeTest" />
-  </testCase>
-
-  <testCase name="SessionGetItemTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionGetItemTest" />
-  </testCase>
-
-  <testCase name="SessionItemExistsTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionItemExistsTest" />
-  </testCase>
-
-  <testCase name="SessionGetNodeByUUIDTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionGetNodeByUUIDTest" />
-  </testCase>
-
-  <!-- Node read methods -->
-  <testCase name="NodeGetNodeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodeTest" />
-  </testCase>
-
-  <testCase name="NodeGetNodesTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesTest" />
-  </testCase>
-
-  <testCase name="NodeGetNodesByPatternTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPatternTest" />
-  </testCase>
-
-  <testCase name="NodeGetPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeGetPropertiesTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesTest" />
-  </testCase>
-
-  <testCase name="NodeGetPropertiesByPatternTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPatternTest" />
-  </testCase>
-
-  <testCase name="NodeGetPrimaryItemTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPrimaryItemTest" />
-  </testCase>
-
-  <testCase name="NodeGetUUIDTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetUUIDTest" />
-  </testCase>
-
-  <testCase name="NodeGetIndexTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetIndexTest" />
-  </testCase>
-
-  <testCase name="NodeGetReferencesTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetReferencesTest" />
-  </testCase>
-
-  <testCase name="NodeHasNodeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeHasNodeTest" />
-  </testCase>
-
-  <testCase name="NodeHasNodesTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeHasNodesTest" />
-  </testCase>
-
-  <testCase name="NodeHasPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeHasPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeHasPropertiesTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeHasPropertiesTest" />
-  </testCase>
-
-  <!-- Property read methods -->
-  <testCase name="PropertyGetValueTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetValueTest" />
-  </testCase>
-
-  <testCase name="PropertyGetValuesTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetValuesTest" />
-  </testCase>
-
-  <testCase name="PropertyGetStringTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetStringTest" />
-  </testCase>
-
-  <testCase name="PropertyGetStreamTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetStreamTest" />
-  </testCase>
-
-  <testCase name="PropertyGetLongTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetLongTest" />
-  </testCase>
-
-  <testCase name="PropertyGetDoubleTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetDoubleTest" />
-  </testCase>
-
-  <testCase name="PropertyGetDateTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetDateTest" />
-  </testCase>
-
-  <testCase name="PropertyGetBooleanTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetBooleanTest" />
-  </testCase>
-
-  <testCase name="PropertyGetNodeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetNodeTest" />
-  </testCase>
-
-  <testCase name="PropertyGetLengthTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetLengthTest" />
-  </testCase>
-
-  <testCase name="PropertyGetLengthsTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetLengthsTest" />
-  </testCase>
-
-  <testCase name="PropertyGetTypeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetTypeTest" />
-  </testCase>
-
-  <!-- Item read methods -->
-  <testCase name="ItemGetPathTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetPathTest" />
-  </testCase>
-
-  <testCase name="ItemGetNameTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetNameTest" />
-  </testCase>
-
-  <testCase name="ItemGetAncestorTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetAncestorTest" />
-  </testCase>
-
-  <testCase name="ItemGetParentTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetParentTest" />
-  </testCase>
-
-  <testCase name="ItemGetDepthTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetDepthTest" />
-  </testCase>
-
-  <testCase name="ItemIsSameTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemIsSameTest" />
-  </testCase>
-
-  <!-- Writing to transient storage -->
-  <testCase name="NodeAddNodeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeAddNodeTest" />
-  </testCase>
-
-  <testCase name="NodeSetBooleanPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetBooleanPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetDatePropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetDatePropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetDoublePropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetDoublePropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetStreamPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStreamPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetLongPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetLongPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetNodePropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetNodePropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetStringPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStringPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetStringArrayPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStringArrayPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetStringArrayTypedPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStringArrayTypedPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetStringTypedPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStringTypedPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetValuePropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetValuePropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetValueArrayPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetValueArrayPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetValueArrayTypedPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetValueArrayTypedPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeSetValueTypedPropertyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetValueTypedPropertyTest" />
-  </testCase>
-
-  <testCase name="NodeOrderBeforeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeOrderBeforeTest" />
-  </testCase>
-
-  <testCase name="NodeAddMixinTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeAddMixinTest" />
-  </testCase>
-
-  <testCase name="NodeRemoveMixinTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeAddMixinTest" />
-  </testCase>
-
-  <testCase name="PropertySetValueBooleanTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueBooleanTest" />
-  </testCase>
-
-  <testCase name="PropertySetValueCalendarTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueCalendarTest" />
-  </testCase>
-
-  <testCase name="PropertySetValueDoubleTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueDoubleTest" />
-  </testCase>
-
-  <testCase name="PropertySetValueLongTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueLongTest" />
-  </testCase>
-
-  <testCase name="PropertySetValueInputStreamTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueInputStreamTest" />
-  </testCase>
-
-  <testCase name="PropertySetValueNodeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueNodeTest" />
-  </testCase>
-
-  <testCase name="PropertySetValueValueTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueValueTest" />
-  </testCase>
-
-  <testCase name="PropertySetValueValueArrrayTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueValueArrrayTest" />
-  </testCase>
-
-  <testCase name="ItemRemoveTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.write.ItemRemoveTest" />
-  </testCase>
-
-  <testCase name="SessionMoveTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionMoveTest" />
-  </testCase>
-
-  <!-- Save methods-->
-  <testCase name="SessionRefreshFalseTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionRefreshFalseTest" />
-  </testCase>
-
-  <testCase name="SessionSaveTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionSaveTest" />
-  </testCase>
-
-  <testCase name="ItemRefreshFalseTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.write.ItemRefreshFalseTest" />
-  </testCase>
-
-  <testCase name="ItemRefreshTrueTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.write.ItemRefreshTrueTest" />
-  </testCase>
-
-  <testCase name="ItemSaveTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.write.ItemSaveTest" />
-  </testCase>
-
-  <!--Direct writing to Persistent Storage (move, copy, clone) methods-->
-  <testCase name="WorkspaceMoveTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceMoveTest" />
-  </testCase>
-
-  <testCase name="WorkspaceCopyTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCopyTest" />
-  </testCase>
-
-  <testCase name="WorkspaceCopyFromAnotherWorkspaceTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCopyFromAnotherWorkspaceTest" />
-  </testCase>
-
-  <testCase name="WorkspaceCloneTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCloneTest" />
-  </testCase>
-
-  <!--Export/import methods-->
-  <testCase name="SessionExportSystemViewContentHandlerTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionExportSystemViewContentHandlerTest" />
-  </testCase>
-
-  <testCase name="SessionExportSystemViewOutputStreamTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionExportSystemViewOutputStreamTest" />
-  </testCase>
-
-  <testCase name="SessionExportDocumentViewContentHandlerTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionExportDocumentViewContentHandlerTest" />
-  </testCase>
-
-  <testCase name="SessionExportDocumentViewOutputStreamTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionExportDocumentViewOutputStreamTest" />
-  </testCase>
-
-  <testCase name="SessionGetImportContentHandlerTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionGetImportContentHandlerTest" />
-  </testCase>
-
-  <testCase name="SessionImportXMLTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionImportXMLTest" />
-  </testCase>
-
-  <testCase name="WorkspaceGetImportContentHandlerTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.WorkspaceGetImportContentHandlerTest" />
-  </testCase>
-
-  <testCase name="WorkspaceImportXMLTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.WorkspaceImportXMLTest" />
-  </testCase>
-
-  <!-- Locking methods-->
-  <testCase name="NodeLockTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeLockTest" />
-  </testCase>
-
-  <testCase name="NodeUnlockTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeUnlockTest" />
-  </testCase>
-
-  <testCase name="NodeGetLockTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeGetLockTest" />
-  </testCase>
-
-  <testCase name="NodeHoldsLockTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeHoldsLockTest" />
-  </testCase>
-
-  <testCase name="NodeIsLockedTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeIsLockedTest" />
-  </testCase>
-
-  <!-- Versioning methods -->
-  <testCase name="NodeCheckinTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeCheckinTest" />
-  </testCase>
-
-  <testCase name="NodeCheckoutTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeCheckoutTest" />
-  </testCase>
-
-  <testCase name="NodeIsCheckedOutTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeIsCheckedOutTest" />
-  </testCase>
-
-  <testCase name="NodeRestoreTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeRestoreTest" />
-  </testCase>
-
-  <testCase name="NodeRestoreToRelPathTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeRestoreToRelPathTest" />
-  </testCase>
-
-  <testCase name="NodeMergeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeMergeTest" />
-  </testCase>
-
-  <testCase name="VersionHistoryAddVersionLabelTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryAddVersionLabelTest" />
-  </testCase>
-
-  <testCase name="VersionHistoryRemoveVersionLabelTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryRemoveVersionLabelTest" />
-  </testCase>
-
-  <testCase name="VersionHistoryRemoveVersionTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryRemoveVersionTest" />
-  </testCase>
-
-  <testCase name="VersionHistoryGetVersionTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryGetVersionTest" />
-  </testCase>
-
-  <testCase name="VersionHistoryGetVersionByLabelTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryGetVersionByLabelTest" />
-  </testCase>
-
-  <testCase name="VersionHistoryHasVersionLabelTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryHasVersionLabelTest" />
-  </testCase>
-
-  <testCase name="VersionHistoryHasVersionVersionLabelTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryHasVersionVersionLabelTest" />
-  </testCase>
-
-  <testCase name="VersionGetContainingHistoryTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionGetContainingHistoryTest" />
-  </testCase>
-
-  <testCase name="VersionGetPredecessorsTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionGetPredecessorsTest" />
-  </testCase>
-
-  <testCase name="VersionGetSuccessorsTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionGetSuccessorsTest" />
-  </testCase>
-
-  <!-- Query methods -->
-  <testCase name="QueryManagerCreateQueryTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryManagerCreateQueryTest" />
-  </testCase>
-
-  <testCase name="QueryManagerGetQueryTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryManagerGetQueryTest" />
-  </testCase>
-
-  <testCase name="QueryExecuteTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryExecuteTest" />
-  </testCase>
-
-  <testCase name="QueryStoreAsNodeTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryStoreAsNodeTest" />
-  </testCase>
-
-  <testCase name="QueryResultGetNodesTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryResultGetNodesTest" />
-  </testCase>
-
-  <testCase name="QueryResultGetRowsTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryResultGetRowsTest" />
-  </testCase>
-  
-  <!-- nodetype tests -->
+   <param name="japex.reportsDirectory" value="../reports" />
+   <param name="japex.plotGroupSize" value="5" />
+   <param name="japex.resultUnit" value="tps" />
+   <param name="japex.warmupIterations" value="0" />
+   <param name="japex.runIterations" value="1000" />
+   <!--param name="japex.runTime" value="03" /-->
+   <!-- 10 for 10 sec -->
+   <!-- 15:00 for 15min -->
+
+   <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
+      <param name="japex.classPath" value="../lib/*.jar" />
+      <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
+      <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
+      <param name="jcr.user" value="root" />
+      <param name="jcr.password" value="exo" />
+      <param name="jcr.workspace" value="collaboration" />
+      <param name="jcr.sessionPolicy" value="multiple" />
+      <param name="exo.jaasConf" value="login.conf" />
+      <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
+      <driver name="JCRdriver">
+         <param name="japex.numberOfThreads" value="1" />
+      </driver>
+   </driverGroup>
+
+   <!-- Accessing the Repository -->
+   <testCase name="RepositoryLoginTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.accessing.RepositoryLoginTest" />
+   </testCase>
+
+   <testCase name="SessionLogoutTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.accessing.SessionLogoutTest" />
+   </testCase>
+
+   <!-- Session read methods -->
+   <testCase name="SessionGetRootNodeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionGetRootNodeTest" />
+   </testCase>
+
+   <testCase name="SessionGetItemTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionGetItemTest" />
+   </testCase>
+
+   <testCase name="SessionItemExistsTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionItemExistsTest" />
+   </testCase>
+
+   <testCase name="SessionGetNodeByUUIDTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionGetNodeByUUIDTest" />
+   </testCase>
+
+   <!-- Node read methods -->
+   <testCase name="NodeGetNodeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodeTest" />
+   </testCase>
+
+   <testCase name="NodeGetNodesTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesTest" />
+   </testCase>
+
+   <testCase name="NodeGetNodesByPatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPatternTest" />
+   </testCase>
+
+   <testCase name="NodeGetPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeGetPropertiesTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesTest" />
+   </testCase>
+
+   <testCase name="NodeGetPropertiesByPatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPatternTest" />
+   </testCase>
+
+   <testCase name="NodeGetPrimaryItemTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPrimaryItemTest" />
+   </testCase>
+
+   <testCase name="NodeGetUUIDTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetUUIDTest" />
+   </testCase>
+
+   <testCase name="NodeGetIndexTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetIndexTest" />
+   </testCase>
+
+   <testCase name="NodeGetReferencesTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetReferencesTest" />
+   </testCase>
+
+   <testCase name="NodeHasNodeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeHasNodeTest" />
+   </testCase>
+
+   <testCase name="NodeHasNodesTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeHasNodesTest" />
+   </testCase>
+
+   <testCase name="NodeHasPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeHasPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeHasPropertiesTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeHasPropertiesTest" />
+   </testCase>
+
+   <!-- Property read methods -->
+   <testCase name="PropertyGetValueTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetValueTest" />
+   </testCase>
+
+   <testCase name="PropertyGetValuesTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetValuesTest" />
+   </testCase>
+
+   <testCase name="PropertyGetStringTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetStringTest" />
+   </testCase>
+
+   <testCase name="PropertyGetStreamTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetStreamTest" />
+   </testCase>
+
+   <testCase name="PropertyGetLongTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetLongTest" />
+   </testCase>
+
+   <testCase name="PropertyGetDoubleTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetDoubleTest" />
+   </testCase>
+
+   <testCase name="PropertyGetDateTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetDateTest" />
+   </testCase>
+
+   <testCase name="PropertyGetBooleanTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetBooleanTest" />
+   </testCase>
+
+   <testCase name="PropertyGetNodeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetNodeTest" />
+   </testCase>
+
+   <testCase name="PropertyGetLengthTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetLengthTest" />
+   </testCase>
+
+   <testCase name="PropertyGetLengthsTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetLengthsTest" />
+   </testCase>
+
+   <testCase name="PropertyGetTypeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.read.PropertyGetTypeTest" />
+   </testCase>
+
+   <!-- Item read methods -->
+   <testCase name="ItemGetPathTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetPathTest" />
+   </testCase>
+
+   <testCase name="ItemGetNameTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetNameTest" />
+   </testCase>
+
+   <testCase name="ItemGetAncestorTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetAncestorTest" />
+   </testCase>
+
+   <testCase name="ItemGetParentTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetParentTest" />
+   </testCase>
+
+   <testCase name="ItemGetDepthTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemGetDepthTest" />
+   </testCase>
+
+   <testCase name="ItemIsSameTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.read.ItemIsSameTest" />
+   </testCase>
+
+   <!-- Writing to transient storage -->
+   <testCase name="NodeAddNodeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeAddNodeTest" />
+   </testCase>
+
+   <testCase name="NodeSetBooleanPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetBooleanPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetDatePropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetDatePropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetDoublePropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetDoublePropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetStreamPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStreamPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetLongPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetLongPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetNodePropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetNodePropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetStringPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStringPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetStringArrayPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStringArrayPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetStringArrayTypedPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStringArrayTypedPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetStringTypedPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetStringTypedPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetValuePropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetValuePropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetValueArrayPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetValueArrayPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetValueArrayTypedPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetValueArrayTypedPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeSetValueTypedPropertyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeSetValueTypedPropertyTest" />
+   </testCase>
+
+   <testCase name="NodeOrderBeforeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeOrderBeforeTest" />
+   </testCase>
+
+   <testCase name="NodeAddMixinTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeAddMixinTest" />
+   </testCase>
+
+   <testCase name="NodeRemoveMixinTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.write.NodeAddMixinTest" />
+   </testCase>
+
+   <testCase name="PropertySetValueBooleanTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueBooleanTest" />
+   </testCase>
+
+   <testCase name="PropertySetValueCalendarTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueCalendarTest" />
+   </testCase>
+
+   <testCase name="PropertySetValueDoubleTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueDoubleTest" />
+   </testCase>
+
+   <testCase name="PropertySetValueLongTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueLongTest" />
+   </testCase>
+
+   <testCase name="PropertySetValueInputStreamTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueInputStreamTest" />
+   </testCase>
+
+   <testCase name="PropertySetValueNodeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueNodeTest" />
+   </testCase>
+
+   <testCase name="PropertySetValueValueTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueValueTest" />
+   </testCase>
+
+   <testCase name="PropertySetValueValueArrrayTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.property.write.PropertySetValueValueArrrayTest" />
+   </testCase>
+
+   <testCase name="ItemRemoveTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.write.ItemRemoveTest" />
+   </testCase>
+
+   <testCase name="SessionMoveTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionMoveTest" />
+   </testCase>
+
+   <!-- Save methods-->
+   <testCase name="SessionRefreshFalseTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionRefreshFalseTest" />
+   </testCase>
+
+   <testCase name="SessionSaveTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.session.SessionSaveTest" />
+   </testCase>
+
+   <testCase name="ItemRefreshFalseTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.write.ItemRefreshFalseTest" />
+   </testCase>
+
+   <testCase name="ItemRefreshTrueTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.write.ItemRefreshTrueTest" />
+   </testCase>
+
+   <testCase name="ItemSaveTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.write.ItemSaveTest" />
+   </testCase>
+
+   <!--Direct writing to Persistent Storage (move, copy, clone) methods-->
+   <testCase name="WorkspaceMoveTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceMoveTest" />
+   </testCase>
+
+   <testCase name="WorkspaceCopyTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCopyTest" />
+   </testCase>
+
+   <testCase name="WorkspaceCopyFromAnotherWorkspaceTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCopyFromAnotherWorkspaceTest" />
+   </testCase>
+
+   <testCase name="WorkspaceCloneTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCloneTest" />
+   </testCase>
+
+   <!--Export/import methods-->
+   <testCase name="SessionExportSystemViewContentHandlerTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionExportSystemViewContentHandlerTest" />
+   </testCase>
+
+   <testCase name="SessionExportSystemViewOutputStreamTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionExportSystemViewOutputStreamTest" />
+   </testCase>
+
+   <testCase name="SessionExportDocumentViewContentHandlerTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionExportDocumentViewContentHandlerTest" />
+   </testCase>
+
+   <testCase name="SessionExportDocumentViewOutputStreamTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionExportDocumentViewOutputStreamTest" />
+   </testCase>
+
+   <testCase name="SessionGetImportContentHandlerTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionGetImportContentHandlerTest" />
+   </testCase>
+
+   <testCase name="SessionImportXMLTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.SessionImportXMLTest" />
+   </testCase>
+
+   <testCase name="WorkspaceGetImportContentHandlerTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.WorkspaceGetImportContentHandlerTest" />
+   </testCase>
+
+   <testCase name="WorkspaceImportXMLTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.xml.WorkspaceImportXMLTest" />
+   </testCase>
+
+   <!-- Locking methods-->
+   <testCase name="NodeLockTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeLockTest" />
+   </testCase>
+
+   <testCase name="NodeUnlockTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeUnlockTest" />
+   </testCase>
+
+   <testCase name="NodeGetLockTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeGetLockTest" />
+   </testCase>
+
+   <testCase name="NodeHoldsLockTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeHoldsLockTest" />
+   </testCase>
+
+   <testCase name="NodeIsLockedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.lock.NodeIsLockedTest" />
+   </testCase>
+
+   <!-- Versioning methods -->
+   <testCase name="NodeCheckinTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeCheckinTest" />
+   </testCase>
+
+   <testCase name="NodeCheckoutTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeCheckoutTest" />
+   </testCase>
+
+   <testCase name="NodeIsCheckedOutTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeIsCheckedOutTest" />
+   </testCase>
+
+   <testCase name="NodeRestoreTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeRestoreTest" />
+   </testCase>
+
+   <testCase name="NodeRestoreToRelPathTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeRestoreToRelPathTest" />
+   </testCase>
+
+   <testCase name="NodeMergeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeMergeTest" />
+   </testCase>
+
+   <testCase name="VersionHistoryAddVersionLabelTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryAddVersionLabelTest" />
+   </testCase>
+
+   <testCase name="VersionHistoryRemoveVersionLabelTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryRemoveVersionLabelTest" />
+   </testCase>
+
+   <testCase name="VersionHistoryRemoveVersionTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryRemoveVersionTest" />
+   </testCase>
+
+   <testCase name="VersionHistoryGetVersionTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryGetVersionTest" />
+   </testCase>
+
+   <testCase name="VersionHistoryGetVersionByLabelTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryGetVersionByLabelTest" />
+   </testCase>
+
+   <testCase name="VersionHistoryHasVersionLabelTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryHasVersionLabelTest" />
+   </testCase>
+
+   <testCase name="VersionHistoryHasVersionVersionLabelTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryHasVersionVersionLabelTest" />
+   </testCase>
+
+   <testCase name="VersionGetContainingHistoryTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionGetContainingHistoryTest" />
+   </testCase>
+
+   <testCase name="VersionGetPredecessorsTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionGetPredecessorsTest" />
+   </testCase>
+
+   <testCase name="VersionGetSuccessorsTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionGetSuccessorsTest" />
+   </testCase>
+
+   <!-- Query methods -->
+   <testCase name="QueryManagerCreateQueryTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryManagerCreateQueryTest" />
+   </testCase>
+
+   <testCase name="QueryManagerGetQueryTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryManagerGetQueryTest" />
+   </testCase>
+
+   <testCase name="QueryExecuteTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryExecuteTest" />
+   </testCase>
+
+   <testCase name="QueryStoreAsNodeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryStoreAsNodeTest" />
+   </testCase>
+
+   <testCase name="QueryResultGetNodesTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryResultGetNodesTest" />
+   </testCase>
+
+   <testCase name="QueryResultGetRowsTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryResultGetRowsTest" />
+   </testCase>
+
+   <!-- nodetype tests -->
    <testCase name="ChangeExistedNodeDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.ChangeExistedNodeDefinition" />
-  </testCase>
-  <testCase name="ChangeExistedPropertyDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.ChangeExistedPropertyDefinition" />
-  </testCase>
-  <testCase name="CreateNodeType">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.CreateNodeType" />
-  </testCase>
-  <testCase name="DeleteExistedNodeDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.DeleteExistedNodeDefinition" />
-  </testCase>
-  <testCase name="DeleteExistedPropertyDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.DeleteExistedPropertyDefinition" />
-  </testCase>
-  <testCase name="UnregisterNodeType">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UnregisterNodeType" />
-  </testCase>
-  <testCase name="UpdateExistedNodeDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedNodeDefinition" />
-  </testCase>
-  <testCase name="UpdateExistedNodeTypeValue">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedNodeTypeValue" />
-  </testCase>
-  <testCase name="UpdateExistedPropertyDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedPropertyDefinition" />
-  </testCase>
-  <testCase name="UpdateExistedSuperTypeDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedSuperTypeDefinition" />
-  </testCase>
-  
-  <!-- namespace tests -->
-    <testCase name="AddNamespace">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.AddNamespace" />
-  </testCase>
-  <testCase name="ChangeNamespace">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.ChangeNamespace" />
-  </testCase>
-  <testCase name="DeleteNamespace">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.DeleteNamespace" />
-  </testCase>
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.ChangeExistedNodeDefinition" />
+   </testCase>
+   <testCase name="ChangeExistedPropertyDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.ChangeExistedPropertyDefinition" />
+   </testCase>
+   <testCase name="CreateNodeType">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.CreateNodeType" />
+   </testCase>
+   <testCase name="DeleteExistedNodeDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.DeleteExistedNodeDefinition" />
+   </testCase>
+   <testCase name="DeleteExistedPropertyDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.DeleteExistedPropertyDefinition" />
+   </testCase>
+   <testCase name="UnregisterNodeType">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UnregisterNodeType" />
+   </testCase>
+   <testCase name="UpdateExistedNodeDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedNodeDefinition" />
+   </testCase>
+   <testCase name="UpdateExistedNodeTypeValue">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedNodeTypeValue" />
+   </testCase>
+   <testCase name="UpdateExistedPropertyDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedPropertyDefinition" />
+   </testCase>
+   <testCase name="UpdateExistedSuperTypeDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedSuperTypeDefinition" />
+   </testCase>
 
-  <!-- Temporary excluded tests -->
-  <!--testCase name="TEMPORARY EXCLUDED">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.WorkspaceRestoreTest" />
-  </testCase-->
+   <!-- namespace tests -->
+   <testCase name="AddNamespace">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.AddNamespace" />
+   </testCase>
+   <testCase name="ChangeNamespace">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.ChangeNamespace" />
+   </testCase>
+   <testCase name="DeleteNamespace">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.DeleteNamespace" />
+   </testCase>
+
+   <!-- Concurrent read test (https://jira.jboss.org/jira/browse/EXOJCR-281) -->
+   <testCase name="NodeConcurrentReadTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeConcurrentReadTest" />
+   </testCase>
+
+   <!-- Temporary excluded tests -->
+   <!--
+      testCase name="TEMPORARY EXCLUDED"> <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.WorkspaceRestoreTest" /> </testCase
+   -->
 
 </testSuite>
