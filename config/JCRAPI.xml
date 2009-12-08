@@ -476,9 +476,9 @@
   <testCase name="QueryResultGetRowsTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryResultGetRowsTest" />
   </testCase>
-  
+
   <!-- nodetype tests -->
-   <testCase name="ChangeExistedNodeDefinition">
+  <testCase name="ChangeExistedNodeDefinition">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.ChangeExistedNodeDefinition" />
   </testCase>
   <testCase name="ChangeExistedPropertyDefinition">
@@ -508,9 +508,9 @@
   <testCase name="UpdateExistedSuperTypeDefinition">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedSuperTypeDefinition" />
   </testCase>
-  
+
   <!-- namespace tests -->
-    <testCase name="AddNamespace">
+  <testCase name="AddNamespace">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.AddNamespace" />
   </testCase>
   <testCase name="ChangeNamespace">
@@ -520,9 +520,14 @@
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.DeleteNamespace" />
   </testCase>
 
+  <!-- Concurrent read test (https://jira.jboss.org/jira/browse/EXOJCR-281) -->
+  <testCase name="NodeConcurrentReadTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.NodeConcurrentReadTest" />
+  </testCase>
+
   <!-- Temporary excluded tests -->
-  <!--testCase name="TEMPORARY EXCLUDED">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.WorkspaceRestoreTest" />
-  </testCase-->
+  <!--
+    testCase name="TEMPORARY EXCLUDED"> <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.WorkspaceRestoreTest" /> </testCase
+  -->
 
 </testSuite>
