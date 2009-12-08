@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.jcr.Node;
+import javax.jcr.Session;
 
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
@@ -43,11 +44,11 @@ public class NodeConcurrentReadTest extends JCRTestBase
 
    private volatile int iterations = 0;
 
-   private int writers = 100;
+   private int writers;
 
    private volatile boolean threadsActive = true;
 
-   private int pause = 100;
+   private int pause;
 
    /**
     * @see org.exoplatform.jcr.benchmark.JCRTestBase#doPrepare(com.sun.japex.TestCase,
@@ -123,7 +124,8 @@ public class NodeConcurrentReadTest extends JCRTestBase
          {
             while (threadsActive)
             {
-               Node root = context.getSession().getNodeByUUID("testRoot");
+               Session session = context.getSession();
+               Node root = session.getNodeByUUID("testRoot");
                String name = context.generateUniqueName(this.getName());
                Node writeNode = root.addNode(name);
                writeNode.setProperty("testProp", this.getName());
