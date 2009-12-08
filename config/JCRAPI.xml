@@ -522,7 +522,7 @@
 
    <!-- Concurrent read test (https://jira.jboss.org/jira/browse/EXOJCR-281) -->
    <testCase name="NodeConcurrentReadTest">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeConcurrentReadTest" />
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.NodeConcurrentReadTest" />
    </testCase>
 
    <!-- Temporary excluded tests -->
