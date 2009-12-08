@@ -94,6 +94,7 @@ public class NodeConcurrentReadTest extends JCRTestBase {
         String name = context.generateUniqueName(this.getName());
         Node writeNode = rootNode.addNode(name);
         writeNode.setProperty("testProp", this.getName());
+        parentNames.add(name);
         context.getSession().save();
         iterations++;
       } catch (Exception e) {
