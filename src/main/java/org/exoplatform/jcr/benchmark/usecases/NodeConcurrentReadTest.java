@@ -96,7 +96,6 @@ public class NodeConcurrentReadTest extends JCRTestBase
    @Override
    public void doFinish(TestCase tc, JCRTestContext context) throws Exception
    {
-      // TODO Auto-generated method stub
       super.doFinish(tc, context);
       threadsActive = false;
    }
