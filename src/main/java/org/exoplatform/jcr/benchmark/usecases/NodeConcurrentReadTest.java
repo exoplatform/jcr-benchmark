@@ -43,9 +43,9 @@ public class NodeConcurrentReadTest extends JCRTestBase
 
    private volatile int iterations = 0;
 
-   private int threads = 100;
+   private int writers = 100;
 
-   private boolean threadsActive = true;
+   private volatile boolean threadsActive = true;
 
    private int pause = 100;
 
@@ -62,6 +62,15 @@ public class NodeConcurrentReadTest extends JCRTestBase
 
       iterations = tc.getIntParam("japex.runIterations");
 
+      if (tc.hasParam("exo.numberOfWriters"))
+      {
+         writers = tc.getIntParam("exo.numberOfWriters");
+      }
+      if (tc.hasParam("exo.writerPause"))
+      {
+         pause = tc.getIntParam("exo.writerPause");
+      }
+
       testRoot = context.getSession().getRootNode().addNode("testRoot");
 
       for (int i = 0; i < iterations; i++)
@@ -73,7 +82,7 @@ public class NodeConcurrentReadTest extends JCRTestBase
          parentNames.add(parentName);
       }
 
-      for (int i = 0; i < threads; i++)
+      for (int i = 0; i < writers; i++)
       {
          new Writer().start();
       }
@@ -89,7 +98,7 @@ public class NodeConcurrentReadTest extends JCRTestBase
    {
       readProp();
    }
-   
+
    /**
     * @see org.exoplatform.jcr.benchmark.JCRTestBase#doFinish(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
     */
@@ -110,11 +119,11 @@ public class NodeConcurrentReadTest extends JCRTestBase
       public void run()
       {
          super.run();
-         while (threadsActive)
+         try
          {
-            try
+            while (threadsActive)
             {
-               Node root  = context.getSession().getNodeByUUID("testRoot");
+               Node root = context.getSession().getNodeByUUID("testRoot");
                String name = context.generateUniqueName(this.getName());
                Node writeNode = root.addNode(name);
                writeNode.setProperty("testProp", this.getName());
@@ -123,12 +132,11 @@ public class NodeConcurrentReadTest extends JCRTestBase
                iterations++;
                wait(pause);
             }
-            catch (Exception e)
-            {
-               e.printStackTrace();
-            }
          }
-
+         catch (Exception e)
+         {
+            log.error(e.getMessage(), e);
+         }
       }
    }
 
