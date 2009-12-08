@@ -55,7 +55,7 @@ public class NodeConcurrentReadTest extends JCRTestBase {
     this.context = context;
 
     iterations = tc.getIntParam("japex.runIterations");
-    iterations = tc.getIntParam("japex.numberOfThreads");
+    threads = tc.getIntParam("japex.numberOfThreads");
 
     rootNode = context.getSession().getRootNode().addNode(context.generateUniqueName("testRoot"));
 
