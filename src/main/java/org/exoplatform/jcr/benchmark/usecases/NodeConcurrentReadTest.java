@@ -32,80 +32,111 @@ import javax.jcr.Node;
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
  * @version $Id$
  */
-public class NodeConcurrentReadTest extends JCRTestBase {
+public class NodeConcurrentReadTest extends JCRTestBase
+{
 
-  private Node           rootNode    = null;
+   private Node testRoot = null;
 
-  private List<String>   parentNames = Collections.synchronizedList(new ArrayList<String>());
+   private List<String> parentNames = Collections.synchronizedList(new ArrayList<String>());
 
-  private JCRTestContext context     = null;
+   private JCRTestContext context = null;
 
-  private volatile int   iterations  = 0;
+   private volatile int iterations = 0;
 
-  private int            threads     = 0;
+   private int threads = 100;
 
-  /**
-   * @see org.exoplatform.jcr.benchmark.JCRTestBase#doPrepare(com.sun.japex.TestCase,
-   *      org.exoplatform.jcr.benchmark.JCRTestContext)
-   */
-  @Override
-  public void doPrepare(TestCase tc, JCRTestContext context) throws Exception {
-    super.doPrepare(tc, context);
+   private boolean threadsActive = true;
 
-    this.context = context;
+   private int pause = 100;
 
-    iterations = tc.getIntParam("japex.runIterations");
-    threads = tc.getIntParam("japex.numberOfThreads");
+   /**
+    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doPrepare(com.sun.japex.TestCase,
+    *      org.exoplatform.jcr.benchmark.JCRTestContext)
+    */
+   @Override
+   public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
+   {
+      super.doPrepare(tc, context);
 
-    rootNode = context.getSession().getRootNode().addNode(context.generateUniqueName("testRoot"));
+      this.context = context;
 
-    for (int i = 0; i < iterations; i++) {
-      String parentName = context.generateUniqueName("parent");
-      Node parent = rootNode.addNode(parentName);
-      parent.setProperty("testProp", "testVal");
-      context.getSession().save();
-      parentNames.add(parentName);
-    }
+      iterations = tc.getIntParam("japex.runIterations");
 
-    for (int i = 0; i < threads; i++) {
-      new Writer().start();
-    }
+      testRoot = context.getSession().getRootNode().addNode("testRoot");
 
-  }
-
-  /**
-   * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase,
-   *      org.exoplatform.jcr.benchmark.JCRTestContext)
-   */
-  @Override
-  public void doRun(TestCase tc, JCRTestContext context) throws Exception {
-    readProp();
-  }
-
-  private class Writer extends Thread {
-
-    /**
-     * @see java.lang.Thread#run()
-     */
-    @Override
-    public void run() {
-      super.run();
-      try {
-        String name = context.generateUniqueName(this.getName());
-        Node writeNode = rootNode.addNode(name);
-        writeNode.setProperty("testProp", this.getName());
-        parentNames.add(name);
-        context.getSession().save();
-        iterations++;
-      } catch (Exception e) {
-        e.printStackTrace();
+      for (int i = 0; i < iterations; i++)
+      {
+         String parentName = context.generateUniqueName("parent");
+         Node parent = testRoot.addNode(parentName);
+         parent.setProperty("testProp", "testVal");
+         context.getSession().save();
+         parentNames.add(parentName);
       }
-    }
-  }
 
-  private void readProp() throws Exception {
-    Node readNode = rootNode.getNode(parentNames.get(new Random().nextInt(iterations)));
-    readNode.getProperty("testProp").getValue().getString();
-  }
+      for (int i = 0; i < threads; i++)
+      {
+         new Writer().start();
+      }
+
+   }
+
+   /**
+    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase,
+    *      org.exoplatform.jcr.benchmark.JCRTestContext)
+    */
+   @Override
+   public void doRun(TestCase tc, JCRTestContext context) throws Exception
+   {
+      readProp();
+   }
+   
+   /**
+    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doFinish(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
+    */
+   @Override
+   public void doFinish(TestCase tc, JCRTestContext context) throws Exception
+   {
+      // TODO Auto-generated method stub
+      super.doFinish(tc, context);
+      threadsActive = false;
+   }
+
+   private class Writer extends Thread
+   {
+
+      /**
+       * @see java.lang.Thread#run()
+       */
+      @Override
+      public void run()
+      {
+         super.run();
+         while (threadsActive)
+         {
+            try
+            {
+               Node root  = context.getSession().getNodeByUUID("testRoot");
+               String name = context.generateUniqueName(this.getName());
+               Node writeNode = root.addNode(name);
+               writeNode.setProperty("testProp", this.getName());
+               parentNames.add(name);
+               context.getSession().save();
+               iterations++;
+               wait(pause);
+            }
+            catch (Exception e)
+            {
+               e.printStackTrace();
+            }
+         }
+
+      }
+   }
+
+   private void readProp() throws Exception
+   {
+      Node readNode = testRoot.getNode(parentNames.get(new Random().nextInt(iterations)));
+      readNode.getProperty("testProp").getValue().getString();
+   }
 
 }
