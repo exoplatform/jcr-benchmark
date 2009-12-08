@@ -38,11 +38,11 @@ public class NodeConcurrentReadTest extends JCRTestBase {
 
   private List<String>   parentNames = Collections.synchronizedList(new ArrayList<String>());
 
-  private JCRTestContext context;
+  private JCRTestContext context     = null;
 
-  private volatile int   iterations;
+  private volatile int   iterations  = 0;
 
-  private int            threads;
+  private int            threads     = 0;
 
   /**
    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doPrepare(com.sun.japex.TestCase,
@@ -67,12 +67,9 @@ public class NodeConcurrentReadTest extends JCRTestBase {
       parentNames.add(parentName);
     }
 
-//    for (int i = 0; i < threads; i++) {
-//      new Writer().start();
-//    }
-    
-    Writer w = new Writer();
-    w.start();
+    for (int i = 0; i < threads; i++) {
+      new Writer().start();
+    }
 
   }
 
