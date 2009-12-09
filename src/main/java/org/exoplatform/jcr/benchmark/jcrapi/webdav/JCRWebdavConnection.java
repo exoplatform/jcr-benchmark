@@ -52,9 +52,9 @@ public class JCRWebdavConnection extends HTTPConnection
       workspacePath = tc.getParam("webdav.workspacePath");
    }
 
-   public void addNode(String name) throws IOException, ModuleException
+   public void addNode(String name, byte[] data) throws IOException, ModuleException
    {
-      Put(workspacePath + name, "");
+      Put(workspacePath + name, data);
    }
 
    public void removeNode(String name) throws IOException, ModuleException
