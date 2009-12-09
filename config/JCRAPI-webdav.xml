@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testSuite name="Calculating the average time of execution of the main JCR API methods" xmlns="http://www.sun.com/japex/testSuite">
+
+  <param name="japex.reportsDirectory" value="../reports" />
+  <param name="japex.plotGroupSize" value="5" />
+  <param name="japex.resultUnit" value="tps" />
+  <param name="japex.warmupIterations" value="0" />
+  <param name="japex.runIterations" value="1" />  
+  <!--param name="japex.runTime" value="01:00" /-->
+  <!-- 10 for 10 sec -->
+  <!-- 15:00 for 15min -->
+
+  <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
+    <param name="japex.classPath" value="../lib/*.jar" />
+    <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
+    <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
+    <param name="exo.jaasConf" value="login.conf" />
+    <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
+    <driver name="JCRdriver">
+      <param name="japex.numberOfThreads" value="3" />
+    </driver>    
+    <param name="webdav.host" value="localhost" />
+    <param name="webdav.port" value="8080" />
+    <param name="webdav.realm" value="eXo REST services" />
+    <param name="webdav.user" value="root" />
+    <param name="webdav.password" value="exo" />
+    <param name="webdav.workspacePath" value="/rest/jcr/repository/collaboration/" />
+  </driverGroup>
+
+  <testCase name="WebdavAddNodeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavAddNodeTest" />
+  </testCase>
+  
+</testSuite>
