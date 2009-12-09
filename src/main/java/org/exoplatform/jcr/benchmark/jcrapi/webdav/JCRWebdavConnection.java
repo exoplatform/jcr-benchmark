@@ -51,15 +51,46 @@ public class JCRWebdavConnection extends HTTPConnection
 
       workspacePath = tc.getParam("webdav.workspacePath");
    }
-
+   
    public void addNode(String name, byte[] data) throws IOException, ModuleException
    {
       Put(workspacePath + name, data);
    }
 
+   
    public void removeNode(String name) throws IOException, ModuleException
    {
       Delete(workspacePath + name);
+   }
+   
+   public void getNodeByPAth(String path)
+   {
+      
+   }
+   
+   public void getNodeByUUID(String UUID)
+   {
+      
+   }
+   
+   public void createProperty(String name)
+   {
+      
+   }
+   
+   public void setProperty(String nodeName, String property, String value)
+   {
+      
+   }
+   
+   public void removeProperty(String nodeName, String propertyName)
+   {
+      
+   }
+   
+   public void getPropertyValue(String nodeName, String propertyName)
+   {
+      
    }
 
 }

@@ -36,7 +36,7 @@ public class WebdavAddNodeTest extends AbstractWebdavTest
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
    {
-      item.addNode(context.generateUniqueName("node"));
+      item.addNode(context.generateUniqueName("node"), new byte[0]);
    }
 
 }
