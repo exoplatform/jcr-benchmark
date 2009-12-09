@@ -18,6 +18,7 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
 import com.sun.japex.TestCase;
 
+import org.exoplatform.common.http.HTTPMethods;
 import org.exoplatform.common.http.client.HTTPConnection;
 import org.exoplatform.common.http.client.ModuleException;
 
@@ -63,34 +64,29 @@ public class JCRWebdavConnection extends HTTPConnection
       Delete(workspacePath + name);
    }
    
-   public void getNodeByPAth(String path)
+   public void getNodeByPath(String path) throws IOException, ModuleException
    {
-      
-   }
-   
-   public void getNodeByUUID(String UUID)
-   {
-      
+      Get(path);
    }
    
    public void createProperty(String name)
    {
-      
+//      ExtensionMethod("PROPPATCH", workspacePath + nodeName, data, headers);
    }
    
    public void setProperty(String nodeName, String property, String value)
    {
-      
+//      ExtensionMethod("PROPPATCH", workspacePath + nodeName, data, headers);
    }
    
    public void removeProperty(String nodeName, String propertyName)
    {
-      
+//      ExtensionMethod("PROPPATCH", workspacePath + nodeName, data, headers);
    }
    
    public void getPropertyValue(String nodeName, String propertyName)
    {
-      
+//      ExtensionMethod("PROPFING", workspacePath + nodeName, data, headers);
    }
 
 }
