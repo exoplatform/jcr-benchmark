@@ -75,7 +75,7 @@
       
    </loaders>
    
-   <locking isolationLevel="READ_COMMITTED" lockAcquisitionTimeout="10000" useLockStriping="false" />
+   <locking isolationLevel="READ_COMMITTED" lockAcquisitionTimeout="10000" useLockStriping="false" concurrencyLevel="5000" />
    
     <!-- Enable batching -->
     <invocationBatching enabled="true"/>
