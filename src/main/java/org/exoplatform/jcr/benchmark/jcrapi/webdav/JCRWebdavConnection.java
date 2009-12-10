@@ -19,10 +19,12 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 import com.sun.japex.TestCase;
 
 import org.exoplatform.common.http.client.HTTPConnection;
+import org.exoplatform.common.http.client.HttpOutputStream;
 import org.exoplatform.common.http.client.ModuleException;
 import org.exoplatform.common.http.client.NVPair;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.ws.rs.core.HttpHeaders;
 
@@ -58,6 +60,11 @@ public class JCRWebdavConnection extends HTTPConnection
    public void addNode(String name, byte[] data) throws IOException, ModuleException
    {
       Put(workspacePath + name, data);
+   }
+   
+   public void addNode(String name, HttpOutputStream stream) throws IOException, ModuleException
+   {
+      Put(workspacePath + name, stream);
    }
    
    public void removeNode(String name) throws IOException, ModuleException
