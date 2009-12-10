@@ -16,25 +16,30 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
-import com.sun.japex.TestCase;
-
-import org.exoplatform.jcr.benchmark.JCRTestContext;
+import java.util.HashMap;
 
 /**
- * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
- * @version $Id$
+ * Created by The eXo Platform SAS.
+ * 
+ * <br/>Date: 2009
  *
+ * @author <a href="mailto:alex.reshetnyak@exoplatform.com.ua">Alex Reshetnyak</a> 
+ * @version $Id$
  */
-public class WebdavAddNodeTest extends AbstractWebdavTest
+public class WebdavTestContext
+   extends HashMap<String, Object>
 {
+   private int counter = 0;
 
-   /**
-    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
-    */
-   @Override
-   public void doRun(TestCase tc, WebdavTestContext context) throws Exception
+   private String name;
+   
+   public WebdavTestContext()
    {
-      item.addNode(context.generateUniqueName("node"), new byte[0]);
+      
    }
-
+   
+   public String generateUniqueName(String prefix)
+   {
+      return prefix + "-" + name + "-" + (counter++);
+   }
 }

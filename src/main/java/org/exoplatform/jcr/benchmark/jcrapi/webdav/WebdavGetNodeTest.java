@@ -36,7 +36,7 @@ public class WebdavGetNodeTest extends AbstractWebdavTest
     * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
     */
    @Override
-   public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
+   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
       super.doPrepare(tc, context);
       
@@ -48,7 +48,7 @@ public class WebdavGetNodeTest extends AbstractWebdavTest
     * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
     */
    @Override
-   public void doRun(TestCase tc, JCRTestContext context) throws Exception
+   public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
       item.getNode(name);
    }

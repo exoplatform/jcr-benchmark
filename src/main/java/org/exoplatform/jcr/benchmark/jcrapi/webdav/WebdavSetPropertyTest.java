@@ -18,10 +18,6 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
 import com.sun.japex.TestCase;
 
-import org.exoplatform.jcr.benchmark.JCRTestContext;
-
-import javax.jcr.Node;
-
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
  * @version $Id$
@@ -37,13 +33,13 @@ public class WebdavSetPropertyTest extends AbstractWebdavTest
     * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
     */
    @Override
-   public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
+   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
       super.doPrepare(tc, context);
       
-      Node rootNode = context.getSession().getRootNode();
+//      Node rootNode = context.getSession().getRootNode();
       node = context.generateUniqueName("testNode");
-      Node testNode = rootNode.addNode(node, "nt:unstructured");
+//      Node testNode = rootNode.addNode(node, "nt:unstructured");
       
    }
 
@@ -51,7 +47,7 @@ public class WebdavSetPropertyTest extends AbstractWebdavTest
     * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
     */
    @Override
-   public void doRun(TestCase tc, JCRTestContext context) throws Exception
+   public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
       item.setProperty(node, property, "testValue");
    }

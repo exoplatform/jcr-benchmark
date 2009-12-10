@@ -16,41 +16,46 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
-import com.sun.japex.TestCase;
-
 import org.exoplatform.common.http.client.CookieModule;
-import org.exoplatform.jcr.benchmark.JCRTestBase;
 import org.exoplatform.jcr.benchmark.JCRTestContext;
+
+import com.sun.japex.TestCase;
 
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
  * @version $Id$
  *
  */
-public abstract class AbstractWebdavTest extends JCRTestBase
+public abstract class AbstractWebdavTest
 {
 
    protected JCRWebdavConnection item;
 
    /**
-    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
+    * @param tc
+    * @param context
+    * @throws Exception
     */
-   public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
+   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
-      super.doPrepare(tc, context);
       CookieModule.setCookiePolicyHandler(null);
       item = new JCRWebdavConnection(tc);
    }
-
+   
    /**
-    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doFinish(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
+    * @param tc
+    * @param context
+    * @throws Exception
     */
-   @Override
-   public void doFinish(TestCase tc, JCRTestContext context) throws Exception
+   public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
    {
-
       item.stop();
-      super.doFinish(tc, context);
    }
-
+   
+   /**
+    * @param tc
+    * @param context
+    * @throws Exception
+    */
+   public abstract void doRun(final TestCase tc, WebdavTestContext context) throws Exception;
 }
