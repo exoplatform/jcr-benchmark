@@ -27,9 +27,9 @@ import javax.jcr.Node;
  * @version $Id$
  *
  */
-public class WebdavRemoveNodeTest extends AbstractWebdavTest
+public class WebdavGetNodeTest extends AbstractWebdavTest
 {
-
+   
    private String name;
    
    /**
@@ -39,7 +39,7 @@ public class WebdavRemoveNodeTest extends AbstractWebdavTest
    public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
    {
       super.doPrepare(tc, context);
-
+      
       name = context.generateUniqueName("node");
       item.addNode(name, "".getBytes());
    }
@@ -50,8 +50,7 @@ public class WebdavRemoveNodeTest extends AbstractWebdavTest
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
    {
-      item.removeNode(name);
-
+      item.getNode(name);
    }
 
 }

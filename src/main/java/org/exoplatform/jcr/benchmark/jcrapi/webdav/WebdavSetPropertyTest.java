@@ -27,10 +27,11 @@ import javax.jcr.Node;
  * @version $Id$
  *
  */
-public class WebdavGetNodeByPathTest extends AbstractWebdavTest
+public class WebdavSetPropertyTest extends AbstractWebdavTest
 {
    
-   private String path;
+   private String node;
+   private String property = "DAV:testProp";
    
    /**
     * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
@@ -40,11 +41,10 @@ public class WebdavGetNodeByPathTest extends AbstractWebdavTest
    {
       super.doPrepare(tc, context);
       
-      String nodeName = context.generateUniqueName("node");
       Node rootNode = context.getSession().getRootNode();
-      Node addedNode = rootNode.addNode(nodeName);
-      context.getSession().save();
-      path = addedNode.getPath();
+      node = context.generateUniqueName("testNode");
+      Node testNode = rootNode.addNode(node, "nt:unstructured");
+      
    }
 
    /**
@@ -53,7 +53,7 @@ public class WebdavGetNodeByPathTest extends AbstractWebdavTest
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
    {
-      item.getNodeByPath(path);
+      item.setProperty(node, property, "testValue");
    }
 
 }
