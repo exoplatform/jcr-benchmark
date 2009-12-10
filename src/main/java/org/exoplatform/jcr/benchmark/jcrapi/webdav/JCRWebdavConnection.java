@@ -20,8 +20,12 @@ import com.sun.japex.TestCase;
 
 import org.exoplatform.common.http.client.HTTPConnection;
 import org.exoplatform.common.http.client.ModuleException;
+import org.exoplatform.common.http.client.NVPair;
 
 import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.ws.rs.core.HttpHeaders;
 
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
@@ -56,7 +60,6 @@ public class JCRWebdavConnection extends HTTPConnection
    {
       Put(workspacePath + name, data);
    }
-
    
    public void removeNode(String name) throws IOException, ModuleException
    {
@@ -73,14 +76,38 @@ public class JCRWebdavConnection extends HTTPConnection
 //      ExtensionMethod("PROPPATCH", workspacePath + nodeName, data, headers);
    }
    
-   public void setProperty(String nodeName, String property, String value)
+   public void setProperty(String nodeName, String property, String value) throws IOException, ModuleException
    {
-//      ExtensionMethod("PROPPATCH", workspacePath + nodeName, data, headers);
+      String xmlBody = "<?xml version='1.0' encoding='utf-8' ?>" +
+      "<D:propertyupdate xmlns:D='DAV:' xmlns:Z='http://www.w3.com/standards/z39.50/'>" +
+         "<D:set>" +
+            "<D:prop>" +
+               "<" + property + ">" +value + "</" + property + ">" +
+            "</D:prop>" +
+         "</D:set>" +
+      "</D:propertyupdate>";
+
+      NVPair[] headers = new NVPair[2];
+      headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
+      headers[1] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString(xmlBody.length()));
+
+      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers);
    }
    
-   public void removeProperty(String nodeName, String propertyName)
+   public void removeProperty(String nodeName, String property) throws IOException, ModuleException
    {
-//      ExtensionMethod("PROPPATCH", workspacePath + nodeName, data, headers);
+      String xmlBody = "<?xml version='1.0' encoding='utf-8' ?>" +
+            "<D:propertyupdate xmlns:D='DAV:' xmlns:Z='http://www.w3.com/standards/z39.50/'>" +
+               "<D:remove>" +
+                  "<D:prop><" + property + "/></D:prop>" +
+               "</D:remove>" +
+            "</D:propertyupdate>";
+      
+      NVPair[] headers = new NVPair[2];
+      headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
+      headers[1] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString(xmlBody.length()));
+      
+      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers);
    }
    
    public void getPropertyValue(String nodeName, String propertyName)
