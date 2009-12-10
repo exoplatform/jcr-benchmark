@@ -18,43 +18,34 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
 import com.sun.japex.TestCase;
 
-import org.exoplatform.common.http.client.CookieModule;
-
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
  * @version $Id$
  *
  */
-public abstract class AbstractWebdavTest
+public class WebdavRemovePropertyTest extends AbstractWebdavPropertyTest
 {
-
-   protected JCRWebdavConnection item;
-
+   
+   
+   
    /**
-    * @param tc
-    * @param context
-    * @throws Exception
+    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
     */
+   @Override
    public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
-      CookieModule.setCookiePolicyHandler(null);
-      item = new JCRWebdavConnection(tc);
+      super.doPrepare(tc, context);
+      
+      item.setProperty(node, property, "value");
    }
-   
+
    /**
-    * @param tc
-    * @param context
-    * @throws Exception
+    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
     */
-   public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
+   @Override
+   public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.stop();
+      item.removeProperty(node, property);
    }
-   
-   /**
-    * @param tc
-    * @param context
-    * @throws Exception
-    */
-   public abstract void doRun(final TestCase tc, WebdavTestContext context) throws Exception;
+
 }

@@ -62,6 +62,13 @@ public class JCRWebdavConnection extends HTTPConnection
       Put(workspacePath + name, data);
    }
    
+   public void addNode(String name, String nodeType, byte[] data) throws IOException, ModuleException
+   {
+      NVPair[] headers = new NVPair[1];
+      headers[0] = new NVPair("File-NodeType", nodeType);
+      Put(workspacePath + name, data);
+   }
+   
    public void addNode(String name, HttpOutputStream stream) throws IOException, ModuleException
    {
       Put(workspacePath + name, stream);

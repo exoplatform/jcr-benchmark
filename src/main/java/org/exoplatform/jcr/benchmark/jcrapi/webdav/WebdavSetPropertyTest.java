@@ -23,26 +23,9 @@ import com.sun.japex.TestCase;
  * @version $Id$
  *
  */
-public class WebdavSetPropertyTest extends AbstractWebdavTest
+public class WebdavSetPropertyTest extends AbstractWebdavPropertyTest
 {
    
-   private String node;
-   private String property = "DAV:testProp";
-   
-   /**
-    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
-    */
-   @Override
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
-   {
-      super.doPrepare(tc, context);
-      
-//      Node rootNode = context.getSession().getRootNode();
-      node = context.generateUniqueName("testNode");
-//      Node testNode = rootNode.addNode(node, "nt:unstructured");
-      
-   }
-
    /**
     * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
     */
