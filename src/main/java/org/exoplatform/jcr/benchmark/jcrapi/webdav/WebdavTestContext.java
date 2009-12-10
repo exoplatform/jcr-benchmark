@@ -29,13 +29,17 @@ import java.util.HashMap;
 public class WebdavTestContext
    extends HashMap<String, Object>
 {
+   protected static int threadCounter = 0;
+
+   private static final String sessionId = "" + System.currentTimeMillis();
+   
    private int counter = 0;
 
    private String name;
    
    public WebdavTestContext()
    {
-      
+      this.name = sessionId + "-" + (threadCounter++);   
    }
    
    public String generateUniqueName(String prefix)
