@@ -39,5 +39,11 @@
   <testCase name="WebdavRemovePropertyTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavRemovePropertyTest" />
   </testCase>
+  <testCase name="WebdavAddBLOBTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavAddBLOBTest" />
+    <param name="blobFileSize" value="40" />
+  </testCase>
   
+
+
 </testSuite>
