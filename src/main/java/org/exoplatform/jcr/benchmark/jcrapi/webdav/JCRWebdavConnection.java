@@ -22,6 +22,7 @@ import org.exoplatform.common.http.client.HTTPConnection;
 import org.exoplatform.common.http.client.HttpOutputStream;
 import org.exoplatform.common.http.client.ModuleException;
 import org.exoplatform.common.http.client.NVPair;
+import org.exoplatform.jcr.benchmark.WebdavDriver;
 
 import java.io.IOException;
 
@@ -43,17 +44,17 @@ public class JCRWebdavConnection extends HTTPConnection
 
    private String workspacePath;
 
-   public JCRWebdavConnection(TestCase tc)
+   public JCRWebdavConnection(WebdavTestContext context)
    {
-      super(tc.getParam("webdav.host"), tc.getIntParam("webdav.port"));
+      super(context.getHost(), context.getPort());
 
-      user = tc.getParam("webdav.user");
-      pass = tc.getParam("webdav.pass");
-      realm = tc.getParam("webdav.realm");
+      user = context.getUser();
+      pass = context.getPassword();
+      realm = context.getRealm();
 
       addBasicAuthorization(realm, user, pass);
 
-      workspacePath = tc.getParam("webdav.workspacePath");
+      workspacePath = context.getWorkspacePath();
    }
    
    public void addNode(String name, byte[] data) throws IOException, ModuleException

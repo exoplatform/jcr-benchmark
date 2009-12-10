@@ -18,6 +18,8 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
 import java.util.HashMap;
 
+import org.exoplatform.jcr.benchmark.WebdavDriver;
+
 /**
  * Created by The eXo Platform SAS.
  * 
@@ -45,5 +47,30 @@ public class WebdavTestContext
    public String generateUniqueName(String prefix)
    {
       return prefix + "-" + name + "-" + (counter++);
+   }
+   
+   public String getHost() {
+      return (String) get(WebdavDriver.WEBDAV_HOST);
+   }
+   
+   public int getPort()
+   {
+      return Integer.valueOf((String) get(WebdavDriver.WEBDAV_PORT));
+   }
+   
+   public String getRealm() {
+      return (String) get(WebdavDriver.WEBDAV_REALM);
+   }
+   
+   public String getUser() {
+      return (String) get(WebdavDriver.WEBDAV_USER);
+   }
+   
+   public String getPassword() {
+      return (String) get(WebdavDriver.WEBDAV_PASSWORD);
+   }
+   
+   public String getWorkspacePath() {
+      return (String) get(WebdavDriver.WEBDAV_WORKSPACE_PATH);
    }
 }

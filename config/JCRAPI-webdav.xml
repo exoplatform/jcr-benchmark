@@ -12,7 +12,7 @@
 
   <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
     <param name="japex.classPath" value="../lib/*.jar" />
-    < param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.WebdavDriver" />
+    <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.WebdavDriver" />
     <driver name="Webdavdriver">
       <param name="japex.numberOfThreads" value="3" />
     </driver>    
@@ -21,7 +21,7 @@
     <param name="webdav.realm" value="eXo REST services" />
     <param name="webdav.user" value="root" />
     <param name="webdav.password" value="exo" />
-    <param name="webdav.workspacePath" value="/rest/jcr/repository/collaboration/" />
+    <param name="webdav.workspacePath" value="/rest/jcr/repository/production/" />
   </driverGroup>
 
   <testCase name="WebdavAddNodeTest">

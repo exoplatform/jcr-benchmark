@@ -38,7 +38,7 @@ public abstract class AbstractWebdavTest
    public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
       CookieModule.setCookiePolicyHandler(null);
-      item = new JCRWebdavConnection(tc);
+      item = new JCRWebdavConnection(context);
    }
    
    /**

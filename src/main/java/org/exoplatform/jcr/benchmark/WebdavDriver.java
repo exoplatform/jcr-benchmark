@@ -24,7 +24,6 @@ import org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest;
 import org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext;
 
 import com.sun.japex.JapexDriverBase;
-import com.sun.japex.Params;
 import com.sun.japex.TestCase;
 
 /**
@@ -38,37 +37,40 @@ import com.sun.japex.TestCase;
 public class WebdavDriver
    extends JapexDriverBase
 {
+   public static final String WEBDAV_HOST = "webdav.host";
+
+   public static final String WEBDAV_PORT = "webdav.port";
+
+   public static final String WEBDAV_REALM = "webdav.realm";
+
+   public static final String WEBDAV_USER = "webdav.user";
+
+   public static final String WEBDAV_PASSWORD = "webdav.password";
+
+   public static final String WEBDAV_WORKSPACE_PATH = "webdav.workspacePath";
+
    protected WebdavTestContext context;
-   
+
    private AbstractWebdavTest test;
 
    public void initializeDriver()
    {
-      /*if (!hasParam("jcr.user"))
-         throw new RuntimeException("<jcr.user> parameter required");
-      if (!hasParam("jcr.password"))
-         throw new RuntimeException("<jcr.password> parameter required");
-      if (!hasParam("jcr.workspace"))
-         throw new RuntimeException("<jcr.workspace> parameter required");
-
-      String user = getParam("jcr.user");
-      String password = getParam("jcr.password");
-      Params params = new ParamsImpl();
-      params.setParam("exo.jaasConf", getParam("exo.jaasConf"));
-      params.setParam("exo.containerConf", getParam("exo.containerConf"));
-      try
-      {
-         initialize(params);
-         workspace = getParam("jcr.workspace");
-         credentials = new SimpleCredentials(user, password.toCharArray());
-         oneSession = repository.login(credentials, workspace);
-         context = new AsyncTestContext();
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-         throw new RuntimeException(e);
-      }*/
+      if (!hasParam(WEBDAV_HOST))
+         throw new RuntimeException("<webdav.host> parameter required");
+      if (!hasParam(WEBDAV_PORT))
+         throw new RuntimeException("<webdav.port> parameter required");
+      if (!hasParam(WEBDAV_REALM))
+         throw new RuntimeException("<webdav.realm> parameter required");
+      if (!hasParam(WEBDAV_USER))
+         throw new RuntimeException("<webdav.user> parameter required");
+      if (!hasParam(WEBDAV_PASSWORD))
+         throw new RuntimeException("<webdav.password> parameter required");
+      if (!hasParam(WEBDAV_WORKSPACE_PATH))
+         throw new RuntimeException("<webdav.workspacePath> parameter required");
+      
+      // System.out.println("Start...");
+      context = initContext(context);
+      // System.out.println("initContext done...");
    }
 
    @Override
@@ -76,9 +78,6 @@ public class WebdavDriver
    {
       try
       {
-         // System.out.println("Start...");
-         context = initContext(tc, context);
-         // System.out.println("initContext done...");
          test = testInstance(tc);
          // System.out.println("testInstance done...");
          test.doPrepare(tc, context);
@@ -137,8 +136,15 @@ public class WebdavDriver
       }
    }
 
-   private synchronized WebdavTestContext initContext(TestCase tc, WebdavTestContext context)
+   private synchronized WebdavTestContext initContext(WebdavTestContext context)
    {
+      context.put(WEBDAV_HOST, getParam(WEBDAV_HOST));
+      context.put(WEBDAV_PORT, getParam(WEBDAV_PORT));
+      context.put(WEBDAV_USER, getParam(WEBDAV_USER));
+      context.put(WEBDAV_PASSWORD, getParam(WEBDAV_PASSWORD));
+      context.put(WEBDAV_REALM, getParam(WEBDAV_REALM));
+      context.put(WEBDAV_WORKSPACE_PATH, getParam(WEBDAV_WORKSPACE_PATH));
+
       return context;
    }
 }
