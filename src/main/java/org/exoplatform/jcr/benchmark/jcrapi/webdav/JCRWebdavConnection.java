@@ -24,7 +24,6 @@ import org.exoplatform.common.http.client.ModuleException;
 import org.exoplatform.common.http.client.NVPair;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 import javax.ws.rs.core.HttpHeaders;
 
@@ -82,11 +81,6 @@ public class JCRWebdavConnection extends HTTPConnection
    public void getNode(String name) throws IOException, ModuleException
    {
       Get(workspacePath + name);
-   }
-   
-   public void createProperty(String name)
-   {
-//      ExtensionMethod("PROPPATCH", workspacePath + nodeName, data, headers);
    }
    
    public void setProperty(String nodeName, String property, String value) throws IOException, ModuleException
