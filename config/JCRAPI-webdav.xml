@@ -33,5 +33,11 @@
   <testCase name="WebdavRemoveNodeTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavRemoveNodeTest" />
   </testCase>
+  <testCase name="WebdavSetPropertyTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavSetPropertyTest" />
+  </testCase>
+  <testCase name="WebdavRemovePropertyTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavRemovePropertyTest" />
+  </testCase>
   
 </testSuite>
