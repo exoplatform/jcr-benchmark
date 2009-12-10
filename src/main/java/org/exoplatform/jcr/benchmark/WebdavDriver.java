@@ -69,6 +69,7 @@ public class WebdavDriver
          throw new RuntimeException("<webdav.workspacePath> parameter required");
       
       // System.out.println("Start...");
+      context = new WebdavTestContext();
       context = initContext(context);
       // System.out.println("initContext done...");
    }
