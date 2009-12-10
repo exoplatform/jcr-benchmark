@@ -18,8 +18,6 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
 import com.sun.japex.TestCase;
 
-import org.exoplatform.jcr.benchmark.JCRTestContext;
-
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
  * @version $Id$
