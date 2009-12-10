@@ -75,7 +75,14 @@
       
    </loaders>
    
-   <locking isolationLevel="READ_COMMITTED" lockAcquisitionTimeout="10000"  useLockStriping="false" concurrencyLevel="5000" />
+   <locking
+         isolationLevel="REPEATABLE_READ"
+         lockParentForChildInsertRemove="false"
+         lockAcquisitionTimeout="10000"
+         nodeLockingScheme="mvcc"
+         writeSkewCheck="false"
+         useLockStriping="false"
+         concurrencyLevel="10000" />
    
     <!-- Enable batching -->
     <invocationBatching enabled="true"/>
