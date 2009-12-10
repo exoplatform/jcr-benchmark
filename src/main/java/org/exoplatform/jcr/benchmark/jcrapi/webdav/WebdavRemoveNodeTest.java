@@ -20,13 +20,31 @@ import com.sun.japex.TestCase;
 
 import org.exoplatform.jcr.benchmark.JCRTestContext;
 
+import javax.jcr.Node;
+
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
  * @version $Id$
  *
  */
-public class WebdavAddNodeTest extends AbstractWebdavTest
+public class WebdavRemoveNodeTest extends AbstractWebdavTest
 {
+
+   private String nodeName;
+   
+   /**
+    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
+    */
+   @Override
+   public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
+   {
+      super.doPrepare(tc, context);
+
+      String nodeName = context.generateUniqueName("node");
+      Node rootNode = context.getSession().getRootNode();
+      rootNode.addNode(nodeName);
+      context.getSession().save();
+   }
 
    /**
     * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
@@ -34,7 +52,8 @@ public class WebdavAddNodeTest extends AbstractWebdavTest
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
    {
-      item.addNode(context.generateUniqueName("node"), new byte[0]);
+      item.removeNode(nodeName);
+
    }
 
 }

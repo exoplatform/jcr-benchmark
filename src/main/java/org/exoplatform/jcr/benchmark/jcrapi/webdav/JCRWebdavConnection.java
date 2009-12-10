@@ -18,7 +18,6 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
 import com.sun.japex.TestCase;
 
-import org.exoplatform.common.http.HTTPMethods;
 import org.exoplatform.common.http.client.HTTPConnection;
 import org.exoplatform.common.http.client.ModuleException;
 

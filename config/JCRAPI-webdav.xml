@@ -30,5 +30,11 @@
   <testCase name="WebdavAddNodeTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavAddNodeTest" />
   </testCase>
+  <testCase name="WebdavGetNodeByPathTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavGetNodeByPathTest" />
+  </testCase>
+  <testCase name="WebdavRemoveNodeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavRemoveNodeTest" />
+  </testCase>
   
 </testSuite>
