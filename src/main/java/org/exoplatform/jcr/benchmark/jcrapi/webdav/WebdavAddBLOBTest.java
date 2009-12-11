@@ -60,7 +60,7 @@ public class WebdavAddBLOBTest extends AbstractWebdavTest
       // TODO Auto-generated method stub
       HttpOutputStream stream = new HttpOutputStream();
 
-      item.addNode(context.generateUniqueName("blobnode"), stream);
+      item.addNode(nodeName, stream);
       loadStream(stream, sizeInKb * 1024);
 
    }
