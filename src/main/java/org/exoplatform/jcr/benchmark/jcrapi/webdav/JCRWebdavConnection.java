@@ -67,9 +67,9 @@ public class JCRWebdavConnection extends HTTPConnection
       Put(workspacePath + name, data).getStatusCode();
    }
    
-   public void addNode(String name, HttpOutputStream stream) throws IOException, ModuleException
+   public HTTPResponse addNode(String name, HttpOutputStream stream) throws IOException, ModuleException
    {
-      Put(workspacePath + name, stream).getStatusCode();
+      return Put(workspacePath + name, stream);
    }
    
    public void removeNode(String name) throws IOException, ModuleException

@@ -18,6 +18,8 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
 import com.sun.japex.TestCase;
 
+import org.apache.tools.ant.taskdefs.condition.Http;
+import org.exoplatform.common.http.client.HTTPResponse;
 import org.exoplatform.common.http.client.HttpOutputStream;
 
 import java.io.File;
@@ -36,7 +38,7 @@ import java.util.Random;
 public class WebdavAddBLOBTest extends AbstractWebdavTest
 {
 
-   private int sizeInKb = 0;
+   private int sizeInMb = 0;
 
    //File blobFile = null;
 
@@ -49,19 +51,18 @@ public class WebdavAddBLOBTest extends AbstractWebdavTest
    {
       super.doPrepare(tc, context);
 
-      //create blob file
-      sizeInKb = tc.getIntParam("blobFileSize");
-      //      blobFile = createBLOBTempFile("bench", sizeInKb);
+      sizeInMb = tc.getIntParam("blobFileSize");
    }
 
    @Override
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      // TODO Auto-generated method stub
       HttpOutputStream stream = new HttpOutputStream();
 
-      item.addNode(nodeName, stream);
-      loadStream(stream, sizeInKb * 1024);
+      HTTPResponse response = item.addNode(nodeName, stream);
+      loadStream(stream, sizeInMb * 1024);
+      stream.close();
+      response.getStatusCode();
 
    }
 
@@ -72,36 +73,11 @@ public class WebdavAddBLOBTest extends AbstractWebdavTest
     */
    public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
    {
-      //blobFile.delete();
       super.doFinish(tc, context);
-   }
-
-   protected File createBLOBTempFile(String prefix, int sizeInKb) throws IOException
-   {
-      // create test file
-      byte[] data = new byte[1024]; // 1Kb
-
-      File testFile = File.createTempFile(prefix, ".tmp");
-      FileOutputStream tempOut = new FileOutputStream(testFile);
-      Random random = new Random();
-
-      for (int i = 0; i < sizeInKb; i++)
-      {
-         random.nextBytes(data);
-         tempOut.write(data);
-      }
-      tempOut.close();
-      testFile.deleteOnExit(); // delete on test exit
-      //      if (log.isDebugEnabled())
-      //      {
-      //         log.debug("Temp file created: " + testFile.getAbsolutePath() + " size: " + testFile.length());
-      //      }
-      return testFile;
    }
 
    protected void loadStream(HttpOutputStream stream, int sizeInKb) throws IOException
    {
-      // create test file
       byte[] data = new byte[1024]; // 1Kb
 
       Random random = new Random();
