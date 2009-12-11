@@ -16,13 +16,10 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
-import com.sun.japex.TestCase;
-
 import org.exoplatform.common.http.client.HTTPConnection;
 import org.exoplatform.common.http.client.HttpOutputStream;
 import org.exoplatform.common.http.client.ModuleException;
 import org.exoplatform.common.http.client.NVPair;
-import org.exoplatform.jcr.benchmark.WebdavDriver;
 
 import java.io.IOException;
 
@@ -83,6 +80,25 @@ public class JCRWebdavConnection extends HTTPConnection
    {
       Get(workspacePath + name);
    }
+   
+   public void addProperty(String nodeName, String property) throws IOException, ModuleException
+   {
+      String xmlBody = "<?xml version='1.0' encoding='utf-8' ?>" +
+      "<D:propertyupdate xmlns:D='DAV:' xmlns:Z='http://www.w3.com/standards/z39.50/'>" +
+         "<D:set>" +
+            "<D:prop>" +
+               "<" + property + ">default value</" + property + ">" +
+            "</D:prop>" +
+         "</D:set>" +
+      "</D:propertyupdate>";
+
+      NVPair[] headers = new NVPair[2];
+      headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
+      headers[1] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString(xmlBody.length()));
+
+      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers);
+   }
+
    
    public void setProperty(String nodeName, String property, String value) throws IOException, ModuleException
    {

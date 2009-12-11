@@ -23,27 +23,16 @@ import com.sun.japex.TestCase;
  * @version $Id$
  *
  */
-public class WebdavSetPropertyTest extends AbstractWebdavPropertyTest
+public class WebdavCreatePropertyTest extends AbstractWebdavPropertyTest
 {
-   
+
    /**
-    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavPropertyTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
-    */
-   @Override
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
-   {
-      super.doPrepare(tc, context);
-      
-      item.addProperty(node, property);
-   }
-   
-   /**
-    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
+    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavPropertyTest#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
     */
    @Override
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.setProperty(node, property, "testValue");
+      item.addProperty(node, property);
    }
 
 }
