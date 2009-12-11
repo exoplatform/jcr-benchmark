@@ -36,7 +36,7 @@ public class WebdavRemovePropertyTest extends AbstractWebdavPropertyTest
    {
       super.doPrepare(tc, context);
       
-      item.setProperty(node, property, "value");
+      item.setProperty(nodeName, property, "value");
    }
 
    /**
@@ -45,7 +45,7 @@ public class WebdavRemovePropertyTest extends AbstractWebdavPropertyTest
    @Override
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.removeProperty(node, property);
+      item.removeProperty(nodeName, property);
    }
 
 }

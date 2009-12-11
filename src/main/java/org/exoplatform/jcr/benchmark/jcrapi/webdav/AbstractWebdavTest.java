@@ -29,6 +29,7 @@ public abstract class AbstractWebdavTest
 {
 
    protected JCRWebdavConnection item;
+   protected String nodeName;
 
    /**
     * @param tc
@@ -39,6 +40,7 @@ public abstract class AbstractWebdavTest
    {
       CookieModule.setCookiePolicyHandler(null);
       item = new JCRWebdavConnection(context);
+      nodeName = context.generateUniqueName(this.getClass().getName());
    }
    
    /**

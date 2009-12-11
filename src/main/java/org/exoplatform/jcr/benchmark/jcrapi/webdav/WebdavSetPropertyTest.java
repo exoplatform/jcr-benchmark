@@ -34,7 +34,7 @@ public class WebdavSetPropertyTest extends AbstractWebdavPropertyTest
    {
       super.doPrepare(tc, context);
       
-      item.addProperty(node, property);
+      item.addProperty(nodeName, property);
    }
    
    /**
@@ -43,7 +43,7 @@ public class WebdavSetPropertyTest extends AbstractWebdavPropertyTest
    @Override
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.setProperty(node, property, "testValue");
+      item.setProperty(nodeName, property, "testValue");
    }
 
 }

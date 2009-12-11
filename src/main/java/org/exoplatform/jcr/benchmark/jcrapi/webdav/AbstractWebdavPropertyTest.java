@@ -28,7 +28,6 @@ import com.sun.japex.TestCase;
 public abstract class AbstractWebdavPropertyTest extends AbstractWebdavTest
 {
 
-   protected String node;
    protected String property = "DAV:testProp";
    
    /**
@@ -39,8 +38,7 @@ public abstract class AbstractWebdavPropertyTest extends AbstractWebdavTest
    {
       super.doPrepare(tc, context);
       
-      node = context.generateUniqueName("testNode");
-      item.addNode(node, "nt:untstructured", "".getBytes());
+      item.addNode(nodeName, "nt:untstructured", "".getBytes());
    }
    
    /**
