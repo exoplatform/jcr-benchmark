@@ -40,7 +40,7 @@ public abstract class AbstractWebdavTest
    {
       CookieModule.setCookiePolicyHandler(null);
       item = new JCRWebdavConnection(context);
-      nodeName = context.generateUniqueName(this.getClass().getName());
+      nodeName = context.generateUniqueName(this.getClass().getSimpleName());
    }
    
    /**
@@ -50,6 +50,7 @@ public abstract class AbstractWebdavTest
     */
    public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
    {
+      item.removeNode(nodeName);
       item.stop();
    }
    
