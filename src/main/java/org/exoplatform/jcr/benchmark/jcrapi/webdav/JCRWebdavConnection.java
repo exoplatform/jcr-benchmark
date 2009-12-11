@@ -17,6 +17,7 @@
 package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
 import org.exoplatform.common.http.client.HTTPConnection;
+import org.exoplatform.common.http.client.HTTPResponse;
 import org.exoplatform.common.http.client.HttpOutputStream;
 import org.exoplatform.common.http.client.ModuleException;
 import org.exoplatform.common.http.client.NVPair;
@@ -56,29 +57,29 @@ public class JCRWebdavConnection extends HTTPConnection
    
    public void addNode(String name, byte[] data) throws IOException, ModuleException
    {
-      Put(workspacePath + name, data);
+      Put(workspacePath + name, data).getStatusCode();
    }
    
    public void addNode(String name, String nodeType, byte[] data) throws IOException, ModuleException
    {
       NVPair[] headers = new NVPair[1];
       headers[0] = new NVPair("File-NodeType", nodeType);
-      Put(workspacePath + name, data);
+      Put(workspacePath + name, data).getStatusCode();
    }
    
    public void addNode(String name, HttpOutputStream stream) throws IOException, ModuleException
    {
-      Put(workspacePath + name, stream);
+      Put(workspacePath + name, stream).getStatusCode();
    }
    
    public void removeNode(String name) throws IOException, ModuleException
    {
-      Delete(workspacePath + name);
+      Delete(workspacePath + name).getStatusCode();
    }
    
    public void getNode(String name) throws IOException, ModuleException
    {
-      Get(workspacePath + name);
+      Get(workspacePath + name).getStatusCode();
    }
    
    public void addProperty(String nodeName, String property) throws IOException, ModuleException
@@ -96,7 +97,7 @@ public class JCRWebdavConnection extends HTTPConnection
       headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
       headers[1] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString(xmlBody.length()));
 
-      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers);
+      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers).getStatusCode();
    }
 
    
@@ -115,7 +116,7 @@ public class JCRWebdavConnection extends HTTPConnection
       headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
       headers[1] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString(xmlBody.length()));
 
-      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers);
+      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers).getStatusCode();
    }
    
    public void removeProperty(String nodeName, String property) throws IOException, ModuleException
@@ -131,12 +132,7 @@ public class JCRWebdavConnection extends HTTPConnection
       headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
       headers[1] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString(xmlBody.length()));
       
-      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers);
-   }
-   
-   public void getPropertyValue(String nodeName, String propertyName)
-   {
-//      ExtensionMethod("PROPFING", workspacePath + nodeName, data, headers);
+      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers).getStatusCode();
    }
 
 }
