@@ -35,6 +35,47 @@ import java.util.Random;
  */
 public class WebdavAddBLOBTest extends AbstractWebdavTest
 {
+
+   private int sizeInKb = 0;
+
+   //File blobFile = null;
+
+   /**
+    * @param tc
+    * @param context
+    * @throws Exception
+    */
+   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   {
+      super.doPrepare(tc, context);
+
+      //create blob file
+      sizeInKb = tc.getIntParam("blobFileSize");
+      //      blobFile = createBLOBTempFile("bench", sizeInKb);
+   }
+
+   @Override
+   public void doRun(TestCase tc, WebdavTestContext context) throws Exception
+   {
+      // TODO Auto-generated method stub
+      HttpOutputStream stream = new HttpOutputStream();
+
+      item.addNode(context.generateUniqueName("blobnode"), stream);
+      loadStream(stream, sizeInKb * 1024);
+
+   }
+
+   /**
+    * @param tc
+    * @param context
+    * @throws Exception
+    */
+   public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
+   {
+      //blobFile.delete();
+      super.doFinish(tc, context);
+   }
+
    protected File createBLOBTempFile(String prefix, int sizeInKb) throws IOException
    {
       // create test file
@@ -58,39 +99,17 @@ public class WebdavAddBLOBTest extends AbstractWebdavTest
       return testFile;
    }
 
-   File blobFile = null;
-
-   /**
-    * @param tc
-    * @param context
-    * @throws Exception
-    */
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   protected void loadStream(HttpOutputStream stream, int sizeInKb) throws IOException
    {
-      super.doPrepare(tc, context);
+      // create test file
+      byte[] data = new byte[1024]; // 1Kb
 
-      //create blob file
-      int sizeInKb = tc.getIntParam("blobFileSize");
-      blobFile = createBLOBTempFile("bench", sizeInKb);
+      Random random = new Random();
+
+      for (int i = 0; i < sizeInKb; i++)
+      {
+         random.nextBytes(data);
+         stream.write(data);
+      }
    }
-
-   @Override
-   public void doRun(TestCase tc, WebdavTestContext context) throws Exception
-   {
-      // TODO Auto-generated method stub
-      HttpOutputStream stream = new HttpOutputStream();
-      item.addNode(context.generateUniqueName("node"), stream);
-   }
-
-   /**
-    * @param tc
-    * @param context
-    * @throws Exception
-    */
-   public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
-   {
-      blobFile.delete();
-      super.doFinish(tc, context);
-   }
-
 }
