@@ -135,4 +135,33 @@ public class JCRWebdavConnection extends HTTPConnection
       ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers).getStatusCode();
    }
 
+   public String lock(String nodeName, boolean isDeep, boolean sessionLock) throws IOException, ModuleException
+   {
+      
+      String xmlBody = "<?xml version='1.0' encoding='utf-8' ?>" +
+      		"<D:lockinfo xmlns:D='DAV:'>" +
+      		   "<D:lockscope>" +
+      		      "<D:exclusive/>" +
+      		   "</D:lockscope>" +
+      		   "<D:locktype>" +
+      		      "<D:write/>" +
+      		   "</D:locktype>" +
+      		   "<D:owner>owner</D:owner>" +
+      		"</D:lockinfo>";
+
+      NVPair[] headers = new NVPair[2];
+      headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
+      headers[1] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString(xmlBody.length()));
+
+      HTTPResponse response = ExtensionMethod("LOCK", workspacePath + nodeName, xmlBody.getBytes(), headers);
+      
+      response.getStatusCode();
+      response.getData();
+      return null;
+   }
+
+   public void unlock(String nodeName, String lockToken)
+   {
+   }
+
 }

@@ -48,6 +48,10 @@
     <param name="blobFileSize" value="40" />
   </testCase>
   
+  <testCase name="WebdavLockNodeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavLockNodeTest" />
+  </testCase>
+  
 
 
 </testSuite>
