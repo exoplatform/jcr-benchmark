@@ -52,6 +52,10 @@
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavLockNodeTest" />
   </testCase>
   
+  <testCase name="WebdavUnLockNodeTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavUnLockNodeTest" />
+  </testCase>
+  
 
 
 </testSuite>

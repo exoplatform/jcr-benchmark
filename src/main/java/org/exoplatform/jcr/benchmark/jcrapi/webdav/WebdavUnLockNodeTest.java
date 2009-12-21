@@ -41,7 +41,7 @@ public class WebdavUnLockNodeTest
 
       item.addNode(nodeName, "".getBytes());
       
-      lockToken = item.lock(nodeName, true, true);
+      lockToken = item.lock(nodeName);
    }
    
    /**

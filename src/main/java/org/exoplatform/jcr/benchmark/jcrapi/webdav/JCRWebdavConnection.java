@@ -21,6 +21,7 @@ import org.exoplatform.common.http.client.HTTPResponse;
 import org.exoplatform.common.http.client.HttpOutputStream;
 import org.exoplatform.common.http.client.ModuleException;
 import org.exoplatform.common.http.client.NVPair;
+import org.exoplatform.services.rest.ExtHttpHeaders;
 
 import java.io.IOException;
 
@@ -135,9 +136,8 @@ public class JCRWebdavConnection extends HTTPConnection
       ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers).getStatusCode();
    }
 
-   public String lock(String nodeName, boolean isDeep, boolean sessionLock) throws IOException, ModuleException
+   public String lock(String nodeName) throws IOException, ModuleException
    {
-      
       String xmlBody = "<?xml version='1.0' encoding='utf-8' ?>" +
       		"<D:lockinfo xmlns:D='DAV:'>" +
       		   "<D:lockscope>" +
@@ -156,12 +156,26 @@ public class JCRWebdavConnection extends HTTPConnection
       HTTPResponse response = ExtensionMethod("LOCK", workspacePath + nodeName, xmlBody.getBytes(), headers);
       
       response.getStatusCode();
-      response.getData();
-      return null;
+      StringBuffer resp = new StringBuffer(new String(response.getData(), "UTF-8"));
+      
+      final String lockPrffix = "opaquelocktoken:";
+      
+      int pos = resp.lastIndexOf(lockPrffix);
+      
+      String lockToken = resp.substring(pos + lockPrffix.length() , pos + lockPrffix.length() + 32);
+      
+      return lockToken;
    }
 
-   public void unlock(String nodeName, String lockToken)
+   public void unlock(String nodeName, String lockToken) throws IOException, ModuleException
    {
+      NVPair[] headers = new NVPair[3];
+      headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
+      headers[1] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString("".length()));
+      headers[2] = new NVPair(ExtHttpHeaders.LOCKTOKEN, "<" + lockToken + ">");
+
+      HTTPResponse response = ExtensionMethod("UNLOCK", workspacePath + nodeName, "".getBytes(), headers);
+      response.getStatusCode();
    }
 
 }

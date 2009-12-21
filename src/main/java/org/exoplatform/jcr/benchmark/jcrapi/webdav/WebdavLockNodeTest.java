@@ -45,7 +45,7 @@ public class WebdavLockNodeTest
     */
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.lock(nodeName, true, true);
+      item.lock(nodeName);
    }
 
 }
