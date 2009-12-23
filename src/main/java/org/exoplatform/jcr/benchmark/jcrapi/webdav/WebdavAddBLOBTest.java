@@ -35,6 +35,11 @@ import java.util.Random;
  * @author <a href="karpenko.sergiy@gmail.com">Karpenko Sergiy</a> 
  * @version $Id: WebdavAddBLOBTest.java 111 2008-11-11 11:11:11Z serg $
  */
+/**
+ * @author <a href="mailto:foo@bar.org">Foo Bar</a>
+ * @version $Id: exo-jboss-codetemplates.xml 34360 2009-07-22 23:58:59Z aheritier $
+ *
+ */
 public class WebdavAddBLOBTest extends AbstractWebdavTest
 {
 
@@ -53,13 +58,25 @@ public class WebdavAddBLOBTest extends AbstractWebdavTest
 
       sizeInMb = tc.getIntParam("blobFileSize");
    }
+   
+   /**
+    * {@inheritDoc}
+    */
+   protected void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception
+   {
+      String nodeName = parentNodeName + "/" + context.generateUniqueName(this.getClass().getName());
+      
+      addNode(nodeName);
+   }
 
-   @Override
+   /**
+    * {@inheritDoc}
+    */
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
       HttpOutputStream stream = new HttpOutputStream();
 
-      HTTPResponse response = item.addNode(nodeName, stream);
+      HTTPResponse response = item.addNode(nextNodePath(), stream);
       loadStream(stream, sizeInMb * 1024);
       stream.close();
       response.getStatusCode();

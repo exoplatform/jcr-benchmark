@@ -16,6 +16,8 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
+import java.util.HashMap;
+
 import com.sun.japex.TestCase;
 
 /**
@@ -30,18 +32,21 @@ public class WebdavUnLockNodeTest
    extends AbstractWebdavTest
 {
    
-   protected String lockToken;
+   protected HashMap<String, String> lockTokenMap;
 
    /**
     * {@inheritDoc}
     */
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   protected void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception
    {
-      super.doPrepare(tc, context);
-
+      String nodeName = parentNodeName + "/" + context.generateUniqueName(this.getClass().getName()); 
+         
       item.addNode(nodeName, "".getBytes());
       
-      lockToken = item.lock(nodeName);
+      String lockToken = item.lock(nodeName);
+      lockTokenMap.put(nodeName, lockToken);
+      
+      addNode(nodeName);
    }
    
    /**
@@ -49,7 +54,8 @@ public class WebdavUnLockNodeTest
     */
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.unlock(nodeName, lockToken);
+      String nodeNamePath = nextNodePath();
+      item.unlock(nodeNamePath, lockTokenMap.get(nodeNamePath));
    }
 
 }

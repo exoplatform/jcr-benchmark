@@ -25,18 +25,18 @@ import com.sun.japex.TestCase;
  */
 public class WebdavRemovePropertyTest extends AbstractWebdavPropertyTest
 {
-   
-   
-   
+
    /**
-    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
+    * {@inheritDoc}
     */
-   @Override
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   protected void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception
    {
-      super.doPrepare(tc, context);
+      String nodeName = parentNodeName + "/" + context.generateUniqueName(this.getClass().getName());
       
+      item.addNode(nodeName, "nt:untstructured", "".getBytes());
       item.setProperty(nodeName, property, "value");
+      
+      addNode(nodeName);
    }
 
    /**
@@ -45,7 +45,7 @@ public class WebdavRemovePropertyTest extends AbstractWebdavPropertyTest
    @Override
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.removeProperty(nodeName, property);
+      item.removeProperty(nextNodePath(), property);
    }
 
 }

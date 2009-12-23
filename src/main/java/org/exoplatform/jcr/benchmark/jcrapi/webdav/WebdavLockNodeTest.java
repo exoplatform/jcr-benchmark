@@ -33,11 +33,13 @@ public class WebdavLockNodeTest
    /**
     * {@inheritDoc}
     */
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   protected void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception
    {
-      super.doPrepare(tc, context);
-
+      String nodeName = parentNodeName + "/" + context.generateUniqueName(this.getClass().getName());
+      
       item.addNode(nodeName, "".getBytes());
+      
+      addNode(nodeName);
    }
    
    /**
@@ -45,7 +47,7 @@ public class WebdavLockNodeTest
     */
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.lock(nodeName);
+      item.lock(nextNodePath());
    }
 
 }

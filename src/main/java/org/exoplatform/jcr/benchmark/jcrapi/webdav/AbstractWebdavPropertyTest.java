@@ -31,20 +31,20 @@ public abstract class AbstractWebdavPropertyTest extends AbstractWebdavTest
    protected String property = "D:testProp";
    
    /**
-    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
+    * {@inheritDoc}
     */
-   @Override
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   protected void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception
    {
-      super.doPrepare(tc, context);
+      String nodeName = parentNodeName + "/" + context.generateUniqueName(this.getClass().getName());
       
       item.addNode(nodeName, "nt:untstructured", "".getBytes());
+      
+      addNode(nodeName);
    }
    
    /**
-    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
+    * {@inheritDoc}
     */
-   @Override
    public abstract void doRun(TestCase tc, WebdavTestContext context) throws Exception;
    
 }

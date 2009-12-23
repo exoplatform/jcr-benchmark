@@ -33,24 +33,26 @@ public class WebdavNodeCheckinTest
    /**
     * {@inheritDoc}
     */
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   protected void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception
    {
-      super.doPrepare(tc, context);
-
+      String nodeName = parentNodeName + "/" + context.generateUniqueName(this.getClass().getName()); 
+         
+      item.addNode(nodeName, "".getBytes());
       item.addNode(nodeName, "".getBytes());
       
       item.addVersionControl(nodeName);
       
       item.checkIn(nodeName);
       item.checkOut(nodeName);
+      
+      addNode(nodeName);
    }
-
+   
    /**
     * {@inheritDoc}
     */
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.checkIn(nodeName);
+      item.checkIn(nextNodePath());
    }
-
 }

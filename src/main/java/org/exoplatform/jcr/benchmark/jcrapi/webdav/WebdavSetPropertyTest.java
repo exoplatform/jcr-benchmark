@@ -27,14 +27,16 @@ public class WebdavSetPropertyTest extends AbstractWebdavPropertyTest
 {
    
    /**
-    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavPropertyTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
+    * {@inheritDoc}
     */
-   @Override
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   protected void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception
    {
-      super.doPrepare(tc, context);
+      String nodeName = parentNodeName + "/" + context.generateUniqueName(this.getClass().getName());
       
+      item.addNode(nodeName, "nt:untstructured", "".getBytes());
       item.addProperty(nodeName, property);
+      
+      addNode(nodeName);
    }
    
    /**
@@ -43,7 +45,7 @@ public class WebdavSetPropertyTest extends AbstractWebdavPropertyTest
    @Override
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.setProperty(nodeName, property, "testValue");
+      item.setProperty(nextNodePath(), property, "testValue");
    }
 
 }

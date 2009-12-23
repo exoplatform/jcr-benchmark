@@ -193,7 +193,6 @@ public class JCRWebdavConnection extends HTTPConnection
    public void checkIn(String nodeName) throws IOException, ModuleException 
    {
       NVPair[] headers = new NVPair[1];
-//    headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
     headers[0] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString("".length()));
 
     HTTPResponse response = ExtensionMethod("CHECKIN", workspacePath + nodeName, "".getBytes(), headers);
@@ -203,7 +202,6 @@ public class JCRWebdavConnection extends HTTPConnection
    public void checkOut(String nodeName) throws IOException, ModuleException
    {
       NVPair[] headers = new NVPair[1];
-//      headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
       headers[0] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString("".length()));
 
       HTTPResponse response = ExtensionMethod("CHECKOUT", workspacePath + nodeName, "".getBytes(), headers);

@@ -25,25 +25,23 @@ import com.sun.japex.TestCase;
  */
 public class WebdavGetNodeTest extends AbstractWebdavTest
 {
-   
    /**
-    * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
+    * {@inheritDoc}
     */
-   @Override
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   protected void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception
    {
-      super.doPrepare(tc, context);
+      String nodeName = parentNodeName + "/" + context.generateUniqueName(this.getClass().getName());
       
       item.addNode(nodeName, "".getBytes());
+      
+      addNode(nodeName);
    }
 
    /**
-    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
+    * {@inheritDoc}
     */
-   @Override
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.getNode(nodeName);
+      item.getNode(nextNodePath());
    }
-
 }

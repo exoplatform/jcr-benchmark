@@ -16,9 +16,15 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.jcr.Node;
+
 import com.sun.japex.TestCase;
 
 import org.exoplatform.common.http.client.CookieModule;
+import org.exoplatform.jcr.benchmark.JCRTestContext;
 
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
@@ -29,7 +35,12 @@ public abstract class AbstractWebdavTest
 {
 
    protected JCRWebdavConnection item;
-   protected String nodeName;
+   
+   protected String rootNodeName;
+   
+   private List<String> nodesPath = new ArrayList<String>();
+   
+   private volatile int iteration = 0;
 
    /**
     * @param tc
@@ -38,9 +49,57 @@ public abstract class AbstractWebdavTest
     */
    public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
+      int runIterations = tc.getIntParam("japex.runIterations");
+
+      if (tc.hasParam("japex.warmupIterations"))
+      {
+         int warmUpIterations = tc.getIntParam("japex.warmupIterations");
+         if (warmUpIterations>0) 
+         {
+            runIterations += warmUpIterations;
+         }
+      }
+      
       CookieModule.setCookiePolicyHandler(null);
       item = new JCRWebdavConnection(context);
-      nodeName = context.generateUniqueName(this.getClass().getSimpleName());
+      
+      
+      rootNodeName = context.generateUniqueName("rootNode");
+      item.addNode(rootNodeName, "".getBytes());
+      
+      for (int i = 0; i < runIterations; i++)
+      {
+         String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node");
+         item.addNode(parentNodeName, "".getBytes());
+
+         createContent(parentNodeName, tc, context);
+      }
+   }
+   
+   /**
+    * Create content to test.
+    * 
+    * @param parentNodeName
+    * @param tc
+    * @param context
+    * @throws Exception
+    */
+   protected abstract void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception;
+   
+   /**
+    * @param nodePath
+    */
+   protected void addNode(String nodePath)
+   {
+      nodesPath.add(nodePath);
+   }
+   
+   /**
+    * @return
+    */
+   protected String nextNodePath()
+   {
+      return nodesPath.get(iteration++);
    }
    
    /**
@@ -50,7 +109,7 @@ public abstract class AbstractWebdavTest
     */
    public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.removeNode(nodeName);
+      item.removeNode(rootNodeName);
       item.stop();
    }
    

@@ -32,7 +32,7 @@ public class WebdavCreatePropertyTest extends AbstractWebdavPropertyTest
    @Override
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.addProperty(nodeName, property);
+      item.addProperty(nextNodePath(), property);
    }
 
 }
