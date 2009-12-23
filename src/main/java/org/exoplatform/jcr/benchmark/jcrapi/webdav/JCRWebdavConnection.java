@@ -85,12 +85,12 @@ public class JCRWebdavConnection extends HTTPConnection
    
    public void addProperty(String nodeName, String property) throws IOException, ModuleException
    {
-      String xmlBody = "<?xml version='1.0' encoding='utf-8' ?>" +
-      "<D:propertyupdate xmlns:D='DAV:' xmlns:Z='http://www.w3.com/standards/z39.50/'>" +
+      String xmlBody =  "<?xml version='1.0' encoding='utf-8' ?>" +
+      "<D:propertyupdate xmlns:D='DAV:'>" +
          "<D:set>" +
             "<D:prop>" +
-               "<" + property + ">default value</" + property + ">" +
-            "</D:prop>" +
+            "<" + property + ">value</" + property + ">" +
+            "</D:prop>" +        
          "</D:set>" +
       "</D:propertyupdate>";
 
@@ -105,7 +105,7 @@ public class JCRWebdavConnection extends HTTPConnection
    public void setProperty(String nodeName, String property, String value) throws IOException, ModuleException
    {
       String xmlBody = "<?xml version='1.0' encoding='utf-8' ?>" +
-      "<D:propertyupdate xmlns:D='DAV:' xmlns:Z='http://www.w3.com/standards/z39.50/'>" +
+      "<D:propertyupdate xmlns:D='DAV:'>" +
          "<D:set>" +
             "<D:prop>" +
                "<" + property + ">" +value + "</" + property + ">" +
@@ -117,7 +117,9 @@ public class JCRWebdavConnection extends HTTPConnection
       headers[0] = new NVPair(HttpHeaders.CONTENT_TYPE, "text/xml; charset='utf-8'");
       headers[1] = new NVPair(HttpHeaders.CONTENT_LENGTH, Integer.toString(xmlBody.length()));
 
-      ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers).getStatusCode();
+      HTTPResponse response = ExtensionMethod("PROPPATCH", workspacePath + nodeName, xmlBody.getBytes(), headers);
+      response.getStatusCode();
+      
    }
    
    public void removeProperty(String nodeName, String property) throws IOException, ModuleException

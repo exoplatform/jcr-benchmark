@@ -28,7 +28,7 @@ import com.sun.japex.TestCase;
 public abstract class AbstractWebdavPropertyTest extends AbstractWebdavTest
 {
 
-   protected String property = "DAV:testProp";
+   protected String property = "D:testProp";
    
    /**
     * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
