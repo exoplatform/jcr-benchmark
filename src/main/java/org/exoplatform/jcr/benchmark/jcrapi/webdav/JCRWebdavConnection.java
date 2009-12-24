@@ -24,6 +24,7 @@ import org.exoplatform.common.http.client.NVPair;
 import org.exoplatform.services.rest.ExtHttpHeaders;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ws.rs.core.HttpHeaders;
 
@@ -194,9 +195,11 @@ public class JCRWebdavConnection extends HTTPConnection
       MkCol(workspacePath + path).getStatusCode();
    }
 
-   public void restore(String node, String version)
+   public void restore(String node, String version) throws IOException, ModuleException
    {
-
+      NVPair[] query = new NVPair[1];
+      query[0] = new NVPair("version", version);
+      Get(workspacePath + node, query).getStatusCode();
    }
 
 }
