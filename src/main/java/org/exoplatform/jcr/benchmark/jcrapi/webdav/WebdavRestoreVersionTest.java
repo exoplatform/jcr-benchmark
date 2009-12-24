@@ -18,8 +18,6 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
-import sun.rmi.runtime.NewThreadAction;
-
 import com.sun.japex.TestCase;
 
 /**
@@ -30,8 +28,6 @@ import com.sun.japex.TestCase;
 public class WebdavRestoreVersionTest extends AbstractWebdavTest
 {
 
-   private String version = "version-1";
-   
    /**
     * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#createContent(java.lang.String, com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
     */
