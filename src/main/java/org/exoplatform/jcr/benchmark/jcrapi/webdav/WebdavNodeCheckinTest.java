@@ -38,7 +38,6 @@ public class WebdavNodeCheckinTest
       String nodeName = parentNodeName + "/" + context.generateUniqueName(this.getClass().getName()); 
          
       item.addNode(nodeName, "".getBytes());
-      item.addNode(nodeName, "".getBytes());
       
       item.addVersionControl(nodeName);
       

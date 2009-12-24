@@ -32,7 +32,7 @@ public class WebdavUnLockNodeTest
    extends AbstractWebdavTest
 {
    
-   protected HashMap<String, String> lockTokenMap;
+   protected HashMap<String, String> lockTokenMap = new HashMap<String, String>();
 
    /**
     * {@inheritDoc}

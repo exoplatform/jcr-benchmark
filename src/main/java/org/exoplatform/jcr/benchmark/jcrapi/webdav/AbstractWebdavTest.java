@@ -65,12 +65,12 @@ public abstract class AbstractWebdavTest
       
       
       rootNodeName = context.generateUniqueName("rootNode");
-      item.addNode(rootNodeName, "".getBytes());
+      item.addDir(rootNodeName);
       
       for (int i = 0; i < runIterations; i++)
       {
          String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node");
-         item.addNode(parentNodeName, "".getBytes());
+         item.addDir(parentNodeName);
 
          createContent(parentNodeName, tc, context);
       }
