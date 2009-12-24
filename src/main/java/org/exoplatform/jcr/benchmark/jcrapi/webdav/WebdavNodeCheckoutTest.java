@@ -26,7 +26,7 @@ import com.sun.japex.TestCase;
  * @author <a href="mailto:alex.reshetnyak@exoplatform.com.ua">Alex Reshetnyak</a> 
  * @version $Id$
  */
-public class WebdavNodecheckoutTest
+public class WebdavNodeCheckoutTest
    extends AbstractWebdavTest
 {
    
