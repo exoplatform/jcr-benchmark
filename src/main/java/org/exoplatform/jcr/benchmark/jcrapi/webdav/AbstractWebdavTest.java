@@ -34,7 +34,7 @@ import org.exoplatform.jcr.benchmark.JCRTestContext;
 public abstract class AbstractWebdavTest
 {
 
-   protected JCRWebdavConnection item;
+   protected JCRWebdavConnectionEx item;
    
    protected String rootNodeName;
    
@@ -61,7 +61,7 @@ public abstract class AbstractWebdavTest
       }
       
       CookieModule.setCookiePolicyHandler(null);
-      item = new JCRWebdavConnection(context);
+      item = new JCRWebdavConnectionEx(context);
       
       
       rootNodeName = context.generateUniqueName("rootNode");
