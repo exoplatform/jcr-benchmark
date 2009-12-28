@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testSuite name="Calculating the average time of execution of the main JCR API methods" xmlns="http://www.sun.com/japex/testSuite">
+
+   <param name="japex.reportsDirectory" value="../reports" />
+   <param name="japex.plotGroupSize" value="5" />
+   <param name="japex.resultUnit" value="tps" />
+   <param name="japex.warmupIterations" value="0" />
+   <param name="japex.runIterations" value="5000" />
+   <!--param name="japex.runTime" value="03" /-->
+   <!-- 10 for 10 sec -->
+   <!-- 15:00 for 15min -->
+
+   <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
+      <param name="japex.classPath" value="../lib/*.jar" />
+      <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
+      <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
+      <param name="jcr.user" value="root" />
+      <param name="jcr.password" value="exo" />
+      <param name="jcr.workspace" value="collaboration" />
+      <param name="jcr.sessionPolicy" value="multiple" />
+      <param name="exo.jaasConf" value="login.conf" />
+      <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
+      <driver name="JCRdriver">
+         <param name="japex.numberOfThreads" value="50" />
+      </driver>
+   </driverGroup>
+
+   <testCase name="GetNodesInCacheTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.GetNodesInCacheTest" />
+      <param name="jcr.total.subnodes" value="100" />
+   </testCase>
+</testSuite>
