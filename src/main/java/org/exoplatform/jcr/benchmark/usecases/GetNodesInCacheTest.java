@@ -38,8 +38,8 @@ public class GetNodesInCacheTest extends JCRTestBase
          {
             if (!finished)
             {
-               cleanDB();
-               deleteDirectory(new File("../temp"));
+               //               cleanDB();
+               //               deleteDirectory(new File("../temp"));
                finished = true;
             }
          }
