@@ -5,6 +5,7 @@
 package org.exoplatform.jcr.benchmark.jcrapi.node.read;
 
 import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 
 import org.exoplatform.jcr.benchmark.JCRTestBase;
 import org.exoplatform.jcr.benchmark.JCRTestContext;
@@ -15,7 +16,7 @@ import com.sun.japex.TestCase;
  * Created by The eXo Platform SAS
  * 
  * @author <a href="mailto:peter.nedonosko@exoplatform.com.ua">Peter Nedonosko</a>
- * @version $Id: AbstractNodeTest.java 12446 2008-03-28 08:28:14Z pnedonosko $
+ * @version $Id$
  */
 
 public abstract class AbstractNodeTest
@@ -51,17 +52,32 @@ public abstract class AbstractNodeTest
       node.setProperty(propertyName = context.generateUniqueName("property"), "content");
       context.getSession().save();
 
-      for (int i = 0; i < 10; i++)
+      initChildNodes(context);
+
+      initChildProperties(context);
+      
+      root.save();
+   }
+   
+   protected void initChildNodes(JCRTestContext context) throws RepositoryException {
+      addChildNodes(context, 10);
+   }
+   
+   protected void initChildProperties(JCRTestContext context) throws RepositoryException {
+      addChildProperties(context, 10);
+   }
+   
+   protected void addChildNodes(JCRTestContext context, int amount) throws RepositoryException {
+      for (int i = 0; i < amount; i++)
       {
          node.addNode(context.generateUniqueName("node"));
       }
-
-      for (int i = 0; i < 10; i++)
+   }
+   
+   protected void addChildProperties(JCRTestContext context,int amount) throws RepositoryException {
+      for (int i = 0; i < amount; i++)
       {
          node.setProperty(context.generateUniqueName("property"), node);
       }
-
-      root.save();
    }
-
 }

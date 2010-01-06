@@ -14,8 +14,7 @@ import com.sun.japex.TestCase;
  * @author Vitaliy Obmanyuk
  */
 
-public class NodeGetNodesTest
-   extends AbstractNodeTest
+public class NodeGetNodesTest extends AbstractNodeTest
 {
 
    @Override

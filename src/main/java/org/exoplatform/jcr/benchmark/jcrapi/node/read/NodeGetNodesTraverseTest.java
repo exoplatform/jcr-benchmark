@@ -21,6 +21,7 @@ import com.sun.japex.TestCase;
 import org.exoplatform.jcr.benchmark.JCRTestContext;
 
 import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
 
 /**
  * Created by The eXo Platform SAS.
@@ -30,8 +31,14 @@ import javax.jcr.NodeIterator;
  * @author <a href="mailto:anatoliy.bazko@exoplatform.com.ua">Anatoliy Bazko</a> 
  * @version $Id$
  */
-public class NodeGetNodesAndTraversingTest extends AbstractGetNodesAndTraversingTest
+public class NodeGetNodesTraverseTest extends AbstractNodeTest
 {
+
+   @Override
+   protected void initChildNodes(JCRTestContext context) throws RepositoryException
+   {
+      addChildNodes(context, 100);
+   }
 
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
