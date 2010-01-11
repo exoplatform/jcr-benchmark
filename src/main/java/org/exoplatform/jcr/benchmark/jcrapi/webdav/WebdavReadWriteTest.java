@@ -16,13 +16,10 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.exoplatform.common.http.client.CookieModule;
 import org.exoplatform.common.http.client.HTTPResponse;
-import org.exoplatform.common.http.client.ModuleException;
 
 import com.sun.japex.TestCase;
 
@@ -41,8 +38,10 @@ public class WebdavReadWriteTest
    protected String rootNodeName;
 
    private List<String> nodesPath = new ArrayList<String>();
+   
+   private List<NodesWriter> nodesWriters = new ArrayList<NodesWriter>();
 
-   private class NodesWrited
+   private class NodesWriter
       extends Thread
    {
       private final String nodePath;
@@ -53,7 +52,7 @@ public class WebdavReadWriteTest
 
       private JCRWebdavConnectionEx connection;
 
-      public NodesWrited(String threadName, String nodePath, int writeDelay, JCRWebdavConnectionEx conn)
+      public NodesWriter(String threadName, String nodePath, int writeDelay, JCRWebdavConnectionEx conn)
       {
          super(threadName);
          this.nodePath = nodePath;
@@ -97,8 +96,10 @@ public class WebdavReadWriteTest
                response = connection.addNode(path, ("__the_data_in_nt+file__" + count).getBytes());
                
                if (response.getStatusCode() != 200)
-                  System.out.println("Can not get (response code " + response.getStatusCode() + " ) node with path : "
+                  System.out.println(this.getName() + " : Can not get (response code " + response.getStatusCode() + " ) node with path : "
                            + nodePath);
+               
+               System.out.println(this.getName() + " : Add node : " + path);
             }
             catch (Exception e)
             {
@@ -157,7 +158,16 @@ public class WebdavReadWriteTest
          }
       }
 
-      // repare to write
+      // prepare to threads writers 
+      for (int j = 0; j < writeThreadsCount; j++)
+      {
+         String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node_writers");
+         item.addDir(parentNodeName);
+         
+         NodesWriter writer = new NodesWriter("ThreadWriter#" + j, parentNodeName, delayWrite, new JCRWebdavConnectionEx(context));
+         writer.start();
+         nodesWriters.add(writer);
+      }
 
    }
 
@@ -201,6 +211,8 @@ public class WebdavReadWriteTest
       if (response.getStatusCode() != 200)
          System.out.println("Can not get (response code " + response.getStatusCode() + " ) node with path : "
                   + nodePath);
+      
+      System.out.println(Thread.currentThread().getName() + " : Add node : " + nodePath);
    }
 
 }
