@@ -31,19 +31,25 @@ import com.sun.japex.TestCase;
  * @author <a href="mailto:alex.reshetnyak@exoplatform.com.ua">Alex Reshetnyak</a> 
  * @version $Id$
  */
-public class WebdavReadWriteTest
+public class WebdavReadWriteTest extends AbstractWebdavTest
 {
-   protected JCRWebdavConnectionEx item;
+   protected int iterator = 0;
+   
+   protected JCRWebdavConnectionEx conn;
 
    protected String rootNodeName;
 
    private List<String> nodesPath = new ArrayList<String>();
    
    private List<NodesWriter> nodesWriters = new ArrayList<NodesWriter>();
+   
+   private static volatile boolean writersStarted = false;
 
    private class NodesWriter
       extends Thread
    {
+      protected boolean isRun = true;
+      
       private final String nodePath;
 
       private int count;
@@ -66,13 +72,16 @@ public class WebdavReadWriteTest
        */
       public void run()
       {
-         while (true)
+         String subNodePath = null;
+         
+         int folderCount = 0;
+         
+         while (isRun)
          {
-            String subNodePath = null;
 
             if (count == 100)
             {
-               String subFolder = this.getName() + "_" + System.currentTimeMillis();
+               String subFolder = "folder" + folderCount++;
                subNodePath = nodePath + "/" + subFolder;
 
                try
@@ -88,18 +97,18 @@ public class WebdavReadWriteTest
                }
             }
 
-            String path = subNodePath + "/" + "node" + count;
+            String path = subNodePath + "/" + "node" + count++;
             HTTPResponse response = null;
 
             try
             {
                response = connection.addNode(path, ("__the_data_in_nt+file__" + count).getBytes());
                
-               if (response.getStatusCode() != 200)
-                  System.out.println(this.getName() + " : Can not get (response code " + response.getStatusCode() + " ) node with path : "
+               if (response.getStatusCode() != 201)
+                  System.out.println(this.getName() + " : Can not add (response code " + response.getStatusCode() + " ) node with path : "
                            + nodePath);
                
-               System.out.println(this.getName() + " : Add node : " + path);
+//               System.out.println(this.getName() + " : Add node : " + path);
             }
             catch (Exception e)
             {
@@ -121,58 +130,71 @@ public class WebdavReadWriteTest
             }
          }
       }
+
+      public void isRun(boolean b)
+      {
+         isRun = b;
+      }
    }
 
    /**
-    * @param tc
-    * @param context
-    * @throws Exception
+    * {@inheritDoc}
     */
    public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
+      if (!tc.hasParam("nodesPoolSize"))
+         throw new RuntimeException("<nodesPoolSize> parameter required");
       int nodesPoolSizeToRead = tc.getIntParam("nodesPoolSize");
-
+      
+      if (!tc.hasParam("writeThreads"))
+         throw new RuntimeException("<writeThreads> parameter required");
       int writeThreadsCount = tc.getIntParam("writeThreads");
 
-      int delayWrite = tc.getIntParam("delayWriteInSeconds");
+      if (!tc.hasParam("delayWrite"))
+         throw new RuntimeException("<delayWrite> parameter required");
+      int delayWrite = tc.getIntParam("delayWrite");
 
-      item = new JCRWebdavConnectionEx(context);
+      conn = new JCRWebdavConnectionEx(context);
 
       rootNodeName = context.generateUniqueName("rootNode");
-      item.addDir(rootNodeName);
+      conn.addDir(rootNodeName);
 
       // prepare to read
-      int foldersCount = nodesPoolSizeToRead % 100;
+      int foldersCount = nodesPoolSizeToRead / 100;
       for (int i = 0; i < foldersCount; i++)
       {
          String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node");
-         item.addDir(parentNodeName);
+         conn.addDir(parentNodeName);
 
          int subFoldersCount = nodesPoolSizeToRead / foldersCount;
 
          for (int j = 0; j < subFoldersCount; j++)
          {
             String subFolder = parentNodeName + "/" + context.generateUniqueName("subNode");
-            item.addNode(subFolder, ("__the_data_in_nt+file__" + i + "_" + j).getBytes());
+            conn.addNode(subFolder, ("__the_data_in_nt+file__" + i + "_" + j).getBytes());
             nodesPath.add(subFolder);
          }
       }
 
-      // prepare to threads writers 
-      for (int j = 0; j < writeThreadsCount; j++)
-      {
-         String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node_writers");
-         item.addDir(parentNodeName);
+      if (!writersStarted) {
+         writersStarted = true;
          
-         NodesWriter writer = new NodesWriter("ThreadWriter#" + j, parentNodeName, delayWrite, new JCRWebdavConnectionEx(context));
-         writer.start();
-         nodesWriters.add(writer);
+         // prepare to threads writers 
+         for (int j = 0; j < writeThreadsCount; j++)
+         {
+            String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node_writers");
+            conn.addDir(parentNodeName);
+            
+            NodesWriter writer = new NodesWriter("ThreadWriter_" + j, parentNodeName, delayWrite, new JCRWebdavConnectionEx(context));
+            writer.start();
+            nodesWriters.add(writer);
+         }
       }
 
    }
 
    /**
-    * @param nodePath
+    * {@inheritDoc}
     */
    protected void addNode(String nodePath)
    {
@@ -180,39 +202,52 @@ public class WebdavReadWriteTest
    }
 
    /**
-    * @return
+    * {@inheritDoc}
     */
    protected String nextNodePath()
    {
-      return nodesPath.get((int) (Math.random() * Integer.MAX_VALUE) % nodesPath.size());
+      if (iterator > nodesPath.size() - 1)
+      {
+         iterator = 0;
+      }
+      
+      return nodesPath.get(iterator++);
    }
 
    /**
-    * @param tc
-    * @param context
-    * @throws Exception
+    * {@inheritDoc}
     */
    public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.removeNode(rootNodeName);
-      item.stop();
+      for (NodesWriter writer : nodesWriters) 
+      {
+         writer.isRun(false);  
+      }
+      
+      Thread.sleep(10000);
+      
+      conn.removeNode(rootNodeName);
+      conn.stop();
    }
 
    /**
-    * @param tc
-    * @param context
-    * @throws Exception
+    * {@inheritDoc}
     */
    public void doRun(final TestCase tc, WebdavTestContext context) throws Exception
    {
       String nodePath = nextNodePath();
-      HTTPResponse response = item.getNode(nodePath);
+      HTTPResponse response = conn.getNode(nodePath);
 
       if (response.getStatusCode() != 200)
          System.out.println("Can not get (response code " + response.getStatusCode() + " ) node with path : "
                   + nodePath);
       
-      System.out.println(Thread.currentThread().getName() + " : Add node : " + nodePath);
+//      System.out.println(Thread.currentThread().getName() + " : Get node : " + nodePath);
+   }
+
+   @Override
+   protected void createContent(String parentNodeName, TestCase tc, WebdavTestContext context) throws Exception
+   {
    }
 
 }

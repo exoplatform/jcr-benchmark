@@ -19,12 +19,9 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.jcr.Node;
+import org.exoplatform.common.http.client.CookieModule;
 
 import com.sun.japex.TestCase;
-
-import org.exoplatform.common.http.client.CookieModule;
-import org.exoplatform.jcr.benchmark.JCRTestContext;
 
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>

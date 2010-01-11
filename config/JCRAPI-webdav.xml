@@ -64,6 +64,13 @@
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavNodeCheckinTest" />
   </testCase>
   
+  <testCase name="WebdavReadWriteTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavReadWriteTest" />
+    <param name="nodesPoolSize" value="1000" />
+    <param name="writeThreads" value="1" />
+    <param name="delayWrite" value="10" />
+  </testCase>
+  
 
 
 </testSuite>
