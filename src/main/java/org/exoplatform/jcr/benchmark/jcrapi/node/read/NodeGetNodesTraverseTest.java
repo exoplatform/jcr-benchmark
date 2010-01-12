@@ -37,7 +37,7 @@ public class NodeGetNodesTraverseTest extends AbstractNodeTest
    @Override
    protected void initChildNodes(JCRTestContext context) throws RepositoryException
    {
-      addChildNodes(context, 100);
+      addChildNodes(context, 50000);
    }
 
    @Override

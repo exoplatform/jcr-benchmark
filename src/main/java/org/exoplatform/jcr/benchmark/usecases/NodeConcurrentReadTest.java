@@ -16,18 +16,23 @@
  */
 package org.exoplatform.jcr.benchmark.usecases;
 
-import com.sun.japex.TestCase;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.jcr.Credentials;
+import javax.jcr.LoginException;
+import javax.jcr.Node;
+import javax.jcr.Repository;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
 
 import org.exoplatform.jcr.benchmark.JCRTestBase;
 import org.exoplatform.jcr.benchmark.JCRTestContext;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
-import javax.jcr.Node;
-import javax.jcr.Session;
+import com.sun.japex.TestCase;
 
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
@@ -36,85 +41,169 @@ import javax.jcr.Session;
 public class NodeConcurrentReadTest extends JCRTestBase
 {
 
-   private Node testRoot = null;
+   private static String testRootPath = null;
 
-   private List<String> parentNames = Collections.synchronizedList(new ArrayList<String>());
+   private Repository repo;
 
+   private Credentials credentials;
+
+   private String workspace;
+
+   private static volatile int nodes = 0;
+
+   private static Map<Integer, String> nodeNames = new ConcurrentHashMap<Integer, String>();
+
+   private static volatile boolean writersActive = true;
+
+   private static List<Writer> writersList = new ArrayList<Writer>();
+
+   private static volatile long counter = 0;
+
+   private static volatile long threads = 0;
+   
    private JCRTestContext context = null;
 
-   private volatile int iterations = 0;
-
-   private int writers;
-
-   private volatile boolean threadsActive = true;
-
-   private int pause;
-
    /**
-    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doPrepare(com.sun.japex.TestCase,
-    *      org.exoplatform.jcr.benchmark.JCRTestContext)
+    * {@inheritDoc}
     */
    @Override
    public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
    {
       super.doPrepare(tc, context);
 
+      this.repo = context.getSession().getRepository();
+      this.workspace = context.getSession().getWorkspace().getName();
+      this.credentials = context.getCredentials();
       this.context = context;
 
-      iterations = tc.getIntParam("japex.runIterations");
-
-      if (tc.hasParam("exo.numberOfWriters"))
+      synchronized (writersList)
       {
-         writers = tc.getIntParam("exo.numberOfWriters");
-      }
-      if (tc.hasParam("exo.writerPause"))
-      {
-         pause = tc.getIntParam("exo.writerPause");
+         if (writersList.size() == 0)
+         {
+            System.out.println();
+            System.out.println("========= prepare test =========");
+             
+            // initial nodes
+            
+            Node testRoot = context.getSession().getRootNode().addNode("testRoot");
+            context.getSession().save();
+            testRootPath = testRoot.getPath();
+            
+            if (tc.hasParam("exo.numberOfNodes"))
+            {
+               nodes = tc.getIntParam("exo.numberOfNodes");
+            }
+            else
+            {
+               nodes = 100;
+            }
+            System.out.println("exo.numberOfNodes " + nodes);
+
+            for (int i = 0; i < nodes; i++)
+            {
+               String parentName = context.generateUniqueName("parent");
+               Node parent = testRoot.addNode(parentName);
+               parent.setProperty("testProp", "testVal");
+               context.getSession().save();
+               nodeNames.put(i, parentName);
+            }
+      
+            // writers
+            int writers;
+            if (tc.hasParam("exo.numberOfWriters"))
+            {
+               writers = tc.getIntParam("exo.numberOfWriters");
+            }
+            else
+            {
+               writers = 1;
+            }
+
+            long pause;
+            if (tc.hasParam("exo.writerPause"))
+            {
+               pause = tc.getIntParam("exo.writerPause");
+            }
+            else
+            {
+               pause = 50;
+            }
+            
+            System.out.println("exo.numberOfWriters " + writers);
+            System.out.println("exo.writerPause " + pause);
+            
+            for (int i = 0; i < writers; i++)
+            {
+               Writer w = new Writer(pause);
+               writersList.add(w);
+               w.start();
+            }
+            
+            System.out.println("===================================");
+         }
       }
 
-      testRoot = context.getSession().getRootNode().addNode("testRoot");
-
-      for (int i = 0; i < iterations; i++)
-      {
-         String parentName = context.generateUniqueName("parent");
-         Node parent = testRoot.addNode(parentName);
-         parent.setProperty("testProp", "testVal");
-         context.getSession().save();
-         parentNames.add(parentName);
-      }
-
-      for (int i = 0; i < writers; i++)
-      {
-         new Writer().start();
-      }
-
+      threads++;
    }
 
    /**
-    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doRun(com.sun.japex.TestCase,
-    *      org.exoplatform.jcr.benchmark.JCRTestContext)
+    * {@inheritDoc}
     */
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
    {
-      readProp();
+      Session session = context.getSession();
+
+      //System.out.println((counter++) + ": " + Thread.currentThread() + ", session " + session);
+
+      // read
+      Node readNode = ((Node)session.getItem(testRootPath)).getNode(nodeNames.get(new Random().nextInt(nodes)));
+      readNode.getProperty("testProp").getValue().getString();
    }
 
    /**
-    * @see org.exoplatform.jcr.benchmark.JCRTestBase#doFinish(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.JCRTestContext)
+    * {@inheritDoc}
     */
    @Override
    public void doFinish(TestCase tc, JCRTestContext context) throws Exception
    {
+      writersActive = false;
+      synchronized (writersList)
+      {
+         if (writersList.size() > 0)
+         {
+            String msg = "Ran readers " + threads + " writers " + writersList.size();
+            System.out.print("Finishing... ");
+            System.out.print("stopping writers... ");
+            for (Writer w : writersList)
+            {
+               w.join(1000);
+            }
+            writersList.clear();
+            
+            System.out.println("done.");
+            System.out.println(msg);
+         }
+      }
+      
       super.doFinish(tc, context);
-      threadsActive = false;
    }
 
    private class Writer extends Thread
    {
 
+      private final Session session;
+      
+      private final long pause;
+
+      Writer(long pause) throws LoginException, RepositoryException
+      {
+         this.session = repo.login(credentials, workspace);
+         this.pause = pause;
+      }
+
       /**
-       * @see java.lang.Thread#run()
+       * {@inheritDoc}
        */
       @Override
       public void run()
@@ -122,30 +211,35 @@ public class NodeConcurrentReadTest extends JCRTestBase
          super.run();
          try
          {
-            while (threadsActive)
+            Node root = ((Node)session.getItem(testRootPath));
+
+            while (writersActive)
             {
-               Session session = context.getSession();
-               Node root = session.getNodeByUUID("testRoot");
                String name = context.generateUniqueName(this.getName());
                Node writeNode = root.addNode(name);
                writeNode.setProperty("testProp", this.getName());
-               parentNames.add(name);
-               context.getSession().save();
-               iterations++;
-               wait(pause);
+               session.save();
+
+               nodeNames.put(nodeNames.size(), name);
+
+               if (pause > 0)
+               {
+                  Thread.sleep(this.pause);
+               }
+
+               Thread.yield();
+
+               nodes++;
             }
          }
          catch (Exception e)
          {
-            log.error(e.getMessage(), e);
+            log.error("Writer stopped: " + e.getMessage(), e);
+         }
+         finally
+         {
+            session.logout();
          }
       }
    }
-
-   private void readProp() throws Exception
-   {
-      Node readNode = testRoot.getNode(parentNames.get(new Random().nextInt(iterations)));
-      readNode.getProperty("testProp").getValue().getString();
-   }
-
 }
