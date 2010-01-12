@@ -19,7 +19,7 @@
     <param name="jcr.workspace" value="collaboration" />
     <param name="jcr.sessionPolicy" value="multiple" />
     <param name="exo.jaasConf" value="login.conf" />
-    <param name="exo.containerConf" value="../config/test-configuration-benchmark.pgsql.xml" />
+    <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
     <driver name="JCRdriver">
       <param name="japex.numberOfThreads" value="90" />
     </driver>
