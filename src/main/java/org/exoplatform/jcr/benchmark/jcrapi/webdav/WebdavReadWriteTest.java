@@ -39,7 +39,7 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
 
    protected String rootNodeName;
 
-   private List<String> nodesPath = new ArrayList<String>();
+   private static List<String> nodesPath = new ArrayList<String>();
    
    private List<NodesWriter> nodesWriters = new ArrayList<NodesWriter>();
    
@@ -153,31 +153,31 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
       if (!tc.hasParam("delayWrite"))
          throw new RuntimeException("<delayWrite> parameter required");
       int delayWrite = tc.getIntParam("delayWrite");
-
+      
       conn = new JCRWebdavConnectionEx(context);
-
-      rootNodeName = context.generateUniqueName("rootNode");
-      conn.addDir(rootNodeName);
-
-      // prepare to read
-      int foldersCount = nodesPoolSizeToRead / 100;
-      for (int i = 0; i < foldersCount; i++)
-      {
-         String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node");
-         conn.addDir(parentNodeName);
-
-         int subFoldersCount = nodesPoolSizeToRead / foldersCount;
-
-         for (int j = 0; j < subFoldersCount; j++)
-         {
-            String subFolder = parentNodeName + "/" + context.generateUniqueName("subNode");
-            conn.addNode(subFolder, ("__the_data_in_nt+file__" + i + "_" + j).getBytes());
-            nodesPath.add(subFolder);
-         }
-      }
-
+      
       if (!writersStarted) {
          writersStarted = true;
+   
+         rootNodeName = context.generateUniqueName("rootNode");
+         conn.addDir(rootNodeName);
+   
+         // prepare to read
+         int foldersCount = nodesPoolSizeToRead / 100;
+         for (int i = 0; i < foldersCount; i++)
+         {
+            String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node");
+            conn.addDir(parentNodeName);
+   
+            int subFoldersCount = nodesPoolSizeToRead / foldersCount;
+   
+            for (int j = 0; j < subFoldersCount; j++)
+            {
+               String subFolder = parentNodeName + "/" + context.generateUniqueName("subNode");
+               conn.addNode(subFolder, ("__the_data_in_nt+file__" + i + "_" + j).getBytes());
+               nodesPath.add(subFolder);
+            }
+         }
          
          // prepare to threads writers 
          for (int j = 0; j < writeThreadsCount; j++)
