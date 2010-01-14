@@ -103,6 +103,17 @@
 
 
   <component>
+     <key>org.jboss.cache.transaction.TransactionManagerLookup</key>
+     <type>org.jboss.cache.transaction.JBossStandaloneJTAManagerLookup</type>
+  </component>
+   
+  <component>
+    <key>org.exoplatform.services.transaction.TransactionService</key>
+    <type>org.exoplatform.services.transaction.jbosscache.ArjunaTransactionService</type>
+  </component>
+
+
+  <!--component>
     <key>org.exoplatform.services.transaction.TransactionService</key>
     <type>org.exoplatform.services.transaction.impl.jotm.TransactionServiceJotmImpl</type>
     <init-params>
@@ -111,7 +122,7 @@
         <value>5</value>
       </value-param>
     </init-params>
-  </component>
+  </component-->
 
   <component>
     <type>org.exoplatform.services.jcr.ext.registry.RegistryService</type>
