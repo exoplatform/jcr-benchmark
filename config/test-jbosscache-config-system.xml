@@ -89,7 +89,7 @@
          <property name="maxNodes" value="50000" />
          <property name="timeToLive" value="900000" />
       </default>
-      <region name="/" algorithmClass="org.jboss.cache.eviction.LRUAlgorithm" actionPolicyClass="org.exoplatform.services.jcr.impl.dataflow.persistent.jbosscache.ChildListEvictionActionPolicy" eventQueueSize="1000000">
+      <region name="/" algorithmClass="org.jboss.cache.eviction.LRUAlgorithm" eventQueueSize="1000000">
          <property name="maxNodes" value="50000" />
          <property name="timeToLive" value="900000" />
       </region>
