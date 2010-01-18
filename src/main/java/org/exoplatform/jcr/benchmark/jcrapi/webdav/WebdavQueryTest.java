@@ -30,8 +30,10 @@ public class WebdavQueryTest extends AbstractWebdavTest
 
    private boolean searcheable = true;
    
-   private String searcheableContent = "content for search";
-   private String fakeContent = "fake content";
+   private String searcheableContent = "Create test what will be run over WebDav what will be use full text search." +
+   		"For example add n-different content string to the different nodes with length more then 100. ";
+   private String fakeContent = "Collections: The ability to create sets of documents and to retrieve" +
+   		"a hierarchical membership listing (like a directory listing in a file system).";
    
    private String query = "select * from nt:base where contains(*, '" + searcheableContent + "')";
    
