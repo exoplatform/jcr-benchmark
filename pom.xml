@@ -36,6 +36,18 @@
          <version>${org.exoplatform.jcr.version}</version>
          <scope>compile</scope>
       </dependency>
+      <!-- dependency>
+         <groupId>org.exoplatform.ws</groupId>
+         <artifactId>exo.ws.commons</artifactId>
+         <version>${org.exoplatform.ws.version}</version>
+         <scope>compile</scope>
+      </dependency -->      
+      <dependency>
+         <groupId>org.exoplatform.jcr</groupId>
+         <artifactId>exo.jcr.component.cluster.test.client</artifactId>
+	 <version>${org.exoplatform.jcr.version}</version>
+         <scope>compile</scope>
+      </dependency>
       <dependency>
          <groupId>com.sun.japex</groupId>
          <artifactId>japex</artifactId>
@@ -128,7 +140,8 @@
                <include>**/login.conf</include>
             </includes>
          </resource>
-      </resources>      
+      </resources>
+      
       <plugins>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -182,7 +195,8 @@
             <activeByDefault>true</activeByDefault>
          </activation>
          <properties>
-            <org.exoplatform.jcr.version>1.12.0-Beta03-SNAPSHOT</org.exoplatform.jcr.version>
+            <org.exoplatform.jcr.version>1.12.0-Beta06-SNAPSHOT</org.exoplatform.jcr.version>
+            <org.exoplatform.ws.version>2.1.0-Beta04</org.exoplatform.ws.version>
          </properties>
       </profile>
    </profiles>

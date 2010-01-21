@@ -103,6 +103,22 @@
 
 
   <component>
+     <key>org.jboss.cache.transaction.TransactionManagerLookup</key>
+     <type>org.jboss.cache.transaction.JBossStandaloneJTAManagerLookup</type>
+  </component>
+   
+  <component>
+    <key>org.exoplatform.services.transaction.TransactionService</key>
+    <type>org.exoplatform.services.transaction.jbosscache.ArjunaTransactionService</type>
+    <init-params>
+      <value-param>
+        <name>timeout</name>
+        <value>300</value>
+      </value-param>
+    </init-params>   
+  </component>
+
+  <!--component>
     <key>org.exoplatform.services.transaction.TransactionService</key>
     <type>org.exoplatform.services.transaction.impl.jotm.TransactionServiceJotmImpl</type>
     <init-params>
@@ -111,7 +127,7 @@
         <value>5</value>
       </value-param>
     </init-params>
-  </component>
+  </component-->
 
   <component>
     <type>org.exoplatform.services.jcr.ext.registry.RegistryService</type>
@@ -673,22 +689,22 @@
           <property name="password" value="" />
 
           <!-- MySQL-->
-          <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+          <!-- property name="driverClassName" value="com.mysql.jdbc.Driver" />
           <property name="url" value="jdbc:mysql://localhost/portal" />
           <property name="username" value="root" />
           <property name="password" value="admin" />
           <property name="maxActive" value="100" />
           <property name="maxIdle" value="5" />
-          <property name="initialSize" value="5" />-->
+          <property name="initialSize" value="5" /-->
 
           <!-- ORACLE-->
-          <!--<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+          <!-- property name="driverClassName" value="oracle.jdbc.OracleDriver" />
           <property name="url" value="jdbc:oracle:thin:@tornado.exoua-int:1523:orcl" />
           <property name="username" value="exoperf" />
           <property name="password" value="exo12321" />
           <property name="maxActive" value="50" />
           <property name="maxIdle" value="2" />
-          <property name="initialSize" value="2" />-->
+          <property name="initialSize" value="2" /-->
 
           <!-- POSTGRESQL-->
           <!--property name="driverClassName" value="org.postgresql.Driver" />

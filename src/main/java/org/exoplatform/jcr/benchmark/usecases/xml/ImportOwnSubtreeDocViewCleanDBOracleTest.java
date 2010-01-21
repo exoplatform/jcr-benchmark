@@ -16,6 +16,17 @@
  */
 package org.exoplatform.jcr.benchmark.usecases.xml;
 
+import com.sun.japex.TestCase;
+
+import org.exoplatform.jcr.benchmark.JCRTestBase;
+import org.exoplatform.jcr.benchmark.JCRTestContext;
+import org.exoplatform.services.jcr.impl.core.SessionImpl;
+import org.exoplatform.services.jcr.impl.storage.jdbc.JDBCStorageConnection;
+import org.exoplatform.services.jcr.impl.storage.jdbc.JDBCWorkspaceDataContainer;
+import org.exoplatform.services.jcr.storage.WorkspaceStorageConnection;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,26 +40,13 @@ import java.util.List;
 import javax.jcr.ImportUUIDBehavior;
 import javax.jcr.Node;
 
-import org.exoplatform.services.log.Log;
-
-import org.exoplatform.jcr.benchmark.JCRTestBase;
-import org.exoplatform.jcr.benchmark.JCRTestContext;
-import org.exoplatform.services.jcr.impl.core.SessionImpl;
-import org.exoplatform.services.jcr.impl.storage.jdbc.JDBCStorageConnection;
-import org.exoplatform.services.jcr.impl.storage.jdbc.JDBCWorkspaceDataContainer;
-import org.exoplatform.services.jcr.storage.WorkspaceStorageConnection;
-import org.exoplatform.services.log.ExoLogger;
-
-import com.sun.japex.TestCase;
-
 /**
  * Created by The eXo Platform SAS
  * 
  * @author Vitaliy Obmanyuk
  */
 
-public class ImportOwnSubtreeDocViewCleanDBOracleTest
-   extends JCRTestBase
+public class ImportOwnSubtreeDocViewCleanDBOracleTest extends JCRTestBase
 {
    /*
     * This test measures performance of exporting mechanism using docview method, each thread has own
@@ -99,7 +97,7 @@ public class ImportOwnSubtreeDocViewCleanDBOracleTest
    public void doFinish(TestCase tc, JCRTestContext context) throws Exception
    {
       // rootNode.remove(); context.getSession().save();
-      cleanDB(context);
+      //cleanDB(context);
    }
 
    private synchronized void cleanDB(JCRTestContext context)
@@ -116,8 +114,8 @@ public class ImportOwnSubtreeDocViewCleanDBOracleTest
 
             JDBCStorageConnection storageConnection;
             JDBCWorkspaceDataContainer workspaceDataContainer =
-                     (JDBCWorkspaceDataContainer) ((SessionImpl) context.getSession()).getContainer()
-                              .getComponentInstanceOfType(JDBCWorkspaceDataContainer.class);
+               (JDBCWorkspaceDataContainer)((SessionImpl)context.getSession()).getContainer()
+                  .getComponentInstanceOfType(JDBCWorkspaceDataContainer.class);
             if (workspaceStorageConnection == null)
             {
                workspaceStorageConnection = workspaceDataContainer.openConnection();
@@ -126,7 +124,7 @@ public class ImportOwnSubtreeDocViewCleanDBOracleTest
             {
                workspaceStorageConnection = workspaceDataContainer.reuseConnection(workspaceStorageConnection);
             }
-            storageConnection = (JDBCStorageConnection) workspaceStorageConnection;
+            storageConnection = (JDBCStorageConnection)workspaceStorageConnection;
             dbConnection = storageConnection.getJdbcConnection();
             // =============ORACLE=============
             List<String> oracleQueryList = new ArrayList<String>();
