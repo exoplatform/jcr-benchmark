@@ -43,13 +43,11 @@
               <property name="changesfilter-config-path" value="../config/test-jbosscache-indexer-system.xml" />
             </properties>
           </query-handler>
-          <lock-manager>
-            <time-out>30m</time-out>
-            <persister class="org.exoplatform.services.jcr.impl.core.lock.FileSystemLockPersister">
-              <properties>
-                <property name="path" value="../temp/lock" />
-              </properties>
-            </persister>
+          <lock-manager class="org.exoplatform.services.jcr.impl.core.lock.jbosscache.CacheableLockManager">
+            <properties>
+              <property name="time-out" value="15m" />
+              <property name="jbosscache-configuration" value="conf/cluster/test-jbosscache-lock-config_system.xml" />
+            </properties>
           </lock-manager>
         </workspace>
         <workspace name="collaboration">
@@ -90,13 +88,11 @@
               <property name="changesfilter-config-path" value="../config/test-jbosscache-indexer-config-collaboration.xml" />              
             </properties>
           </query-handler>
-          <lock-manager>
-            <time-out>30m</time-out>
-            <persister class="org.exoplatform.services.jcr.impl.core.lock.FileSystemLockPersister">
-              <properties>
-                <property name="path" value="../temp/lock" />
-              </properties>
-            </persister>
+          <lock-manager class="org.exoplatform.services.jcr.impl.core.lock.jbosscache.CacheableLockManager">
+            <properties>
+              <property name="time-out" value="15m" />
+              <property name="jbosscache-configuration" value="conf/cluster/test-jbosscache-lock-config_collaboration.xml" />
+            </properties>
           </lock-manager>
         </workspace>
       </workspaces>
