@@ -44,9 +44,9 @@
 				cache.jdbc.table.drop=false
 				cache.jdbc.table.primarykey=jcrlocks_collaboration_pk
 				cache.jdbc.fqn.column=fqn
-				cache.jdbc.fqn.type=VARCHAR2(512)
+				cache.jdbc.fqn.type=VARCHAR(512)
 				cache.jdbc.node.column=node
-				cache.jdbc.node.type=BLOB
+				cache.jdbc.node.type=LONGBLOB
 				cache.jdbc.parent.column=parent
 				cache.jdbc.datasource=jdbcexo
           </properties>
