@@ -195,8 +195,8 @@
             <activeByDefault>true</activeByDefault>
          </activation>
          <properties>
-            <org.exoplatform.jcr.version>1.12.0-Beta06-SNAPSHOT</org.exoplatform.jcr.version>
-            <org.exoplatform.ws.version>2.1.0-Beta04</org.exoplatform.ws.version>
+            <org.exoplatform.jcr.version>1.12.0-CR1-SNAPSHOT</org.exoplatform.jcr.version>
+            <org.exoplatform.ws.version>2.1.0-CR1-SNAPSHOT</org.exoplatform.ws.version>
          </properties>
       </profile>
    </profiles>
