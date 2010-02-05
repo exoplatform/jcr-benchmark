@@ -196,7 +196,7 @@
          </activation>
          <properties>
             <org.exoplatform.jcr.version>1.12.0-GA-SNAPSHOT</org.exoplatform.jcr.version>
-            <org.exoplatform.ws.version>2.1.0-CR1</org.exoplatform.ws.version>
+            <org.exoplatform.ws.version>2.1.0-GA-SNAPSHOT</org.exoplatform.ws.version>
          </properties>
       </profile>
    </profiles>
