@@ -67,9 +67,7 @@
               <property name="jbosscache-cl-cache.jdbc.table.drop" value="false"/>
               <property name="jbosscache-cl-cache.jdbc.table.primarykey" value="jcrlocks_system_pk"/>
               <property name="jbosscache-cl-cache.jdbc.fqn.column" value="fqn"/>
-              <property name="jbosscache-cl-cache.jdbc.fqn.type" value="VARCHAR(512)"/>
               <property name="jbosscache-cl-cache.jdbc.node.column" value="node"/>
-              <property name="jbosscache-cl-cache.jdbc.node.type" value="LONGVARBINARY"/>
               <property name="jbosscache-cl-cache.jdbc.parent.column" value="parent"/>
               <property name="jbosscache-cl-cache.jdbc.datasource" value="jdbcexo"/>
               
@@ -139,9 +137,7 @@
               <property name="jbosscache-cl-cache.jdbc.table.drop" value="false"/>
               <property name="jbosscache-cl-cache.jdbc.table.primarykey" value="jcrlocks_collab_pk"/>
               <property name="jbosscache-cl-cache.jdbc.fqn.column" value="fqn"/>
-              <property name="jbosscache-cl-cache.jdbc.fqn.type" value="VARCHAR(512)"/>
               <property name="jbosscache-cl-cache.jdbc.node.column" value="node"/>
-              <property name="jbosscache-cl-cache.jdbc.node.type" value="LONGVARBINARY"/>
               <property name="jbosscache-cl-cache.jdbc.parent.column" value="parent"/>
               <property name="jbosscache-cl-cache.jdbc.datasource" value="jdbcexo"/>
 
