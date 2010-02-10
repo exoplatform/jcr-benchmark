@@ -6,7 +6,7 @@
       <authentication-policy>org.exoplatform.services.jcr.impl.core.access.JAASAuthenticator</authentication-policy>
       <workspaces>
         <workspace name="system" auto-init-permissions="">
-          <container class="org.exoplatform.services.jcr.impl.storage.jdbc.JDBCWorkspaceDataContainer">
+          <container class="org.exoplatform.services.jcr.impl.storage.jdbc.optimisation.CQJDBCWorkspaceDataContainer">
             <properties>
               <property name="source-name" value="jdbcexo" />
               <property name="multi-db" value="false" />
@@ -77,7 +77,7 @@
           </lock-manager>
         </workspace>
         <workspace name="collaboration">
-          <container class="org.exoplatform.services.jcr.impl.storage.jdbc.JDBCWorkspaceDataContainer">
+          <container class="org.exoplatform.services.jcr.impl.storage.jdbc.optimisation.CQJDBCWorkspaceDataContainer">
             <properties>
               <property name="source-name" value="jdbcexo" />
               <property name="multi-db" value="false" />
