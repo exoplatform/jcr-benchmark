@@ -687,14 +687,17 @@
           <property name="url" value="jdbc:hsqldb:file:../temp/data/portal" />
           <property name="username" value="sa" />
           <property name="password" value="" />
+          <property name="maxActive" value="600" />
+          <property name="maxIdle" value="50" />
+          <property name="initialSize" value="5" />
 
           <!-- MySQL-->
           <!-- property name="driverClassName" value="com.mysql.jdbc.Driver" />
           <property name="url" value="jdbc:mysql://localhost/portal" />
           <property name="username" value="root" />
           <property name="password" value="admin" />
-          <property name="maxActive" value="100" />
-          <property name="maxIdle" value="5" />
+          <property name="maxActive" value="600" />
+          <property name="maxIdle" value="50" />
           <property name="initialSize" value="5" /-->
 
           <!-- ORACLE-->
@@ -702,17 +705,17 @@
           <property name="url" value="jdbc:oracle:thin:@tornado.exoua-int:1523:orcl" />
           <property name="username" value="exoperf" />
           <property name="password" value="exo12321" />
-          <property name="maxActive" value="50" />
-          <property name="maxIdle" value="2" />
-          <property name="initialSize" value="2" /-->
+          <property name="maxActive" value="600" />
+          <property name="maxIdle" value="50" />
+          <property name="initialSize" value="5" /-->
 
           <!-- POSTGRESQL-->
           <!--property name="driverClassName" value="org.postgresql.Driver" />
           <property name="url" value="jdbc:postgresql://localhost/portal" />
           <property name="username" value="postgres" />
           <property name="password" value="admin" />
-          <property name="maxActive" value="100" />
-          <property name="maxIdle" value="5" />
+          <property name="maxActive" value="600" />
+          <property name="maxIdle" value="50" />
           <property name="initialSize" value="5" /-->
 
         </properties-param>
