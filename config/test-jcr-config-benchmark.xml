@@ -55,7 +55,7 @@
           </query-handler>
           <lock-manager class="org.exoplatform.services.jcr.impl.core.lock.jbosscache.CacheableLockManagerImpl">
             <properties>
-              <property name="time-out" value="15m" />
+              <property name="time-out" value="25m" />
               
               <!-- This block should be adopted for each DB, till not implemented programmatically -->
               <property name="jbosscache-configuration" value="../config/test-jbosscache-lock.xml" />
@@ -125,7 +125,7 @@
           </query-handler>
           <lock-manager class="org.exoplatform.services.jcr.impl.core.lock.jbosscache.CacheableLockManagerImpl">
             <properties>
-              <property name="time-out" value="15m" />
+              <property name="time-out" value="25m" />
               
               <!-- This block should be adopted for each DB, till not implemented programmatically -->
               <property name="jbosscache-configuration" value="../config/test-jbosscache-lock.xml" />
