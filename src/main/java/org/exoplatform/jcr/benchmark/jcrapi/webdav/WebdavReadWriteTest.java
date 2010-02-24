@@ -20,6 +20,11 @@ import com.sun.japex.TestCase;
 
 import org.exoplatform.common.http.client.HTTPResponse;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,19 +38,25 @@ import java.util.List;
  */
 public class WebdavReadWriteTest extends AbstractWebdavTest
 {
-   protected int iterator = 0;
-
-   protected String rootNodeName;
-
    private static List<String> nodesPath = new ArrayList<String>();
-
-   private List<NodesWriter> nodesWriters = new ArrayList<NodesWriter>();
 
    private static volatile boolean writersStarted = false;
 
+   private static PrintWriter reportFile;
+
+   private static boolean gatherReport;
+
+   private static byte[] writeData;
+
+   protected int iterator = 0;
+
+   private static List<NodesWriter> nodesWriters = new ArrayList<NodesWriter>();
+
+   private StringBuilder report = new StringBuilder();
+
    private class NodesWriter extends Thread
    {
-      protected boolean isRun = true;
+      protected volatile boolean run = true;
 
       private final String nodePath;
 
@@ -53,9 +64,9 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
 
       private final int writeDelay;
 
-      //private JCRWebdavConnectionEx connection;
-
       private final WebdavTestContext context;
+
+      private StringBuilder report = new StringBuilder();
 
       public NodesWriter(String threadName, String nodePath, int writeDelay, WebdavTestContext context)
       {
@@ -64,7 +75,6 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
          this.context = context;
          this.count = 100;
          this.writeDelay = writeDelay;
-
       }
 
       /**
@@ -73,15 +83,16 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
       public void run()
       {
          String subNodePath = null;
-
          int folderCount = 0;
 
-         while (isRun)
+         while (run)
          {
+            long start = System.currentTimeMillis();
+            long dataSize = 0;
+            String path = "";
             JCRWebdavConnectionEx connection = new JCRWebdavConnectionEx(context);
             try
             {
-               long time = System.currentTimeMillis();
                if (count == 100)
                {
                   String subFolder = "folder" + folderCount++;
@@ -99,19 +110,22 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
                      continue;
                   }
                }
-               String path = subNodePath + "/" + "node" + count++;
+
+               path = subNodePath + "/" + "node" + count++;
                HTTPResponse response = null;
                try
                {
-                  response = connection.addNode(path, ("__the_data_in_nt+file__" + count).getBytes());
+                  response = connection.addNode(path, writeData);
 
                   if (response.getStatusCode() != 201)
                   {
                      System.out.println(this.getName() + " : Can not add (response code " + response.getStatusCode()
                         + new String(response.getData()) + " ) node with path : " + nodePath);
                   }
-
-                  //               System.out.println(this.getName() + " : Add node : " + path);
+                  else
+                  {
+                     dataSize += writeData.length;
+                  }
                }
                catch (Exception e)
                {
@@ -119,28 +133,51 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
                   e.printStackTrace();
                   continue;
                }
-               if (writeDelay > 0)
-               {
-                  try
-                  {
-                     Thread.sleep(writeDelay);
-                  }
-                  catch (InterruptedException e)
-                  {
-                     e.printStackTrace();
-                  }
-               }
             }
             finally
             {
                connection.stop();
             }
+
+            // report
+            if (gatherReport)
+            {
+               report.append(System.currentTimeMillis());
+               report.append(":");
+               report.append(this.getName());
+               report.append(":Add:");
+               report.append(path);
+               report.append(":");
+               report.append(dataSize);
+               report.append(":");
+               report.append((System.currentTimeMillis() - start));
+               report.append('\r');
+               report.append('\n');
+            }
+
+            // delay if configured
+            if (writeDelay > 0)
+            {
+               try
+               {
+                  Thread.sleep(writeDelay);
+               }
+               catch (InterruptedException e)
+               {
+                  e.printStackTrace();
+               }
+            }
          }
       }
 
-      public void isRun(boolean b)
+      public void setRun(boolean b)
       {
-         isRun = b;
+         run = b;
+      }
+
+      public String getReport()
+      {
+         return report.toString();
       }
    }
 
@@ -167,22 +204,35 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
       }
       int delayWrite = tc.getIntParam("delayWrite");
 
-      JCRWebdavConnectionEx conn = new JCRWebdavConnectionEx(context);
+      if (tc.hasParam("gatherReport"))
+      {
+         gatherReport = tc.getBooleanParam("gatherReport");
+      }
+      else
+      {
+         gatherReport = false;
+      }
 
+      JCRWebdavConnectionEx conn = new JCRWebdavConnectionEx(context);
       try
       {
          if (!writersStarted)
          {
+            long time = System.currentTimeMillis();
             writersStarted = true;
 
-            rootNodeName = context.generateUniqueName("rootNode");
-            conn.addDir(rootNodeName);
+            String rootName = context.generateUniqueName("rootNode");
+            conn.addDir(rootName);
+
+            // prepare data for a read
+            byte[] readData = readData(WebdavReadWriteTest.class.getResourceAsStream("/test-data/average-image.gif"));
 
             // prepare to read
             int foldersCount = nodesPoolSizeToRead / 100;
+            foldersCount = foldersCount > 0 ? foldersCount : 1;
             for (int i = 0; i < foldersCount; i++)
             {
-               String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node");
+               String parentNodeName = rootName + "/" + context.generateUniqueName("node");
                conn.addDir(parentNodeName);
 
                int subFoldersCount = nodesPoolSizeToRead / foldersCount;
@@ -190,28 +240,32 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
                for (int j = 0; j < subFoldersCount; j++)
                {
                   String subFolder = parentNodeName + "/" + context.generateUniqueName("subNode");
-                  conn.addNode(subFolder, ("__the_data_in_nt+file__" + i + "_" + j).getBytes());
+                  conn.addNode(subFolder, readData);
                   nodesPath.add(subFolder);
                }
             }
 
+            // prepare data for write
+            writeData = readData(WebdavReadWriteTest.class.getResourceAsStream("/test-data/average-web-page.html"));
+
             // prepare to threads writers 
             for (int j = 0; j < writeThreadsCount; j++)
             {
-               String parentNodeName = rootNodeName + "/" + context.generateUniqueName("node_writers");
+               String parentNodeName = rootName + "/" + context.generateUniqueName("node_writers");
                conn.addDir(parentNodeName);
 
                NodesWriter writer = new NodesWriter("ThreadWriter_" + j, parentNodeName, delayWrite, context);
                writer.start();
                nodesWriters.add(writer);
             }
+
+            System.out.println(Thread.currentThread() + " : Prepare done in " + (System.currentTimeMillis() - time));
          }
       }
       finally
       {
          conn.stop();
       }
-
    }
 
    /**
@@ -240,15 +294,34 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
     */
    public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
    {
-      for (NodesWriter writer : nodesWriters)
+      // only one thread will stop and report writers
+      synchronized (nodesWriters)
       {
-         writer.isRun(false);
+         if (gatherReport && reportFile == null)
+         {
+            File reportsDir = new File("report");
+            reportsDir.mkdirs();
+            reportFile = new PrintWriter(new File(reportsDir, "report.txt"));
+         }
+
+         for (NodesWriter writer : nodesWriters)
+         {
+            writer.setRun(false);
+            writer.join();
+
+            if (gatherReport)
+            {
+               reportFile.append(writer.getReport());
+            }
+         }
+         nodesWriters.clear();
+
+         if (gatherReport)
+         {
+            reportFile.append(report.toString());
+            reportFile.flush();
+         }
       }
-
-      Thread.sleep(10000);
-
-      //conn.removeNode(rootNodeName);
-      // conn.stop();
    }
 
    /**
@@ -257,21 +330,49 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
    public void doRun(final TestCase tc, WebdavTestContext context) throws Exception
    {
       String nodePath = nextNodePath();
+      long start = System.currentTimeMillis();
       JCRWebdavConnectionEx conn = new JCRWebdavConnectionEx(context);
+      long packetSize = -1;
       try
       {
+         // request
          HTTPResponse response = conn.getNode(nodePath);
          if (response.getStatusCode() != 200)
          {
             System.out.println("Can not get (response code " + response.getStatusCode()
                + new String(response.getData()) + " ) node with path : " + nodePath);
          }
-
+         else
+         {
+            // read all data
+            byte[] data = response.getData();
+            if (data != null)
+            {
+               packetSize = data.length;
+            }
+         }
       }
       finally
       {
          conn.stop();
       }
+
+      // report
+      if (gatherReport)
+      {
+         report.append(System.currentTimeMillis());
+         report.append(":");
+         report.append(Thread.currentThread());
+         report.append(":Read:");
+         report.append(nodePath);
+         report.append(":");
+         report.append(packetSize);
+         report.append(":");
+         report.append((System.currentTimeMillis() - start));
+         report.append('\r');
+         report.append('\n');
+      }
+      //System.out.println(Thread.currentThread() + ":Read:" + nodePath + ":" + packetSize + ":" + (System.currentTimeMillis() - start));
    }
 
    @Override
@@ -279,4 +380,24 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
    {
    }
 
+   private byte[] readData(InputStream dataIn) throws IOException
+   {
+      ByteArrayOutputStream dataOut = new ByteArrayOutputStream();
+      byte[] buff = new byte[2048];
+      int res = -1;
+      try
+      {
+         while ((res = dataIn.read(buff)) >= 0)
+         {
+            dataOut.write(buff, 0, res);
+         }
+      }
+      finally
+      {
+         dataIn.close();
+         dataOut.close();
+      }
+
+      return dataOut.toByteArray();
+   }
 }

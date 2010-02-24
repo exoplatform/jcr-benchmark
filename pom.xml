@@ -89,7 +89,7 @@
       <dependency>
          <groupId>mysql</groupId>
          <artifactId>mysql-connector-java</artifactId>
-         <version>5.0.5</version>
+         <version>5.1.8</version>
          <scope>compile</scope>
       </dependency>
 
@@ -97,7 +97,7 @@
       <dependency>
          <groupId>postgresql</groupId>
          <artifactId>postgresql</artifactId>
-         <version>8.2-504.jdbc3</version>
+         <version>8.3-603.jdbc4</version>
          <scope>compile</scope>
       </dependency>
 
@@ -138,6 +138,9 @@
             <directory>src/main/resources</directory>
             <includes>
                <include>**/login.conf</include>
+               <include>**/*.html</include>
+               <include>**/*.gif</include>
+               <include>**/*.jpeg</include>
             </includes>
          </resource>
       </resources>
