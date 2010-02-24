@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<title>The Average Web Page - Preliminary Results</title>
+<meta name="description" content="What is the size and composition of the average web page? How has the web changed over time? We report on some preliminary results."> 
+<meta name="keywords" content="average web page, web page statistics, preliminary results"><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style type="text/css"><!-- 
+body{font:86% verdana,arial,sans-serif;background:#fff;color:#000;margin:.5em 2em;}
+h1,h2,h3,h4,h5{color:#036630}
+h1#z{font-size:1.6em}
+h2{font-size:1.35em}
+h3{font-size:1.2em}
+h4{font-size:1.05em}
+h5{font-size:.85em}
+a:link{color:#039630}
+a:visited{color:#036630}
+a:hover{color:#0d0}
+.d img{display:block;}
+.d h1,.d h2{color:#fff;background:#037f30;margin:0;padding:0}.d h1{font-size:24px}
+.d h2{font-size:12px;margin-top:3px}
+
+a.top:link{background:#037f30;color:#fff;text-decoration:none;}
+a.top:visited{background:#037f30;color:#fff;text-decoration:none;}
+a.top:hover{text-decoration:underline;}
+#n{font-size:.96em;font-weight:bold;background:#dcdcdc;color:#333;padding:2px}
+#n .b{padding:1px 6px}
+#n a:link,#n a:visited{color:#036630;text-decoration:none;}
+#n a.b:hover{color:#eee;background:#037f30}
+
+body.hm #n #hm, body.hm #n #hm a,
+body.sm #n #sm, body.sm #n #sm a,
+body.is #n #is, body.is #n #is a,
+body.ab #n #ab, body.ab #n #ab a, 
+body.ct #n #ct, body.ct #n #ct a{color:#333;background:#dcdcdc;text-decoration:none;}
+
+#o{font-size:1em;font-weight:bold;margin:0 0 2px}
+#m{font-size:.96em}
+#s{float:right;width:200px;margin-left:2em;padding:0;border:1px solid #8dd0a6;border-top:0;border-right:0;background:#dcdcdc;color:#000}
+.d{background:#037f30}
+.e{background:#30a360} /* good compromise green color index5c it is */
+.f{background:#8ed0a0}
+.g{background:#dcdcdc}
+.w{background:#fff}
+#i{width:150px;text-align:center}#i,#u{margin-left:25px;margin-right:25px;padding:0}
+#i a:link,#i a:visited{display:block;padding:0;border:1px solid #c0afcf}
+#i a:hover{border:1px solid #dcdcdc}#u{margin-bottom:15px}
+#m{margin:0 25px;padding:0;list-style:none;border-top:1px solid #8dd0a6;}
+#m a:link,#m a:visited{display:block;margin:1px 0;padding:3px 0;background:#309f60;color:#fff;text-decoration:none;text-indent:6px;font-weight:bold;width:150px}
+#m a:hover{background:#dcdcdc;font-weight:bold;color:#9966ad}
+#c{text-align:center;font-size:.85em;color:#666;clear:right;padding-top:1em}
+.t{float:right;font-size:.85em;background:#ededed;color:#000;margin-left:15px;border:1px solid #8dd0a6;width:auto;}.t ul{list-style:none;margin:0;padding:0;}.t ul ul{text-indent:1em;}.t h4{text-align:center;margin:0 0 .5em}.t h4#p{margin-top:1em}.fd{display:inline;background:#dcdcdc;color:#333}
+.fs{font-size:.93em}
+#foot{font-size:.86em;color:#999;margin-top:2em;text-align:center;}
+code{font:1em courier,monaco,sans-serif;color:#036630;}
+.small{font-size:.86em}
+.t2{font:1em verdana,arial,sans-serif;}
+--></style>
+<style type="text/css">
+<!--
+.data th{text-align:center;}
+.data th.right{text-align:right;}
+.data td{text-align:right;}
+.data td.http{text-align:center;}
+em{font-style:normal;font-weight:bold;}
+#summary{float:right;font-size:.85em;background:#ededed;color:#000;margin:0 0 1em 1em;padding:1em;border:1px solid #8dd0a6;width:33%;}
+-->
+</style>
+</head><body class="av">
+<a href="#content" title="Skip to content"></a>
+<table id="l" class="d" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="d" width="60"><a class="top" href="http://www.optimizationweek.com/"><img src="average-web-page_files/l.gif" alt="web site optimization" border="0" height="60" width="60"></a></td><td class="d"><h1><a class="top" href="http://www.optimizationweek.com/">OptimizationWeek.com</a></h1>
+<h2><a class="top" href="http://www.optimizationweek.com/">Website performance news and views&#8482;</a></h2></td><td align="right" width="200"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="e" width="50"><img src="average-web-page_files/t.gif" alt="" height="30" width="1"></td><td class="f" width="50">&nbsp;</td><td class="g" width="50">&nbsp;</td><td class="w" width="50">&nbsp;</td></tr><tr><td class="d" width="50"><img src="average-web-page_files/t.gif" alt="" height="30" width="1"></td><td class="e" width="50">&nbsp;</td><td class="f" width="50">&nbsp;</td><td class="g">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+<table id="n" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="n"><a class="b" id="hm" href="http://www.optimizationweek.com/" accesskey="h" title="Home, accesskey h"><u>H</u>ome</a> <a class="b" id="sm" href="http://www.optimizationweek.com/sitemap/" accesskey="s" title="Sitemap, accesskey s"><u>S</u>itemap</a> <a class="b" id="is" href="http://www.optimizationweek.com/issues/" accesskey="i" title="Issues, accesskey i"><u>I</u>ssues</a> <a class="b" id="ab" href="http://www.optimizationweek.com/about/" accesskey="a" title="About, accesskey a"><u>A</u>bout</a> <a class="b" id="ct" href="http://www.optimizationweek.com/contact/" accesskey="c" title="Contact, accesskey c"><u>C</u>ontact</a></td>
+<td align="right"><form class="fd" action="http://titan.sparklist.com/scripts/submany.pl" method="post"><table id="o" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="n"><a href="http://www.optimizationweek.com/issues/" class="b" title="newsletter issues, accesskey i">Free newsletter</a>:&nbsp;<input name="email" value="enter e-mail" size="15" class="fs" type="text"><input name="redirect" value="http://optimizationweek.com/about/thanks.html" type="hidden"><input name="list" value="join-optimization_week@titan.sparklist.com" type="hidden">&nbsp;<input value="Join" class="fs" type="submit"></td></tr></tbody></table></form></td></tr></tbody></table>
+<div class="bc"><a href="http://www.optimizationweek.com/" title="go to home">home</a> &gt; <a href="http://www.optimizationweek.com/reviews/" title="go to reviews">reviews</a> &gt; average-web-page</div><a name="content"></a>
+<h1 id="z">The Average Web Page</h1>
+
+<div id="summary"><b>Summary</b>: We report on some preliminary results for the size and composition of the average web page.</div>
+
+<p>What is the size of the average web page? How have web pages changed
+over time? Few studies have been done recently until now (King 2003).
+Ryan Levering, a PhD student at Binghamton University and Michal Cutler
+from the same school set out to find how the average page is rendered
+visually (Levering and Cutler 2006).</p>
+
+<h2>WebSeer HTML Rendering Engine</h2>
+<p>After surveying the field they wrote their own HTML rendering engine
+they call WebSeer. Using parts of the Gecko code base Ryan and Michal
+pieced together a web page rendering engine that parses and interprets
+web pages on the server. Their report titled "The Portrait of a Common
+HTML Web Page" shows the results from a psuedo-random crawl from the
+DMOZ directory and associated pages. The paper focuses on web page area
+usage, position, and frequency of use. All interesting and useful
+metrics that we'll report on in a future article, but we wanted to find
+out size-related data.</p>
+<h3>Try Another Crawl for Size</h3>
+<p>After discussing the issue with Ryan, he agreed to run another crawl
+with his WebSeer tool to get size-related data. These are preliminary
+results based a couple thousand page run using random pages from the
+DMOZ directory as "seed" pages. Seed pages are crawled and pages they
+linked to are also included in the analysis. The preliminary results
+have the following caveats:</p>
+
+<ol>
+<li>CSS images not included</li>
+<li>Framed pages were ignored, though internal frames were included</li>
+<li>Only media objects using the embed tag are included</li>
+<li>Only included unique objects in page sizes (as browsers cache objects with identical URLs)
+</li><li>HTTP compression not turned on</li>
+</ol>
+
+<p>With these caveats in mind, here are the results for the average web page.</p>
+<table class="data t2" summary="This table lists the average web page statistics with two columns listing the size of the major components, listed in eight rows, one for each component plus an overall average" align="center" border="1" cellpadding="5" cellspacing="0">
+<caption align="top"><h3>Table 1: Average Web Page Statistics (file size in bytes, preliminary)</h3></caption>
+<colgroup><col id="component"><col id="size"></colgroup>
+<thead>
+<tr class="f"><th scope="col">Web Page Component</th><th>Size in bytes</th></tr>
+</thead>
+<tbody>
+<tr><td>Average Total HTML size (including internal frame HTML):</td><td>25K </td></tr>
+<tr><td>Average GIF size:</td><td> 2.9K</td></tr>
+<tr><td>Average JPEG size:</td><td> 11.9K </td></tr>
+<tr><td>Average PNG size:</td><td> 14.5K</td></tr>
+<tr><td>Average SWF size: </td><td>32K </td></tr>
+<tr><td>Average Total external script size:</td><td> 11.2K (37.5K just pages that use it)</td></tr>
+<tr><td>Average Total external style size:</td><td> 17K (28.7K just pages that use it)</td></tr>
+<tr><td>Average Total page size (script/style/flash/images/html):</td><td> 130K</td></tr>
+</tbody>
+</table>
+
+<h4>Observations and Explanation</h4>
+<p>Some observations and explanation of the results are in order here.
+The results are for the uncompressed sizes, the 130K average web page
+size does not included CSS images, and is the average for all pages
+tested after their HTML, CSS, and JavaScript have been decompressed.
+Some larger pages (CNN.com for example) skewed the results higher, most
+pages were in the 70-80K range. However, some larger pages used HTTP
+compression, which will push the average down a bit for our next run.</p>
+<h5>Average HTML and Object Sizes</h5>
+<p>HTML page size averaged 25K. For the images, GIFs were the smallest
+on average, at 2.9K. GIFs are often uses as spacers and simple
+flat-color icons so the results are no surprise. JPEGs averaged 11.9K,
+nearly 4 times larger than the average GIF. JPEGs are typically used
+for smooth-toned images like photographs and product shots. PNGs
+averaged 14.5K, a bit larger than the average JPEG. With their superior
+horizontal and vertical compression scheme, we've found PNG-8s to be
+more efficient than GIFs in most cases.</p>
+<h5>Average CSS and Script File Sizes</h5>
+<p>For the external scripts and styles, the lower figure (11.2K for all
+pages' external scripts for example) is the average for all pages
+tested, whether they used scripts or not. For those pages that did use
+external scripts, the scripts averaged 37.5K uncompressed in total. The
+average total external CSS (for pages that used external CSS files) was
+28.7K uncompressed.</p> 
+<h2>Conclusion</h2>
+<p>Although these are preliminary results, the data gives us an idea of
+the size and composition of the average web page. Without compression
+and CSS images, the average web page is about 130K in size, with a 25K
+HTML file, small GIFs and larger JPEGs, PNGs, and SWF files when used.
+For those pages that use them external scripts averaged in total 37.5K
+and external style sheets averaged in total 28.7K per page. The HTML
+figures are in line with the home page trend I reported on in <i>Speed Up Your Site</i>
+where the average home page HTML file size grew from 8,297 to 28,290
+bytes from 1996 to 2002. However as web pages become more complex, each
+individual component adds size and HTTP requests to the total page
+payload.</p>
+<h2>Further Reading</h2>
+<dl>
+<dt>King, A. (2008) "<a href="http://www.websiteoptimization.com/speed/tweak/average-web-page/">Average Web Page Triples Since 2003</a></dt>
+<dd>
+Within the last five years, the size of the average web page has more
+than tripled, and the number of external objects has nearly doubled.
+While broadband users have experienced somewhat faster response times,
+dial-up users have been left behind. April 28, 2008.
+</dd>
+<dt>King, A (2003) "<a href="http://www.websiteoptimization.com/speed/3/">HTML Optimization</a>," Web Page Size Inflation</dt>
+<dd>Using a brief survey with the Wayback Machine at archive.org, I
+found the average "home page" HTML size of five of the busiest sites
+has increased from 8,297 to 28,290 bytes between 1996 and 2002. During
+that time the bandwidth of most home users increased from 28.8Kbps to
+56.6Kbps.From Chapter 3 of <i>Speed Up Your Site: Web Site Optimization</i>, New Riders Publishing, Indianapolis, Indiana.</dd>
+<dt>Levering, R., and  M. Cutler (2006), "The Portrait of a Common HTML Web Page,"</dt>
+<dd>Paper surveyed over 21,000 web pages for visual features, position,
+and technology usage. Using a custom HTML rendering engine called
+WebSeer, the authors took a pseudo-random sample based on the DMOZ
+directory and found the proportion of image, text, form, and object
+usage and visual weight for the average web page. From <i>DocEng'06</i>, October 10&#8211;13, 2006, Amsterdam, The Netherlands.</dd>
+<dt><a href="http://ryan.levering.name/">Levering, R. (2006)</a></dt>
+<dd>Ryan Levering's home page describes his quest for the best HTML rendering engine.
+</dd></dl>
+
+<h3>About the Author</h3>
+<p>Andy King is the founder of five developer-related sites, and the author of <a href="http://www.speedupyoursite.com/"><i>Speed Up Your Site: Web Site Optimization</i></a> (http://www.speedupyoursite.com) from New Riders Publishing. He publishes the monthly <a href="http://www.websiteoptimization.com/bw/">Bandwidth Report</a>, <a href="http://www.optimizationweek.com/">Optimization Week</a>, and <a href="http://www.websiteoptimization.com/speed/tweak/">Speed Tweak of the Week</a>.
+
+<div>
+<h1 id="z">The Average Web Page</h1>
+
+<div id="summary"><b>Summary</b>: We report on some preliminary results for the size and composition of the average web page.</div>
+
+<p>What is the size of the average web page? How have web pages changed
+over time? Few studies have been done recently until now (King 2003).
+Ryan Levering, a PhD student at Binghamton University and Michal Cutler
+from the same school set out to find how the average page is rendered
+visually (Levering and Cutler 2006).</p>
+
+<h2>WebSeer HTML Rendering Engine</h2>
+<p>After surveying the field they wrote their own HTML rendering engine
+they call WebSeer. Using parts of the Gecko code base Ryan and Michal
+pieced together a web page rendering engine that parses and interprets
+web pages on the server. Their report titled "The Portrait of a Common
+HTML Web Page" shows the results from a psuedo-random crawl from the
+DMOZ directory and associated pages. The paper focuses on web page area
+usage, position, and frequency of use. All interesting and useful
+metrics that we'll report on in a future article, but we wanted to find
+out size-related data.</p>
+<h3>Try Another Crawl for Size</h3>
+<p>After discussing the issue with Ryan, he agreed to run another crawl
+with his WebSeer tool to get size-related data. These are preliminary
+results based a couple thousand page run using random pages from the
+DMOZ directory as "seed" pages. Seed pages are crawled and pages they
+linked to are also included in the analysis. The preliminary results
+have the following caveats:</p>
+
+<ol>
+<li>CSS images not included</li>
+<li>Framed pages were ignored, though internal frames were included</li>
+<li>Only media objects using the embed tag are included</li>
+<li>Only included unique objects in page sizes (as browsers cache objects with identical URLs)
+</li><li>HTTP compression not turned on</li>
+</ol>
+
+<p>With these caveats in mind, here are the results for the average web page.</p>
+<table class="data t2" summary="This table lists the average web page statistics with two columns listing the size of the major components, listed in eight rows, one for each component plus an overall average" align="center" border="1" cellpadding="5" cellspacing="0">
+<caption align="top"><h3>Table 1: Average Web Page Statistics (file size in bytes, preliminary)</h3></caption>
+<colgroup><col id="component"><col id="size"></colgroup>
+<thead>
+<tr class="f"><th scope="col">Web Page Component</th><th>Size in bytes</th></tr>
+</thead>
+<tbody>
+<tr><td>Average Total HTML size (including internal frame HTML):</td><td>25K </td></tr>
+<tr><td>Average GIF size:</td><td> 2.9K</td></tr>
+<tr><td>Average JPEG size:</td><td> 11.9K </td></tr>
+<tr><td>Average PNG size:</td><td> 14.5K</td></tr>
+<tr><td>Average SWF size: </td><td>32K </td></tr>
+<tr><td>Average Total external script size:</td><td> 11.2K (37.5K just pages that use it)</td></tr>
+<tr><td>Average Total external style size:</td><td> 17K (28.7K just pages that use it)</td></tr>
+<tr><td>Average Total page size (script/style/flash/images/html):</td><td> 130K</td></tr>
+</tbody>
+</table>
+
+<h4>Observations and Explanation</h4>
+<p>Some observations and explanation of the results are in order here.
+The results are for the uncompressed sizes, the 130K average web page
+size does not included CSS images, and is the average for all pages
+tested after their HTML, CSS, and JavaScript have been decompressed.
+Some larger pages (CNN.com for example) skewed the results higher, most
+pages were in the 70-80K range. However, some larger pages used HTTP
+compression, which will push the average down a bit for our next run.</p>
+<h5>Average HTML and Object Sizes</h5>
+<p>HTML page size averaged 25K. For the images, GIFs were the smallest
+on average, at 2.9K. GIFs are often uses as spacers and simple
+flat-color icons so the results are no surprise. JPEGs averaged 11.9K,
+nearly 4 times larger than the average GIF. JPEGs are typically used
+for smooth-toned images like photographs and product shots. PNGs
+averaged 14.5K, a bit larger than the average JPEG. With their superior
+horizontal and vertical compression scheme, we've found PNG-8s to be
+more efficient than GIFs in most cases.</p>
+<h5>Average CSS and Script File Sizes</h5>
+<p>For the external scripts and styles, the lower figure (11.2K for all
+pages' external scripts for example) is the average for all pages
+tested, whether they used scripts or not. For those pages that did use
+external scripts, the scripts averaged 37.5K uncompressed in total. The
+average total external CSS (for pages that used external CSS files) was
+28.7K uncompressed.</p> 
+<h2>Conclusion</h2>
+<p>Although these are preliminary results, the data gives us an idea of
+the size and composition of the average web page. Without compression
+and CSS images, the average web page is about 130K in size, with a 25K
+HTML file, small GIFs and larger JPEGs, PNGs, and SWF files when used.
+For those pages that use them external scripts averaged in total 37.5K
+and external style sheets averaged in total 28.7K per page. The HTML
+figures are in line with the home page trend I reported on in <i>Speed Up Your Site</i>
+where the average home page HTML file size grew from 8,297 to 28,290
+bytes from 1996 to 2002. However as web pages become more complex, each
+individual component adds size and HTTP requests to the total page
+payload.</p>
+<h2>Further Reading</h2>
+<dl>
+<dt>King, A. (2008) "<a href="http://www.websiteoptimization.com/speed/tweak/average-web-page/">Average Web Page Triples Since 2003</a></dt>
+<dd>
+Within the last five years, the size of the average web page has more
+than tripled, and the number of external objects has nearly doubled.
+While broadband users have experienced somewhat faster response times,
+dial-up users have been left behind. April 28, 2008.
+</dd>
+<dt>King, A (2003) "<a href="http://www.websiteoptimization.com/speed/3/">HTML Optimization</a>," Web Page Size Inflation</dt>
+<dd>Using a brief survey with the Wayback Machine at archive.org, I
+found the average "home page" HTML size of five of the busiest sites
+has increased from 8,297 to 28,290 bytes between 1996 and 2002. During
+that time the bandwidth of most home users increased from 28.8Kbps to
+56.6Kbps.From Chapter 3 of <i>Speed Up Your Site: Web Site Optimization</i>, New Riders Publishing, Indianapolis, Indiana.</dd>
+<dt>Levering, R., and  M. Cutler (2006), "The Portrait of a Common HTML Web Page,"</dt>
+<dd>Paper surveyed over 21,000 web pages for visual features, position,
+and technology usage. Using a custom HTML rendering engine called
+WebSeer, the authors took a pseudo-random sample based on the DMOZ
+directory and found the proportion of image, text, form, and object
+usage and visual weight for the average web page. From <i>DocEng'06</i>, October 10&#8211;13, 2006, Amsterdam, The Netherlands.</dd>
+<dt><a href="http://ryan.levering.name/">Levering, R. (2006)</a></dt>
+<dd>Ryan Levering's home page describes his quest for the best HTML rendering engine.
+</dd></dl>
+
+<h3>About the Author</h3>
+<p>Andy King is the founder of five developer-related sites, and the author of <a href="http://www.speedupyoursite.com/"><i>Speed Up Your Site: Web Site Optimization</i></a> (http://www.speedupyoursite.com) from New Riders Publishing. He publishes the monthly <a href="http://www.websiteoptimization.com/bw/">Bandwidth Report</a>, <a href="http://www.optimizationweek.com/">Optimization Week</a>, and <a href="http://www.websiteoptimization.com/speed/tweak/">Speed Tweak of the Week</a>.
+</div>
+
+</p><p id="foot">Copyright © 2003-2009 <a href="http://www.websiteoptimization.com/" title="go to website optimization home page">Website Optimization</a>, LLC - Try our new <a href="http://www.websiteoptimization.com/services/marketing/conversion.html">conversion rate optimization</a> service, and free <a href="http://www.websiteoptimization.com/services/analyze/">website speed test</a><br>
+Last modified: May 02, 2008</p>
+</body></html>
