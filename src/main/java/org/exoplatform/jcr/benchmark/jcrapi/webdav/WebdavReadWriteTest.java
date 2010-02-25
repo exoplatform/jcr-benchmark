@@ -47,6 +47,8 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
    private static boolean gatherReport;
 
    private static byte[] writeData;
+   
+   private static volatile int reportsCounter = 1;
 
    protected int iterator = 0;
 
@@ -225,7 +227,7 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
             conn.addDir(rootName);
 
             // prepare data for a read
-            byte[] readData = readData(WebdavReadWriteTest.class.getResourceAsStream("/test-data/average-image.gif"));
+            byte[] readData = readData(WebdavReadWriteTest.class.getResourceAsStream("/test-data/1k-web-page.html"));
 
             // prepare to read
             int foldersCount = nodesPoolSizeToRead / 100;
@@ -246,7 +248,9 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
             }
 
             // prepare data for write
-            writeData = readData(WebdavReadWriteTest.class.getResourceAsStream("/test-data/average-web-page.html"));
+            //writeData = readData(WebdavReadWriteTest.class.getResourceAsStream("/test-data/average-web-page.html"));
+            // use same data
+            writeData = readData;
 
             // prepare to threads writers 
             for (int j = 0; j < writeThreadsCount; j++)
@@ -322,6 +326,7 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
             reportFile.flush();
          }
       }
+
    }
 
    /**
