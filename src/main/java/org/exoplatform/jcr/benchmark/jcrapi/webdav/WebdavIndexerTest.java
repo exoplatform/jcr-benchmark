@@ -23,6 +23,8 @@ import com.sun.japex.TestCase;
 import org.exoplatform.common.http.client.HTTPResponse;
 import org.exoplatform.common.http.client.HttpOutputStream;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
@@ -35,16 +37,27 @@ import java.util.Random;
 public class WebdavIndexerTest extends AbstractWebdavTest
 {
 
-   private TestResource[] resources = new TestResource[7];
+   private TestResource[] testTesources;
 
    private class TestResource{
-      private String resourcePath;
       private String contentType;
       
+      private InputStream fileStream;
+     
       public TestResource(String resourcePath, String contentType)
       {
-         this.resourcePath = resourcePath;
-         this.contentType = contentType;
+         
+         try
+         {
+            FileInputStream fs = new FileInputStream(resourcePath);
+            this.fileStream = fs;
+            this.contentType = contentType;
+         }
+         catch (FileNotFoundException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
       }
    }
 
@@ -54,14 +67,21 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    @Override
    public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
+      item = new JCRWebdavConnectionEx(context);
+      rootNodeName = context.generateUniqueName("rootNode");
+      item.addDir(rootNodeName);
       
-      resources[0] = new TestResource("../resources/index/test_index.doc", "application/msword");
-      resources[1] = new TestResource("../resources/index/test_index.htm", "text/html");
-      resources[2] = new TestResource("../resources/index/test_index.pdf", "application/pdf");
-      resources[3] = new TestResource("../resources/index/test_index.ppt", "application/vnd.ms-powerpoint");
-      resources[4] = new TestResource("../resources/index/test_index.txt", "application/vnd.ms-excel");
-      resources[5] = new TestResource("../resources/index/test_index.xls", "text/xml");
-      resources[6] = new TestResource("../resources/index/test_index.xml", "application/octet-stream");
+      testTesources = new TestResource[6];
+      
+      testTesources[0] = new TestResource("../resources/index/test_index.doc", "application/msword");
+      testTesources[1] = new TestResource("../resources/index/test_index.htm", "text/html");
+      testTesources[2] = new TestResource("../resources/index/test_index.xml", "text/xml");
+      testTesources[3] = new TestResource("../resources/index/test_index.ppt", "application/vnd.ms-powerpoint");
+      testTesources[4] = new TestResource("../resources/index/test_index.txt", "text/plain");
+      testTesources[5] = new TestResource("../resources/index/test_index.xls", "application/vnd.ms-excel");
+      
+      
+//    testTesources[2] = new TestResource("../resources/index/test_index.pdf", "application/pdf");
 
    }
 
@@ -82,20 +102,21 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
       item = new JCRWebdavConnectionEx(context);
-      
-      HttpOutputStream outStream = new HttpOutputStream();
 
-      int i = new Random().nextInt(7);
-      InputStream inStream = WebdavIndexerTest.class.getResourceAsStream(resources[i].resourcePath);
-      String contentType = resources[i].contentType;
+      int i = new Random().nextInt(testTesources.length);
+      InputStream inStream = testTesources[i].fileStream;
+      String contentType = testTesources[i].contentType;
       
       String nodeName = rootNodeName + "/" + context.generateUniqueName("node");
+      
+      HttpOutputStream outStream = new HttpOutputStream();
+      
       HTTPResponse response = item.addNode(nodeName, outStream, contentType);
-
+      
       writeToOutputStream(inStream, outStream);
 
       outStream.close();
-      response.getStatusCode();
+      System.out.println(response.getStatusCode());
    }
 
    
