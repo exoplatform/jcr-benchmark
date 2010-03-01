@@ -45,7 +45,7 @@
       <dependency>
          <groupId>org.exoplatform.jcr</groupId>
          <artifactId>exo.jcr.cluster.testclient</artifactId>
-	 <version>${org.exoplatform.jcr.version}</version>
+         <version>${org.exoplatform.jcr.version}</version>
          <scope>compile</scope>
       </dependency>
       <dependency>

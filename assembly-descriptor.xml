@@ -20,6 +20,7 @@
         <include>bin/*</include>
         <include>config/*</include>
         <include>resources/*</include>
+        <include>resources/index/*</include>
       </includes>
     </fileSet>
     <fileSet>
