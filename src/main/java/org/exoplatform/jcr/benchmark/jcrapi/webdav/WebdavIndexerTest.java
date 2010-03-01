@@ -27,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -37,16 +38,19 @@ import java.util.Random;
 public class WebdavIndexerTest extends AbstractWebdavTest
 {
 
-   private TestResource[] testTesources;
+   //   private TestResource[] testTesources;
 
-   private class TestResource{
+   private ArrayList<TestResource> testTesources = new ArrayList<TestResource>();
+
+   private class TestResource
+   {
       private String contentType;
-      
+
       private InputStream fileStream;
-     
+
       public TestResource(String resourcePath, String contentType)
       {
-         
+
          try
          {
             FileInputStream fs = new FileInputStream(resourcePath);
@@ -67,21 +71,25 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    @Override
    public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item = new JCRWebdavConnectionEx(context);
-      rootNodeName = context.generateUniqueName("rootNode");
-      item.addDir(rootNodeName);
-      
-      testTesources = new TestResource[6];
-      
-      testTesources[0] = new TestResource("../resources/index/test_index.doc", "application/msword");
-      testTesources[1] = new TestResource("../resources/index/test_index.htm", "text/html");
-      testTesources[2] = new TestResource("../resources/index/test_index.xml", "text/xml");
-      testTesources[3] = new TestResource("../resources/index/test_index.ppt", "application/vnd.ms-powerpoint");
-      testTesources[4] = new TestResource("../resources/index/test_index.txt", "text/plain");
-      testTesources[5] = new TestResource("../resources/index/test_index.xls", "application/vnd.ms-excel");
-      
-      
-//    testTesources[2] = new TestResource("../resources/index/test_index.pdf", "application/pdf");
+      JCRWebdavConnectionEx item = new JCRWebdavConnectionEx(context);
+      try
+      {
+
+         rootNodeName = context.generateUniqueName("rootNode");
+         item.addDir(rootNodeName);
+
+         testTesources.add(new TestResource("../resources/index/test_index.doc", "application/msword"));
+         testTesources.add(new TestResource("../resources/index/test_index.htm", "text/html"));
+         testTesources.add(new TestResource("../resources/index/test_index.xml", "text/xml"));
+         testTesources.add(new TestResource("../resources/index/test_index.ppt", "application/vnd.ms-powerpoint"));
+         testTesources.add(new TestResource("../resources/index/test_index.txt", "text/plain"));
+         testTesources.add(new TestResource("../resources/index/test_index.xls", "application/vnd.ms-excel"));
+
+      }
+      finally
+      {
+         item.stop();
+      }
 
    }
 
@@ -103,30 +111,38 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    {
       item = new JCRWebdavConnectionEx(context);
 
-      int i = new Random().nextInt(testTesources.length);
-      InputStream inStream = testTesources[i].fileStream;
-      String contentType = testTesources[i].contentType;
-      
-      String nodeName = rootNodeName + "/" + context.generateUniqueName("node");
-      
-      HttpOutputStream outStream = new HttpOutputStream();
-      
-      HTTPResponse response = item.addNode(nodeName, outStream, contentType);
-      
-      writeToOutputStream(inStream, outStream);
+      try
+      {
+         int i = new Random().nextInt(testTesources.size());
+         InputStream inStream = testTesources.get(i).fileStream;
+         String contentType = testTesources.get(i).contentType;
 
-      outStream.close();
-      System.out.println(response.getStatusCode());
+         String nodeName = rootNodeName + "/" + context.generateUniqueName("node");
+
+         HttpOutputStream outStream = new HttpOutputStream();
+
+         HTTPResponse response = item.addNode(nodeName, outStream, contentType);
+
+         writeToOutputStream(inStream, outStream);
+
+         outStream.close();
+         System.out.println(response.getStatusCode());
+
+      }
+      finally
+      {
+         item.stop();
+      }
+
    }
 
-   
    @Override
    public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
    {
       item.stop();
       super.doFinish(tc, context);
    }
-   
+
    private void writeToOutputStream(InputStream inStream, HttpOutputStream outStream) throws IOException
    {
       int b;
