@@ -35,7 +35,18 @@ import java.util.Random;
 public class WebdavIndexerTest extends AbstractWebdavTest
 {
 
-   private InputStream[] resources = new InputStream[7];
+   private TestResource[] resources = new TestResource[7];
+
+   private class TestResource{
+      private String resourcePath;
+      private String contentType;
+      
+      public TestResource(String resourcePath, String contentType)
+      {
+         this.resourcePath = resourcePath;
+         this.contentType = contentType;
+      }
+   }
 
    /**
     * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
@@ -43,15 +54,14 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    @Override
    public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
-      //super.doPrepare(tc, context);
-
-      resources[0] = WebdavIndexerTest.class.getResourceAsStream("../resources/index/test_index.doc");
-      resources[1] = WebdavIndexerTest.class.getResourceAsStream("../resources/index/test_index.htm");
-      resources[2] = WebdavIndexerTest.class.getResourceAsStream("../resources/index/test_index.pdf");
-      resources[3] = WebdavIndexerTest.class.getResourceAsStream("../resources/index/test_index.ppt");
-      resources[4] = WebdavIndexerTest.class.getResourceAsStream("../resources/index/test_index.txt");
-      resources[5] = WebdavIndexerTest.class.getResourceAsStream("../resources/index/test_index.xls");
-      resources[6] = WebdavIndexerTest.class.getResourceAsStream("../resources/index/test_index.xml");
+      
+      resources[0] = new TestResource("../resources/index/test_index.doc", "application/msword");
+      resources[1] = new TestResource("../resources/index/test_index.htm", "text/html");
+      resources[2] = new TestResource("../resources/index/test_index.pdf", "application/pdf");
+      resources[3] = new TestResource("../resources/index/test_index.ppt", "application/vnd.ms-powerpoint");
+      resources[4] = new TestResource("../resources/index/test_index.txt", "application/vnd.ms-excel");
+      resources[5] = new TestResource("../resources/index/test_index.xls", "text/xml");
+      resources[6] = new TestResource("../resources/index/test_index.xml", "application/octet-stream");
 
    }
 
@@ -71,12 +81,16 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    @Override
    public void doRun(TestCase tc, WebdavTestContext context) throws Exception
    {
+      item = new JCRWebdavConnectionEx(context);
+      
       HttpOutputStream outStream = new HttpOutputStream();
 
       int i = new Random().nextInt(7);
-      InputStream inStream = resources[i];
-      String contentType = getContentType(i);
-      HTTPResponse response = item.addNode(nextNodePath(), outStream, contentType);
+      InputStream inStream = WebdavIndexerTest.class.getResourceAsStream(resources[i].resourcePath);
+      String contentType = resources[i].contentType;
+      
+      String nodeName = rootNodeName + "/" + context.generateUniqueName("node");
+      HTTPResponse response = item.addNode(nodeName, outStream, contentType);
 
       writeToOutputStream(inStream, outStream);
 
@@ -84,35 +98,20 @@ public class WebdavIndexerTest extends AbstractWebdavTest
       response.getStatusCode();
    }
 
+   
+   @Override
+   public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
+   {
+      item.stop();
+      super.doFinish(tc, context);
+   }
+   
    private void writeToOutputStream(InputStream inStream, HttpOutputStream outStream) throws IOException
    {
       int b;
       while ((b = inStream.read()) != -1)
       {
          outStream.write(b);
-      }
-   }
-
-   private String getContentType(int i)
-   {
-      switch (i)
-      {
-         case 0 :
-            return ("application/msword");
-         case 1 :
-            return ("text/html");
-         case 2 :
-            return ("application/pdf");
-         case 3 :
-            return ("application/vnd.ms-powerpoint");
-         case 4 :
-            return ("application/vnd.ms-excel");
-         case 5 :
-            return ("application/msword");
-         case 6 :
-            return ("text/xml");
-         default :
-            return ("application/octet-stream");
       }
    }
 

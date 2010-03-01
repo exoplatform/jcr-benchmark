@@ -5,7 +5,7 @@
   <param name="japex.plotGroupSize" value="5" />
   <param name="japex.resultUnit" value="tps" />
   <param name="japex.warmupIterations" value="0" />
-  <param name="japex.runIterations" value="1" />  
+  <param name="japex.runIterations" value="10" />  
   <!--param name="japex.runTime" value="01:00" /-->
   <!-- 10 for 10 sec -->
   <!-- 15:00 for 15min -->
@@ -24,11 +24,11 @@
     <param name="webdav.workspacePath" value="/rest/jcr/repository/production/" />
   </driverGroup>
 
-  <testCase name="WebdavAddNodeTest">
+  <!--testCase name="WebdavAddNodeTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavAddNodeTest" />
   </testCase>
   <testCase name="WebdavGetNodeByPathTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavGetNodeByPathTest" />
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavGetNodeTest" />
   </testCase>
   <testCase name="WebdavRemoveNodeTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavRemoveNodeTest" />
@@ -69,7 +69,14 @@
     <param name="nodesPoolSize" value="1000" />
     <param name="writeThreads" value="1" />
     <param name="delayWrite" value="10" />
-  </testCase>
+    <param name="gatherReport" value="true" />
+  </testCase -->
+
+  <testCase name="WebdavIndexerTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavIndexerTest" />
+  </testCase
+
+
   
 
 
