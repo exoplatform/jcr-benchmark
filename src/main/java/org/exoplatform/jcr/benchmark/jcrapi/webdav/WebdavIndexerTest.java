@@ -84,6 +84,7 @@ public class WebdavIndexerTest extends AbstractWebdavTest
          testTesources.add(new TestResource("../resources/index/test_index.ppt", "application/vnd.ms-powerpoint"));
          testTesources.add(new TestResource("../resources/index/test_index.txt", "text/plain"));
          testTesources.add(new TestResource("../resources/index/test_index.xls", "application/vnd.ms-excel"));
+         // testTesources.add(new TestResource("../resources/index/test_index.pdf", "application/pdf"));
 
       }
       finally
@@ -126,7 +127,9 @@ public class WebdavIndexerTest extends AbstractWebdavTest
          writeToOutputStream(inStream, outStream);
 
          outStream.close();
-         System.out.println(response.getStatusCode());
+         if(response.getStatusCode() >= 400){
+            System.out.println("ERROR: Server returned Status " + response.getStatusCode() + " : " + response.getData());
+         }
 
       }
       finally
