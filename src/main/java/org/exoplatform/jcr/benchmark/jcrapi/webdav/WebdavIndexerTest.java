@@ -26,7 +26,6 @@ import org.exoplatform.common.http.client.HttpOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -38,28 +37,29 @@ import java.util.Random;
 public class WebdavIndexerTest extends AbstractWebdavTest
 {
 
-   //   private TestResource[] testTesources;
-
    private ArrayList<TestResource> testTesources = new ArrayList<TestResource>();
 
    private class TestResource
    {
       private String contentType;
+      
+      private byte[] byteBuffer;
+      
+      private int bufferSize;
 
-      private InputStream fileStream;
-
-      public TestResource(String resourcePath, String contentType)
+      public TestResource(String resourcePath, String contentType) throws IOException
       {
 
          try
          {
-            FileInputStream fs = new FileInputStream(resourcePath);
-            this.fileStream = fs;
             this.contentType = contentType;
+            FileInputStream fs = new FileInputStream(resourcePath);
+            
+            bufferSize = fs.read(byteBuffer);
+            
          }
          catch (FileNotFoundException e)
          {
-            // TODO Auto-generated catch block
             e.printStackTrace();
          }
       }
@@ -115,16 +115,13 @@ public class WebdavIndexerTest extends AbstractWebdavTest
       try
       {
          int i = new Random().nextInt(testTesources.size());
-         InputStream inStream = testTesources.get(i).fileStream;
-         String contentType = testTesources.get(i).contentType;
+         TestResource r = testTesources.get(i);
 
          String nodeName = rootNodeName + "/" + context.generateUniqueName("node");
 
          HttpOutputStream outStream = new HttpOutputStream();
 
-         HTTPResponse response = item.addNode(nodeName, outStream, contentType);
-
-         writeToOutputStream(inStream, outStream);
+         HTTPResponse response = item.addNode(nodeName, r.byteBuffer, r.contentType);
 
          outStream.close();
          if(response.getStatusCode() >= 400){
@@ -142,17 +139,6 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    @Override
    public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
    {
-      item.stop();
       super.doFinish(tc, context);
    }
-
-   private void writeToOutputStream(InputStream inStream, HttpOutputStream outStream) throws IOException
-   {
-      int b;
-      while ((b = inStream.read()) != -1)
-      {
-         outStream.write(b);
-      }
-   }
-
 }
