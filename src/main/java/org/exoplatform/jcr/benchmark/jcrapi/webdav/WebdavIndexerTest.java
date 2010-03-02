@@ -20,12 +20,13 @@ package org.exoplatform.jcr.benchmark.jcrapi.webdav;
 
 import com.sun.japex.TestCase;
 
+import org.exoplatform.common.http.HTTPStatus;
 import org.exoplatform.common.http.client.HTTPResponse;
 import org.exoplatform.common.http.client.HttpOutputStream;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -37,31 +38,18 @@ import java.util.Random;
 public class WebdavIndexerTest extends AbstractWebdavTest
 {
 
-   private ArrayList<TestResource> testTesources = new ArrayList<TestResource>();
+   private ArrayList<TestResource> testResources = new ArrayList<TestResource>();
 
    private class TestResource
    {
       private String contentType;
-      
-      private byte[] byteBuffer;
-      
-      private int bufferSize;
+
+      private String resourcePath;
 
       public TestResource(String resourcePath, String contentType) throws IOException
       {
-
-         try
-         {
-            this.contentType = contentType;
-            FileInputStream fs = new FileInputStream(resourcePath);
-            
-            bufferSize = fs.read(byteBuffer);
-            
-         }
-         catch (FileNotFoundException e)
-         {
-            e.printStackTrace();
-         }
+         this.contentType = contentType;
+         this.resourcePath = resourcePath;
       }
    }
 
@@ -72,25 +60,16 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
    {
       JCRWebdavConnectionEx item = new JCRWebdavConnectionEx(context);
-      try
-      {
+      rootNodeName = context.generateUniqueName("rootNode");
+      item.addDir(rootNodeName);
 
-         rootNodeName = context.generateUniqueName("rootNode");
-         item.addDir(rootNodeName);
-
-         testTesources.add(new TestResource("../resources/index/test_index.doc", "application/msword"));
-         testTesources.add(new TestResource("../resources/index/test_index.htm", "text/html"));
-         testTesources.add(new TestResource("../resources/index/test_index.xml", "text/xml"));
-         testTesources.add(new TestResource("../resources/index/test_index.ppt", "application/vnd.ms-powerpoint"));
-         testTesources.add(new TestResource("../resources/index/test_index.txt", "text/plain"));
-         testTesources.add(new TestResource("../resources/index/test_index.xls", "application/vnd.ms-excel"));
-         // testTesources.add(new TestResource("../resources/index/test_index.pdf", "application/pdf"));
-
-      }
-      finally
-      {
-         item.stop();
-      }
+      testResources.add(new TestResource("../resources/index/test_index.doc", "application/msword"));
+      testResources.add(new TestResource("../resources/index/test_index.htm", "text/html"));
+      testResources.add(new TestResource("../resources/index/test_index.xml", "text/xml"));
+      testResources.add(new TestResource("../resources/index/test_index.ppt", "application/vnd.ms-powerpoint"));
+      testResources.add(new TestResource("../resources/index/test_index.txt", "text/plain"));
+      testResources.add(new TestResource("../resources/index/test_index.xls", "application/vnd.ms-excel"));
+      // testTesources.add(new TestResource("../resources/index/test_index.pdf", "application/pdf"));
 
    }
 
@@ -114,20 +93,23 @@ public class WebdavIndexerTest extends AbstractWebdavTest
 
       try
       {
-         int i = new Random().nextInt(testTesources.size());
-         TestResource r = testTesources.get(i);
-
-         String nodeName = rootNodeName + "/" + context.generateUniqueName("node");
-
          HttpOutputStream outStream = new HttpOutputStream();
 
-         HTTPResponse response = item.addNode(nodeName, r.byteBuffer, r.contentType);
+         int i = new Random().nextInt(6);
+         FileInputStream inStream = new FileInputStream(testResources.get(i).resourcePath);
+         String contentType = testResources.get(i).contentType;
+
+         String nodeName = rootNodeName + "/" + context.generateUniqueName("node");
+         HTTPResponse response = item.addNode(nodeName, outStream, contentType);
+
+         writeToOutputStream(inStream, outStream);
 
          outStream.close();
-         if(response.getStatusCode() >= 400){
-            System.out.println("ERROR: Server returned Status " + response.getStatusCode() + " : " + response.getData());
-         }
 
+         if (response.getStatusCode() != HTTPStatus.CREATED)
+         {
+            System.out.println("Server returned Status " + response.getStatusCode() + " : " + response.getData());
+         }
       }
       finally
       {
@@ -136,9 +118,17 @@ public class WebdavIndexerTest extends AbstractWebdavTest
 
    }
 
-   @Override
+   private void writeToOutputStream(InputStream inStream, HttpOutputStream outStream) throws IOException
+   {
+      int b;
+      while ((b = inStream.read()) != -1)
+      {
+         outStream.write(b);
+      }
+   }
+
    public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
    {
-      super.doFinish(tc, context);
+      //super.doFinish(tc, context);
    }
 }
