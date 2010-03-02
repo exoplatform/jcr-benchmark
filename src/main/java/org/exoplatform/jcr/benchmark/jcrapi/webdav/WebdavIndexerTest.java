@@ -108,7 +108,7 @@ public class WebdavIndexerTest extends AbstractWebdavTest
 
          if (response.getStatusCode() != HTTPStatus.CREATED)
          {
-            System.out.println("Server returned Status " + response.getStatusCode() + " : " + response.getData());
+            System.out.println("Server returned Status " + response.getStatusCode() + " : " + new String(response.getData()));
          }
       }
       finally
