@@ -74,10 +74,6 @@
 
   <testCase name="WebdavIndexerTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavIndexerTest" />
-  </testCase
-
-
-  
-
+  </testCase>
 
 </testSuite>
