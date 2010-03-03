@@ -38,7 +38,7 @@ public class WebdavIndexerTest extends AbstractWebdavTest
 {
 
    private ArrayList<TestResource> testResources = new ArrayList<TestResource>();
-   
+
    private final Random rand = new Random();
 
    private class TestResource
@@ -81,11 +81,10 @@ public class WebdavIndexerTest extends AbstractWebdavTest
     * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
     */
    @Override
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws IOException, ModuleException
+   public void doPrepare(TestCase tc, WebdavTestContext context) throws IOException
    {
-      JCRWebdavConnectionEx item = new JCRWebdavConnectionEx(context);
+      final JCRWebdavConnectionEx connection = new JCRWebdavConnectionEx(context);
       rootNodeName = context.generateUniqueName("rootNode");
-      item.addDir(rootNodeName);
 
       testResources.add(new TestResource("../resources/index/test_index.doc", "application/msword"));
       testResources.add(new TestResource("../resources/index/test_index.htm", "text/html"));
@@ -94,6 +93,19 @@ public class WebdavIndexerTest extends AbstractWebdavTest
       testResources.add(new TestResource("../resources/index/test_index.txt", "text/plain"));
       testResources.add(new TestResource("../resources/index/test_index.xls", "application/vnd.ms-excel"));
       // testTesources.add(new TestResource("../resources/index/test_index.pdf", "application/pdf"));
+
+      try
+      {
+         connection.addDir(rootNodeName);
+      }
+      catch (ModuleException e)
+      {
+         e.printStackTrace();
+      }
+      finally
+      {
+         connection.stop();
+      }
 
    }
 
@@ -113,14 +125,14 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    @Override
    public void doRun(TestCase tc, WebdavTestContext context)
    {
-      item = new JCRWebdavConnectionEx(context);
+      final JCRWebdavConnectionEx connection = new JCRWebdavConnectionEx(context);
       try
       {
          int i = rand.nextInt(testResources.size());
          TestResource res = testResources.get(i);
 
          String nodeName = rootNodeName + "/" + context.generateUniqueName("node");
-         HTTPResponse response = item.addNode(nodeName, res.resourceBuffer, res.contentType);
+         HTTPResponse response = connection.addNode(nodeName, res.resourceBuffer, res.contentType);
 
          if (response.getStatusCode() != HTTPStatus.CREATED)
          {
@@ -134,7 +146,7 @@ public class WebdavIndexerTest extends AbstractWebdavTest
       }
       finally
       {
-         item.stop();
+         connection.stop();
       }
 
    }
