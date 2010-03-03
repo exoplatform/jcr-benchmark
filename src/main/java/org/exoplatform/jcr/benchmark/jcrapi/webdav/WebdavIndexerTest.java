@@ -22,11 +22,10 @@ import com.sun.japex.TestCase;
 
 import org.exoplatform.common.http.HTTPStatus;
 import org.exoplatform.common.http.client.HTTPResponse;
-import org.exoplatform.common.http.client.HttpOutputStream;
+import org.exoplatform.common.http.client.ModuleException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -44,20 +43,43 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    {
       private String contentType;
 
-      private String resourcePath;
+      private byte[] resourceBuffer;
 
       public TestResource(String resourcePath, String contentType) throws IOException
       {
          this.contentType = contentType;
-         this.resourcePath = resourcePath;
+         FileInputStream inStream = new FileInputStream(resourcePath);
+         try
+         {
+            resourceBuffer = new byte[inStream.available()];
+
+            int i = 0;
+            int b = 0;
+            while ((b = inStream.read()) != -1)
+            {
+               resourceBuffer[i] = (byte)b;
+               i++;
+            }
+         }
+         catch (Exception exc)
+         {
+            exc.printStackTrace();
+         }
+         finally
+         {
+            inStream.close();
+         }
+
       }
    }
 
    /**
+    * @throws ModuleException 
+    * @throws IOException 
     * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doPrepare(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
     */
    @Override
-   public void doPrepare(TestCase tc, WebdavTestContext context) throws Exception
+   public void doPrepare(TestCase tc, WebdavTestContext context) throws IOException, ModuleException
    {
       JCRWebdavConnectionEx item = new JCRWebdavConnectionEx(context);
       rootNodeName = context.generateUniqueName("rootNode");
@@ -87,44 +109,34 @@ public class WebdavIndexerTest extends AbstractWebdavTest
     * @see org.exoplatform.jcr.benchmark.jcrapi.webdav.AbstractWebdavTest#doRun(com.sun.japex.TestCase, org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext)
     */
    @Override
-   public void doRun(TestCase tc, WebdavTestContext context) throws Exception
+   public void doRun(TestCase tc, WebdavTestContext context)
    {
       item = new JCRWebdavConnectionEx(context);
+      Random rand = new Random();
 
       try
       {
-         HttpOutputStream outStream = new HttpOutputStream();
-
-         int i = new Random().nextInt(6);
-         FileInputStream inStream = new FileInputStream(testResources.get(i).resourcePath);
-         String contentType = testResources.get(i).contentType;
+         int i = rand.nextInt(testResources.size());
+         TestResource res = testResources.get(i);
 
          String nodeName = rootNodeName + "/" + context.generateUniqueName("node");
-         HTTPResponse response = item.addNode(nodeName, outStream, contentType);
-
-         writeToOutputStream(inStream, outStream);
-
-         outStream.close();
+         HTTPResponse response = item.addNode(nodeName, res.resourceBuffer, res.contentType);
 
          if (response.getStatusCode() != HTTPStatus.CREATED)
          {
-            System.out.println("Server returned Status " + response.getStatusCode() + " : " + new String(response.getData()));
+            System.out.println("Server returned Status " + response.getStatusCode() + " : "
+               + new String(response.getData()));
          }
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
       }
       finally
       {
          item.stop();
       }
 
-   }
-
-   private void writeToOutputStream(InputStream inStream, HttpOutputStream outStream) throws IOException
-   {
-      int b;
-      while ((b = inStream.read()) != -1)
-      {
-         outStream.write(b);
-      }
    }
 
    public void doFinish(TestCase tc, WebdavTestContext context) throws Exception
