@@ -38,6 +38,8 @@ public class WebdavIndexerTest extends AbstractWebdavTest
 {
 
    private ArrayList<TestResource> testResources = new ArrayList<TestResource>();
+   
+   private final Random rand = new Random();
 
    private class TestResource
    {
@@ -112,8 +114,6 @@ public class WebdavIndexerTest extends AbstractWebdavTest
    public void doRun(TestCase tc, WebdavTestContext context)
    {
       item = new JCRWebdavConnectionEx(context);
-      Random rand = new Random();
-
       try
       {
          int i = rand.nextInt(testResources.size());
