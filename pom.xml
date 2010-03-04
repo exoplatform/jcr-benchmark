@@ -66,6 +66,11 @@
          <version>1.6.5</version>
          <scope>compile</scope>
       </dependency>
+       <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-log4j12</artifactId>
+         <version>1.5.8</version>
+       </dependency>
       <dependency>
          <groupId>jfree</groupId>
          <artifactId>jfreechart</artifactId>
@@ -199,7 +204,7 @@
          </activation>
          <properties>
             <org.exoplatform.jcr.version>1.12.1-GA-SNAPSHOT</org.exoplatform.jcr.version>
-            <org.exoplatform.ws.version>2.1.1-SNAPSHOT</org.exoplatform.ws.version>
+            <org.exoplatform.ws.version>2.1.1-GA-SNAPSHOT</org.exoplatform.ws.version>
          </properties>
       </profile>
    </profiles>
