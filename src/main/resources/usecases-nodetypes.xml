@@ -1,0 +1,115 @@
+<nodeTypes xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0"
+  xmlns:jcr="http://www.jcp.org/jcr/1.0">
+
+  <nodeType name="exo:genericNode" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+    <supertypes>
+      <supertype>nt:base</supertype>
+      <supertype>mix:referenceable</supertype>
+    </supertypes>
+    <propertyDefinitions>
+    
+      <!-- String -->
+      <propertyDefinition name="String-s" requiredType="String" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="String-m" requiredType="String" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="true">
+        <valueConstraints/>
+      </propertyDefinition>
+  
+      <!-- Binary -->
+      <propertyDefinition name="Binary-s" requiredType="Binary" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="Binary-m" requiredType="Binary" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="true">
+        <valueConstraints/>
+      </propertyDefinition>
+
+      <!-- Boolean -->
+      <propertyDefinition name="Boolean-s" requiredType="Boolean" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="Boolean-m" requiredType="Boolean" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="true">
+        <valueConstraints/>
+      </propertyDefinition>
+
+      <!-- Long -->
+      <propertyDefinition name="Long-s" requiredType="Long" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="Long-m" requiredType="Long" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="true">
+        <valueConstraints/>
+      </propertyDefinition>
+
+
+      <!-- Double -->
+      <propertyDefinition name="Double-s" requiredType="Double" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="Double-m" requiredType="Double" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="true">
+        <valueConstraints/>
+      </propertyDefinition>
+
+
+      <!-- Date -->
+      <propertyDefinition name="Date-s" requiredType="Date" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="Date-m" requiredType="Date" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="true">
+        <valueConstraints/>
+      </propertyDefinition>
+
+      <!-- Path -->
+      <propertyDefinition name="Path-s" requiredType="Path" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="Path-m" requiredType="Path" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="true">
+        <valueConstraints/>
+      </propertyDefinition>
+
+
+      <!-- Name -->
+      <propertyDefinition name="Name-s" requiredType="Name" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="Name-m" requiredType="Name" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="true">
+        <valueConstraints/>
+      </propertyDefinition>
+
+
+      <!-- Reference -->
+      <propertyDefinition name="Reference-s" requiredType="Reference" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="Reference-m" requiredType="Reference" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" multiple="true">
+        <valueConstraints/>
+      </propertyDefinition>  
+      
+    </propertyDefinitions>
+    <childNodeDefinitions>
+      <childNodeDefinition name="*" defaultPrimaryType="exo:genericNode" autoCreated="false" mandatory="false"
+        onParentVersion="COPY" protected="false" sameNameSiblings="false">
+        <requiredPrimaryTypes>
+          <requiredPrimaryType>exo:genericNode</requiredPrimaryType>
+        </requiredPrimaryTypes>
+      </childNodeDefinition>
+    </childNodeDefinitions>    
+  </nodeType>  
+</nodeTypes>
