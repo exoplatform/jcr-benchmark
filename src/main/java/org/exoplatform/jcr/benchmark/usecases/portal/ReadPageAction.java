@@ -20,6 +20,7 @@ package org.exoplatform.jcr.benchmark.usecases.portal;
 
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -70,10 +71,20 @@ public class ReadPageAction extends AbstractAction
    void perform() throws RepositoryException
    {
       Session session = null;
+      // TODO: Operation goes here
       try
       {
          session = getSession(anonymous);
-         // TODO: Operation goes here
+         Node testRoot = session.getRootNode().getNode(getRootNodeName());
+         for (int i = 0; i < nodeCount; i++)
+         {
+            Node target = nextNode(testRoot);
+            for (int j = 0; j < propertyCount; j++)
+            {
+               target.getProperty("a");
+               // TODO: implement property selection
+            }
+         }
       }
       finally
       {

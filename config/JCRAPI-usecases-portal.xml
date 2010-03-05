@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testSuite name="Calculating the average time of execution of the main JCR API methods" xmlns="http://www.sun.com/japex/testSuite">
 
-  <param name="japex.reportsDirectory" value="../reports" />
-  <param name="japex.plotGroupSize" value="5" />
-  <param name="japex.resultUnit" value="tps" />
-  <param name="japex.warmupIterations" value="0" />
-  <param name="japex.runIterations" value="50" />  
-  <!--param name="japex.runTime" value="01:00" /-->
-  <!-- 10 for 10 sec -->
-  <!-- 15:00 for 15min -->
+   <param name="japex.reportsDirectory" value="../reports" />
+   <param name="japex.plotGroupSize" value="5" />
+   <param name="japex.resultUnit" value="tps" />
+   <param name="japex.warmupIterations" value="0" />
+   <param name="japex.runIterations" value="50" />
+   <!--param name="japex.runTime" value="01:00" /-->
+   <!-- 10 for 10 sec -->
+   <!-- 15:00 for 15min -->
 
-  <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
-    <param name="japex.classPath" value="../lib/*.jar" />
-    <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
-    <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
-    <param name="jcr.user" value="root" />
-    <param name="jcr.password" value="exo" />
-    <param name="jcr.workspace" value="collaboration" />
-    <param name="jcr.sessionPolicy" value="multiple" />
-    <param name="exo.jaasConf" value="login.conf" />
-    <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
-    <driver name="JCRdriver">
-      <param name="japex.numberOfThreads" value="1" />
-    </driver>
-  </driverGroup>
+   <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
+      <param name="japex.classPath" value="../lib/*.jar" />
+      <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
+      <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
+      <param name="jcr.user" value="root" />
+      <param name="jcr.password" value="exo" />
+      <param name="jcr.workspace" value="collaboration" />
+      <param name="jcr.sessionPolicy" value="multiple" />
+      <param name="exo.jaasConf" value="login.conf" />
+      <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
+      <driver name="JCRdriver">
+         <param name="japex.numberOfThreads" value="1" />
+      </driver>
+   </driverGroup>
 
    <!-- Concurrent read test (https://jira.jboss.org/jira/browse/EXOJCR-281) -->
    <testCase name="PageUsecases">
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.portal.PageUsecasesTest" />
-      
+
+      <!-- if parameter is not defined, default value "2" is used -->
       <param name="exo.prepare.depth" value="2" />
+      <!-- if parameter is not defined, default value "10" is used -->
       <param name="exo.prepare.nodesPerLevel" value="10" />
-      
+
+      <!-- if parameter is not defined, default value "64" is used -->
       <param name="exo.data.stringLength" value="64" />
+      <!-- if parameter is not defined, default value "4" is used -->
       <param name="exo.data.multiValueSize" value="4" />
-      
-      <!--param name="exo.data.binaryPath" value="4" /-->
+
+      <!-- if no binary parameter defined, default value "exo.data.binarySize=1024" is used -->
+      <!--param name="exo.data.binaryPath" value="file.txt" /-->
       <param name="exo.data.binarySize" value="1024" />
+
+      <!--
+         String containing scenario in form of usecases separated by ";". Each usecase can have a multiplier, defining
+         that this usecase should be perform few times or may not have it, notifying single invocation. Each usecase has
+         list of argument. Read and ReadAnon usecases has 2 arguments (Number of nodes and properties to read). Write
+         usecase has 5 arguments: number of removed, added, modified properties and removed, added nodes. All strings
+         are CASE INSENSITIVE and whitespaces between elements are skipped.
+      -->
       <param name="exo.scenario.string" value="2*ReadAnon(2,3)" />
-      
-      
-   </testCase>    
+
+
+   </testCase>
 
 </testSuite>

@@ -21,6 +21,7 @@ package org.exoplatform.jcr.benchmark.usecases.portal;
 import org.exoplatform.services.jcr.core.ExtendedSession;
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -71,12 +72,22 @@ public abstract class AbstractAction
     * @return
     * @throws RepositoryException
     */
-   protected Session getSession(boolean anonymous) throws RepositoryException
+   public Session getSession(boolean anonymous) throws RepositoryException
    {
       if (anonymous)
          return (ExtendedSession)repository.login(workspace);
       else
          return (ExtendedSession)repository.getSystemSession(workspace);
+   }
+
+   /**
+    * @param testRoot
+    * @return
+    */
+   public Node nextNode(Node testRoot)
+   {
+      // TODO: implement next node selection
+      return testRoot;
    }
 
    /**

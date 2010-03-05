@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,9 +72,9 @@ public class PageUsecasesTest extends JCRTestBase
    // UseCases names
    private static final String CASE_READ_ANON = "ReadAnon";
 
-   private static final String CASE_READ_CONN = "ReadConn";
+   private static final String CASE_READ_CONN = "Read";
 
-   private static final String CASE_WRITE_CONN = "WriteConn";
+   private static final String CASE_WRITE_CONN = "Write";
 
    // Test options
    private int depth = 2;
@@ -97,6 +98,11 @@ public class PageUsecasesTest extends JCRTestBase
    private String stringValue = null;
 
    private byte[] binaryValue = null;
+
+   // Usecases
+   private List<AbstractAction> scenario = null;
+
+   private final AtomicInteger index = new AtomicInteger();
 
    @Override
    public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
@@ -127,10 +133,10 @@ public class PageUsecasesTest extends JCRTestBase
       {
          binarySize = tc.getIntParam(PARAM_BIN_SIZE);
       }
-      String scenario;
+      String scenarioString;
       if (tc.hasParam(PARAM_SCENARIO))
       {
-         scenario = tc.getParam(PARAM_SCENARIO);
+         scenarioString = tc.getParam(PARAM_SCENARIO);
       }
       else
       {
@@ -175,11 +181,33 @@ public class PageUsecasesTest extends JCRTestBase
       initAction.perform();
       session.save();
 
-      // Synch?
+      // parse scenario line
+      List<AbstractAction> scenario = parse(scenarioString, repository, session.getWorkspace().getName(), rootNodeName);
+
+      // scenario should not be empty
+      if (scenario.size() < 1)
+      {
+         throw new Exception("Scenario is empty. It must contain at least 1 usecase.");
+      }
+
+      // TODO: Synch? Using JGroups? Initialize repository only on one cluster node
+
       // testing: check repository is filled correctly
       printRepo(testRoot, "");
-      // 
-      // Prepare
+   }
+
+   @Override
+   public void doRun(TestCase tc, JCRTestContext context) throws Exception
+   {
+      // get next usecase (Page) from scenario
+      try
+      {
+         scenario.get(index.getAndIncrement() % scenario.size()).perform();
+      }
+      catch (RepositoryException e)
+      {
+         log.error("Error performing usecase action.", e);
+      }
    }
 
    /**
@@ -203,7 +231,7 @@ public class PageUsecasesTest extends JCRTestBase
     *        List of actions, defined in scenario
     * @throws Exception
     */
-   public List<AbstractAction> parse(String line, RepositoryImpl repository, String workspace, String rootNodeName)
+   private List<AbstractAction> parse(String line, RepositoryImpl repository, String workspace, String rootNodeName)
       throws Exception
    {
       log.info("Found scenario: '" + line + "'. Parsing...");
@@ -250,7 +278,6 @@ public class PageUsecasesTest extends JCRTestBase
                {
                   params[i] = Integer.parseInt(paramList[i]);
                }
-               System.out.println(actionName + " x " + times + " " + Arrays.toString(params));
             }
             else
             {
@@ -265,15 +292,48 @@ public class PageUsecasesTest extends JCRTestBase
             {
                if (params.length == 2)
                {
+                  // anonymous session
                   actions.add(new ReadPageAction(repository, workspace, rootNodeName, params[0], params[1], true));
                }
                else
                {
                   throw new Exception(
-                     "Invalid parameter count for '"
+                     "Missing arguments for '"
                         + actionName
-                        + "' action. Expected 2 parameters: number of JCR nodes and properties to read. Should be defined as '"
+                        + "' action. Expected 2 arguments: number of JCR nodes and properties to read. Should be defined as '"
                         + actionName + "(2,5)'");
+               }
+            }
+            else if (CASE_READ_CONN.equalsIgnoreCase(actionName))
+            {
+               if (params.length == 2)
+               {
+                  // system session
+                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, params[0], params[1], false));
+               }
+               else
+               {
+                  throw new Exception(
+                     "Missing arguments for '"
+                        + actionName
+                        + "' action. Expected 2 arguments: number of JCR nodes and properties to read. Should be defined as '"
+                        + actionName + "(2,5)'");
+               }
+            }
+            else if (CASE_WRITE_CONN.equalsIgnoreCase(actionName))
+            {
+               if (params.length == 5)
+               {
+                  // system session
+                  // TODO: actions.add(new WRITE ACTION);
+               }
+               else
+               {
+                  throw new Exception(
+                     "Missing arguments for '"
+                        + actionName
+                        + "' action. Expected 5 arguments: number of JCR nodes and properties to read. Should be defined as '"
+                        + actionName + "(2,5,3,1,3)'");
                }
             }
             else
@@ -286,15 +346,13 @@ public class PageUsecasesTest extends JCRTestBase
    }
 
    @Override
-   public void doRun(TestCase tc, JCRTestContext context) throws Exception
-   {
-      // TODO: perform
-   }
-
-   @Override
    public void doFinish(TestCase tc, JCRTestContext context) throws Exception
    {
       super.doFinish(tc, context);
+      Session session = context.getSession();
+      session.refresh(false);
+      session.getRootNode().getNode(rootNodeName).remove();
+      session.save();
    }
 
    /**
