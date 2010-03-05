@@ -18,9 +18,7 @@
  */
 package org.exoplatform.jcr.benchmark.usecases.portal;
 
-import org.exoplatform.jcr.benchmark.JCRTestContext;
-import org.exoplatform.services.jcr.ext.app.ThreadLocalSessionProviderService;
-import org.exoplatform.services.jcr.ext.common.SessionProvider;
+import org.exoplatform.services.jcr.core.ExtendedSession;
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 
 import javax.jcr.RepositoryException;
@@ -37,40 +35,48 @@ public abstract class AbstractAction
 
    private RepositoryImpl repository;
 
-   private JCRTestContext context;
+   private String workspace;
 
-   private ThreadLocalSessionProviderService threadLocalSessionProviderService;
+   private String rootName;
 
    /**
-    * Page-usecase action.
-    * 
     * @param repository
-    *    repository instance
+    *        Repository instance
+    * @param workspace
+    *        Workspace name
+    * @param rootName
+    *        Test's root node name
     */
-   public AbstractAction(RepositoryImpl repository, JCRTestContext context)
+   public AbstractAction(RepositoryImpl repository, String workspace, String rootName)
    {
       super();
       this.repository = repository;
-      this.context = context;
-      this.threadLocalSessionProviderService = new ThreadLocalSessionProviderService();
+      this.workspace = workspace;
+      this.rootName = rootName;
+   }
+
+   /**
+    * @return The name of test's root node 
+    */
+   public String getRootNodeName()
+   {
+      return rootName;
    }
 
    /**
     * Returns session, using ThreadLocalSessionProvider
     * 
     * @param anonymous
+    *        If true, then anonymous session is returned
     * @return
     * @throws RepositoryException
     */
    protected Session getSession(boolean anonymous) throws RepositoryException
    {
-      if (threadLocalSessionProviderService.getSessionProvider("") == null)
-      {
-         threadLocalSessionProviderService.setSessionProvider("", anonymous ? SessionProvider.createAnonimProvider()
-            : SessionProvider.createSystemProvider());
-      }
-      return threadLocalSessionProviderService.getSessionProvider("").getSession(
-         context.getSession().getWorkspace().getName(), repository);
+      if (anonymous)
+         return (ExtendedSession)repository.login(workspace);
+      else
+         return (ExtendedSession)repository.getSystemSession(workspace);
    }
 
    /**

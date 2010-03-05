@@ -37,6 +37,8 @@
       
       <!--param name="exo.data.binaryPath" value="4" /-->
       <param name="exo.data.binarySize" value="1024" />
+      <param name="exo.scenario.string" value="2*ReadAnon(2,3)" />
+      
       
    </testCase>    
 

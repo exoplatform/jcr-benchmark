@@ -18,12 +18,19 @@
  */
 package org.exoplatform.jcr.benchmark.usecases.portal;
 
-import org.exoplatform.jcr.benchmark.JCRTestContext;
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+/**
+ * Accesses the JCR in anonymous/connected mode to x JCR nodes and for each 
+ * JCR Node accesses to y JCR properties (x and y are set in the configuration)
+ * 
+ * @author <a href="mailto:nikolazius@gmail.com">Nikolay Zamosenchuk</a>
+ * @version $Id: ReadPageAction.java 34360 2009-07-22 23:58:59Z nzamosenchuk $
+ *
+ */
 public class ReadPageAction extends AbstractAction
 {
 
@@ -35,12 +42,22 @@ public class ReadPageAction extends AbstractAction
 
    /**
     * @param repository
-    * @param context
+    *        Repository instance
+    * @param workspace
+    *        Workspace name
+    * @param rootName
+    *        Name of test's root node
+    * @param nodeCount
+    *        Number of nodes to read
+    * @param propertyCount
+    *        Number of properties to read
+    * @param anonymous
+    *        Is true, then anonymous session is used.
     */
-   public ReadPageAction(RepositoryImpl repository, JCRTestContext context, int nodeCount, int propertyCount,
-      boolean anonymous)
+   public ReadPageAction(RepositoryImpl repository, String workspace, String rootName, int nodeCount,
+      int propertyCount, boolean anonymous)
    {
-      super(repository, context);
+      super(repository, workspace, rootName);
       this.nodeCount = nodeCount;
       this.propertyCount = propertyCount;
       this.anonymous = anonymous;
@@ -50,24 +67,19 @@ public class ReadPageAction extends AbstractAction
     * @see org.exoplatform.jcr.benchmark.usecases.portal.AbstractAction#perform(javax.jcr.Session)
     */
    @Override
-   void perform()  throws RepositoryException
+   void perform() throws RepositoryException
    {
       Session session = null;
       try
       {
          session = getSession(anonymous);
-         // TODO: Thread-safe operation goes here
-      }
-      catch (Exception e)
-      {
-         // TODO: handle exception
-         PageUsecasesTest.log.error("Error performing read page usecase.", e);
+         // TODO: Operation goes here
       }
       finally
       {
          if (session != null)
          {
-            session.logout(); // TODO: Do logout or not? Should the session be cached
+            session.logout();
          }
       }
    }

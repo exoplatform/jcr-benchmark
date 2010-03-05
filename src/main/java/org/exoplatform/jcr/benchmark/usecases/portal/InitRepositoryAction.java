@@ -18,7 +18,6 @@
  */
 package org.exoplatform.jcr.benchmark.usecases.portal;
 
-import org.exoplatform.jcr.benchmark.JCRTestContext;
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 
 import javax.jcr.Node;
@@ -42,23 +41,30 @@ public class InitRepositoryAction extends AbstractWriteAction
 
    private int nodesPerLevel;
 
-   private Node testRoot;
-
    /**
-    * @param repository
-    * @param context
+    * @param session
+    *        Within this session, repository is initialised
+    * @param rootName
+    *        Name of test's root node
     * @param stringValue
+    *        Constant for string values
     * @param binaryValue
+    *        Constant for binary values
     * @param multiValueSize
+    *        Number of items in multi-valued property
+    * @param depth
+    *        Depth of initialization
+    * @param nodesPerLevel
+    *        Number of child nodes on each level
     */
-   public InitRepositoryAction(RepositoryImpl repository, JCRTestContext context, String stringValue,
-      byte[] binaryValue, int multiValueSize, Session session, int depth, int nodesPerLevel, Node testRoot)
+   public InitRepositoryAction(Session session, String rootName, String stringValue, byte[] binaryValue,
+      int multiValueSize, int depth, int nodesPerLevel)
    {
-      super(repository, context, stringValue, binaryValue, multiValueSize);
+      super((RepositoryImpl)session.getRepository(), session.getWorkspace().getName(), rootName, stringValue,
+         binaryValue, multiValueSize);
       this.session = session;
       this.depth = depth;
       this.nodesPerLevel = nodesPerLevel;
-      this.testRoot = testRoot;
    }
 
    /**
@@ -67,11 +73,12 @@ public class InitRepositoryAction extends AbstractWriteAction
    @Override
    void perform() throws RepositoryException
    {
+      Node testRoot = session.getRootNode().getNode(getRootNodeName());
       recursivelyFill(testRoot, depth, session.getValueFactory());
    }
 
    /**
-    * Fills repository for currentLevel levels containing maxPerLevel nodes in each.
+    * Recursively fills repository for currentLevel levels containing maxPerLevel nodes in each.
     * 
     * @param root
     * @param currentLevel

@@ -18,7 +18,6 @@
  */
 package org.exoplatform.jcr.benchmark.usecases.portal;
 
-import org.exoplatform.jcr.benchmark.JCRTestContext;
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 import org.exoplatform.services.jcr.util.IdGenerator;
 
@@ -31,10 +30,6 @@ import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
 import javax.jcr.Value;
 import javax.jcr.ValueFactory;
-import javax.jcr.ValueFormatException;
-import javax.jcr.lock.LockException;
-import javax.jcr.nodetype.ConstraintViolationException;
-import javax.jcr.version.VersionException;
 
 /**
  * Extends AbstractAction by introducing method, creating node of genericNode type and filling 
@@ -57,26 +52,36 @@ public abstract class AbstractWriteAction extends AbstractAction
 
    /**
     * @param repository
-    * @param context
+    *        Repository instance
+    * @param workspace
+    *        Workspace name
+    * @param rootName
+    *        Test's root node name
+    * @param stringValue
+    *        Sting value, that is used to initialize string properties
+    * @param binaryValue
+    *        Binary value, used to initialize binary properties
+    * @param multiValueSize
+    *        How many items will contain multi-valued property
     */
-   public AbstractWriteAction(RepositoryImpl repository, JCRTestContext context, String stringValue,
+   public AbstractWriteAction(RepositoryImpl repository, String workspace, String rootName, String stringValue,
       byte[] binaryValue, int multiValueSize)
    {
-      super(repository, context);
+      super(repository, workspace, rootName);
       this.random = new Random();
       this.binaryValue = binaryValue;
       this.stringValue = stringValue;
    }
 
    /**
-    * Fills in all the properties defined in exo:genericNode type. 
+    * Fills in all the properties defined in exo:genericNode type.
     * 
-    * @param target
-    * @throws RepositoryException 
-    * @throws ConstraintViolationException 
-    * @throws LockException 
-    * @throws VersionException 
-    * @throws ValueFormatException 
+    * @param root
+    *        Parent node, where node is created
+    * @param valueFactory
+    *        Value factory instace
+    * @return
+    * @throws RepositoryException
     */
    public Node createGenericNode(Node root, ValueFactory valueFactory) throws RepositoryException
    {

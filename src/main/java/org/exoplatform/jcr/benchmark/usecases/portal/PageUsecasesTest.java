@@ -29,7 +29,10 @@ import org.exoplatform.services.log.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,6 +65,15 @@ public class PageUsecasesTest extends JCRTestBase
    private static final String PARAM_BIN_PATH = "exo.data.binaryPath";
 
    private static final String PARAM_BIN_SIZE = "exo.data.binarySize";
+
+   private static final String PARAM_SCENARIO = "exo.scenario.string";
+
+   // UseCases names
+   private static final String CASE_READ_ANON = "ReadAnon";
+
+   private static final String CASE_READ_CONN = "ReadConn";
+
+   private static final String CASE_WRITE_CONN = "WriteConn";
 
    // Test options
    private int depth = 2;
@@ -115,6 +127,17 @@ public class PageUsecasesTest extends JCRTestBase
       {
          binarySize = tc.getIntParam(PARAM_BIN_SIZE);
       }
+      String scenario;
+      if (tc.hasParam(PARAM_SCENARIO))
+      {
+         scenario = tc.getParam(PARAM_SCENARIO);
+      }
+      else
+      {
+         throw new Exception(
+            "Scenario not found in configuration, but it is mandatory. Please define scenario as testCase parameter '"
+               + PARAM_SCENARIO + "'.");
+      }
 
       // Store value in memory, to avoid unnecessary FS IO operations.
       // Once generate string content
@@ -125,7 +148,7 @@ public class PageUsecasesTest extends JCRTestBase
       // once read in memory FS content
       if (binaryPath == null)
       {
-         binaryValue = new byte[stringLength];
+         binaryValue = new byte[binarySize];
          random.nextBytes(binaryValue);
       }
       else
@@ -143,12 +166,11 @@ public class PageUsecasesTest extends JCRTestBase
 
       // root node for the test
       rootNodeName = IdGenerator.generate();
-      Node testRoot = session.getRootNode().addNode("rootNode", "exo:genericNode");
+      Node testRoot = session.getRootNode().addNode(rootNodeName, "exo:genericNode");
       session.save();
       // fill the repository 
       InitRepositoryAction initAction =
-         new InitRepositoryAction(repository, context, stringValue, bytes, multiValueSize, session, depth,
-            nodesPerLevel, testRoot);
+         new InitRepositoryAction(session, rootNodeName, stringValue, bytes, multiValueSize, depth, nodesPerLevel);
       // perform initialize action
       initAction.perform();
       session.save();
@@ -160,17 +182,41 @@ public class PageUsecasesTest extends JCRTestBase
       // Prepare
    }
 
-   public void parse(String line) throws Exception
+   /**
+    * Parses incoming scenario string in notation:
+    * 
+    * scenario ::= action {';' action}
+    * action ::= fullNotation | singleNotation
+    * fullNotation ::= Integer '*' singleNotation
+    * singleNotation ::= Name '(' paramList ')'
+    * paramList ::= Integer {',' Integer}
+    * 
+    * @param line
+    *        Line containing the scenario
+    * @param repository
+    *        Repository instance
+    * @param workspace
+    *        Workspace name
+    * @param rootNodeName
+    *        Name of the root node
+    * @return
+    *        List of actions, defined in scenario
+    * @throws Exception
+    */
+   public List<AbstractAction> parse(String line, RepositoryImpl repository, String workspace, String rootNodeName)
+      throws Exception
    {
+      log.info("Found scenario: '" + line + "'. Parsing...");
+      List<AbstractAction> actions = new ArrayList<AbstractAction>();
       // matching "22*read(2,5,4,6)"
-      Pattern fullNotation = Pattern.compile("(\\d++)[*](\\w++)[(]([,0-9]*+)[)]");
+      Pattern fullNotation = Pattern.compile("(\\d++)\\s*[*]\\s*(\\w++)\\s*[(]([,0-9]*+)[)]");
       // matching "read(2,5,4,6)"
-      Pattern singleNotation = Pattern.compile("(\\w++)[(]([,0-9]*+)[)]");
+      Pattern singleNotation = Pattern.compile("(\\w++)\\s*[(]([,0-9]*+)[)]");
 
       // split scenario into usecases, skipping whitespaces 
-      String[] actions = line.split("\\s*+;\\s*+");
+      String[] actionNames = line.split("\\s*+;\\s*+");
       // parse each action string
-      for (String actionLine : actions)
+      for (String actionLine : actionNames)
       {
          int times;
          String actionName;
@@ -208,10 +254,35 @@ public class PageUsecasesTest extends JCRTestBase
             }
             else
             {
-               throw new Exception("Illegal scenario element:"+actionLine);
+               throw new Exception("Illegal scenario element:" + actionLine);
+            }
+         }
+         log.info("Next usecase in scenario: " + actionName + " x " + times + " " + Arrays.toString(params));
+         // Create usecase action object
+         for (int i = 0; i < times; i++)
+         {
+            if (CASE_READ_ANON.equalsIgnoreCase(actionName))
+            {
+               if (params.length == 2)
+               {
+                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, params[0], params[1], true));
+               }
+               else
+               {
+                  throw new Exception(
+                     "Invalid parameter count for '"
+                        + actionName
+                        + "' action. Expected 2 parameters: number of JCR nodes and properties to read. Should be defined as '"
+                        + actionName + "(2,5)'");
+               }
+            }
+            else
+            {
+               throw new Exception("Invalid usecase name: " + actionName);
             }
          }
       }
+      return Collections.unmodifiableList(actions);
    }
 
    @Override
