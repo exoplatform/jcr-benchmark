@@ -71,6 +71,7 @@ public abstract class AbstractWriteAction extends AbstractAction
       this.random = new Random();
       this.binaryValue = binaryValue;
       this.stringValue = stringValue;
+      this.multiValueSize = multiValueSize;
    }
 
    /**
