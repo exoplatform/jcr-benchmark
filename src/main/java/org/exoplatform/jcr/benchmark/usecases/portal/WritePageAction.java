@@ -21,6 +21,7 @@ import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 import java.util.Random;
 
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
@@ -104,7 +105,30 @@ public class WritePageAction extends AbstractWriteAction
             node.save();
          }
 
+         Node parentNode = this.nextParent(testRoot);
          //delete nodes
+         for (int i = 0; i < this.removeSubNodes; i++)
+         {
+            NodeIterator iterator = parentNode.getNodes();
+            if (iterator.hasNext())
+            {
+               iterator.skip(random.nextInt((int)iterator.getSize()));
+               iterator.nextNode().remove();
+               parentNode.save();
+            }
+            else
+            {
+               // there is nothing to remove
+               break;
+            }
+         }
+
+         //add nodes
+         for (int i = 0; i < this.addSubNodes; i++)
+         {
+            createGenericNode(parentNode, session.getValueFactory());
+            parentNode.save();
+         }
 
       }
       finally
