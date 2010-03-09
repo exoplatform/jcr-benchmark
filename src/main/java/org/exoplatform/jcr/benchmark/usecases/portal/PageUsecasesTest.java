@@ -95,9 +95,9 @@ public class PageUsecasesTest extends JCRTestBase
    private Random random = new Random();
 
    // Default values
-   private String stringValue = null;
+   private static String stringValue = null;
 
-   private byte[] binaryValue = null;
+   private static byte[] binaryValue = null;
 
    // Usecases
    private List<AbstractAction> scenario = null;
@@ -145,25 +145,37 @@ public class PageUsecasesTest extends JCRTestBase
                + PARAM_SCENARIO + "'.");
       }
 
-      // Store value in memory, to avoid unnecessary FS IO operations.
-      // Once generate string content
-      byte[] bytes = new byte[stringLength];
-      random.nextBytes(bytes);
-      stringValue = new String(bytes);
+      // initialize STATIC VALUES, synchronize all running threads 
+      synchronized (this)
+      {
+         // Store value in memory, to avoid unnecessary FS IO operations.
+         // Once generate string content
+         if (stringValue == null)
+         {
+            // not yet initialized by another thread
+            byte[] bytes = new byte[stringLength];
+            random.nextBytes(bytes);
+            stringValue = new String(bytes);
+         }
 
-      // once read in memory FS content
-      if (binaryPath == null)
-      {
-         binaryValue = new byte[binarySize];
-         random.nextBytes(binaryValue);
-      }
-      else
-      {
-         File file = new File(binaryPath);
-         FileInputStream fin = new FileInputStream(file);
-         binaryValue = new byte[(int)file.length()];
-         fin.read(binaryValue);
-         fin.close();
+         if (binaryValue == null)
+         {
+            // not yet initialized by another thread
+            // once read in memory FS content
+            if (binaryPath == null)
+            {
+               binaryValue = new byte[binarySize];
+               random.nextBytes(binaryValue);
+            }
+            else
+            {
+               File file = new File(binaryPath);
+               FileInputStream fin = new FileInputStream(file);
+               binaryValue = new byte[(int)file.length()];
+               fin.read(binaryValue);
+               fin.close();
+            }
+         }
       }
 
       // initialization
@@ -176,12 +188,12 @@ public class PageUsecasesTest extends JCRTestBase
       session.save();
       // fill the repository 
       InitRepositoryAction initAction =
-         new InitRepositoryAction(session, rootNodeName, stringValue, bytes, multiValueSize, depth, nodesPerLevel);
+         new InitRepositoryAction(session, rootNodeName, stringValue, binaryValue, multiValueSize, depth, nodesPerLevel);
+
       // perform initialize action
       initAction.perform();
       session.save();
 
-      // parse scenario line
       scenario = parse(scenarioString, repository, session.getWorkspace().getName(), rootNodeName);
 
       // scenario should not be empty
@@ -191,10 +203,6 @@ public class PageUsecasesTest extends JCRTestBase
       }
 
       // TODO: Synch? Using JGroups? Also initialize repository only on one cluster node?
-
-      // TODO: Remove
-      // (testing) check repository is filled correctly
-      // printRepo(testRoot, "");
    }
 
    @Override
@@ -256,7 +264,6 @@ public class PageUsecasesTest extends JCRTestBase
             {
                params[i] = Integer.parseInt(paramList[i]);
             }
-            System.out.println(actionName + " x " + times + " " + Arrays.toString(params));
          }
          else
          {

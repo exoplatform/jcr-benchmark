@@ -23,7 +23,9 @@ import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 
 import java.util.Random;
 
+import javax.jcr.ItemNotFoundException;
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
@@ -97,9 +99,42 @@ public abstract class AbstractAction
     */
    public Node nextNode(Node testRoot) throws RepositoryException
    {
-      // TODO: implement next node selection
-      // taking in consideration repository initialization depth
-      return testRoot;
+      return getNodeOnLevel(testRoot, depth);
+   }
+
+   /**
+    * Returns next node from hierarchy tree in stochastic (random) order
+    * 
+    * @param testRoot
+    * @return
+    * @throws RepositoryException
+    */
+   public Node nextParent(Node testRoot) throws RepositoryException
+   {
+      return getNodeOnLevel(testRoot, depth - 1);
+   }
+
+   /**
+    * @param testRoot
+    * @param level
+    * @return
+    * @throws RepositoryException
+    */
+   protected Node getNodeOnLevel(Node testRoot, int level) throws RepositoryException
+   {
+      Node target = testRoot;
+      for (int i = 0; i < level; i++)
+      {
+         NodeIterator iterator = target.getNodes();
+         iterator.skip(random.nextInt((int)iterator.getSize()));
+         target = iterator.nextNode();
+         // Child node should exist!
+         if (target == null)
+         {
+            throw new ItemNotFoundException("Unexpected repository structure, possibly some nodes were deleted.");
+         }
+      }
+      return target;
    }
 
    /**
