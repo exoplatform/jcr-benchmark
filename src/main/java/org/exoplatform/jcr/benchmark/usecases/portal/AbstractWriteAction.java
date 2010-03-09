@@ -87,103 +87,18 @@ public abstract class AbstractWriteAction extends AbstractAction
    {
       String id = IdGenerator.generate();
       Node target = root.addNode(id, "exo:genericNode");
-      // String
+      for (int i = 1; i <= 9; i++)
       {
-         target.setProperty("String-s", stringValue);
-         Value[] values = new Value[multiValueSize];
-         for (int i = 0; i < values.length; i++)
          {
-            values[i] = valueFactory.createValue(stringValue);
+            // multivalue
+            String propName = PropertyType.nameFromValue(i) + "-m";
+            target.setProperty(propName, createValues(target, i, true, valueFactory), i);
          }
-         target.setProperty("String-m", values);
-      }
-
-      // Binary
-      {
-         target.setProperty("Binary-s", valueFactory.createValue(new ByteArrayInputStream(binaryValue)));
-         Value[] values = new Value[multiValueSize];
-         for (int i = 0; i < values.length; i++)
          {
-            values[i] = valueFactory.createValue(new ByteArrayInputStream(binaryValue));
+            // single value
+            String propName = PropertyType.nameFromValue(i) + "-s";
+            target.setProperty(propName, createValues(target, i, false, valueFactory)[0], i);
          }
-         target.setProperty("Binary-m", values);
-      }
-
-      // Boolean
-      {
-         target.setProperty("Boolean-s", valueFactory.createValue(true));
-         Value[] values = new Value[multiValueSize];
-         for (int i = 0; i < values.length; i++)
-         {
-            values[i] = valueFactory.createValue(true);
-         }
-         target.setProperty("Boolean-m", values);
-      }
-
-      // Long
-      {
-         target.setProperty("Long-s", valueFactory.createValue(random.nextLong()));
-         Value[] values = new Value[multiValueSize];
-         for (int i = 0; i < values.length; i++)
-         {
-            values[i] = valueFactory.createValue(random.nextLong());
-         }
-         target.setProperty("Long-m", values);
-      }
-
-      // Double
-      {
-         target.setProperty("Double-s", valueFactory.createValue(random.nextDouble()));
-         Value[] values = new Value[multiValueSize];
-         for (int i = 0; i < values.length; i++)
-         {
-            values[i] = valueFactory.createValue(random.nextDouble());
-         }
-         target.setProperty("Double-m", values);
-      }
-
-      // Date
-      {
-         target.setProperty("Date-s", valueFactory.createValue(Calendar.getInstance()));
-         Value[] values = new Value[multiValueSize];
-         for (int i = 0; i < values.length; i++)
-         {
-            values[i] = valueFactory.createValue(Calendar.getInstance());
-         }
-         target.setProperty("Date-m", values);
-      }
-
-      // Path
-      {
-         target.setProperty("Path-s", valueFactory.createValue(target.getPath(), PropertyType.PATH));
-         Value[] values = new Value[multiValueSize];
-         for (int i = 0; i < values.length; i++)
-         {
-            values[i] = valueFactory.createValue(target.getPath(), PropertyType.PATH);
-         }
-         target.setProperty("Path-m", values);
-      }
-
-      // Name
-      {
-         target.setProperty("Name-s", valueFactory.createValue(target.getName(), PropertyType.NAME));
-         Value[] values = new Value[multiValueSize];
-         for (int i = 0; i < values.length; i++)
-         {
-            values[i] = valueFactory.createValue(target.getName(), PropertyType.NAME);
-         }
-         target.setProperty("Name-m", values);
-      }
-
-      // Reference
-      {
-         target.setProperty("Reference-s", valueFactory.createValue(target));
-         Value[] values = new Value[multiValueSize];
-         for (int i = 0; i < values.length; i++)
-         {
-            values[i] = valueFactory.createValue(target);
-         }
-         target.setProperty("Reference-m", values);
       }
       return target;
    }
