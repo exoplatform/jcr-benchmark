@@ -25,6 +25,7 @@ import javax.jcr.NodeIterator;
 import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.Value;
 
 /**
  * Created by The eXo Platform SAS.
@@ -101,7 +102,15 @@ public class WritePageAction extends AbstractWriteAction
             int propType = random.nextInt(9) + 1;
             boolean isMultivalued = random.nextBoolean();
             String propName = PropertyType.nameFromValue(propType) + (isMultivalued ? "-m" : "-s");
-            node.setProperty(propName, this.createValues(node, propType, isMultivalued, session.getValueFactory()));
+            Value[] values = this.createValues(node, propType, isMultivalued, session.getValueFactory());
+            if (isMultivalued)
+            {
+               node.setProperty(propName, values, propType);
+            }
+            else
+            {
+               node.setProperty(propName, values[0], propType);
+            }
             node.save();
          }
 
