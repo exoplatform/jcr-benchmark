@@ -318,10 +318,32 @@ public class PageUsecasesTest extends JCRTestBase
             }
             else if (CASE_WRITE_CONN.equalsIgnoreCase(actionName))
             {
-               if (params.length == 5)
+               if (params.length == 4)
                {
                   // system session
-                  // TODO: actions.add(new WRITE ACTION);
+
+                  if (params[0] > params[1])
+                  {
+                     // count of removed properties must be less or equal to count of added properties                     
+                     throw new Exception(
+                        "Wrong arguments for '"
+                           + actionName
+                           + "' action. Count of removed properties must be less or equal to count of setted properties: '"
+                           + actionName + "(" + params[0] + "," + params[1] + ",_,_,_)'");
+
+                  }
+
+                  if (params[2] > params[3])
+                  {
+                     // count of removed nodes must be less or equal to count of added nodes
+                     throw new Exception("Wrong arguments for '" + actionName
+                        + "' action. Count of removed nodes must be less or equal to count of added nodes: '"
+                        + actionName + "(_,_,_," + params[3] + "," + params[4] + ")'");
+                  }
+
+                  actions.add(new WritePageAction(repository, workspace, rootNodeName, depth, stringValue, binaryValue,
+                     multiValueSize, params[0], params[1], params[2], params[3]));
+
                }
                else
                {

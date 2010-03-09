@@ -187,4 +187,93 @@ public abstract class AbstractWriteAction extends AbstractAction
       }
       return target;
    }
+
+   public Value[] createValues(Node node, int propType, boolean isMultivalued, ValueFactory valueFactory)
+      throws RepositoryException
+   {
+
+      Value[] values = new Value[isMultivalued ? multiValueSize : 1];
+
+      switch (propType)
+      {
+
+         case 1 : //STRING
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = valueFactory.createValue(stringValue);
+            }
+            return values;
+         }
+         case 2 : //BINARY
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = valueFactory.createValue(new ByteArrayInputStream(binaryValue));
+            }
+            return values;
+         }
+         case 3 : //LONG
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = valueFactory.createValue(random.nextLong());
+            }
+            return values;
+         }
+         case 4 : //DOUBLE
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = valueFactory.createValue(random.nextDouble());
+            }
+            return values;
+         }
+         case 5 : //DATE
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = valueFactory.createValue(Calendar.getInstance());
+            }
+            return values;
+         }
+         case 6 : //BOOLEAN
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = valueFactory.createValue(true);
+            }
+            return values;
+         }
+         case 7 : //NAME
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = valueFactory.createValue(node.getName(), PropertyType.NAME);
+            }
+            return values;
+         }
+         case 8 : //PATH
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = valueFactory.createValue(node.getPath(), PropertyType.PATH);
+            }
+            return values;
+         }
+         case 9 : //REFERENCE
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = valueFactory.createValue(node);
+            }
+            return values;
+         }
+         default :
+            // TODO is there exception needed?
+            return null;
+      }
+
+   }
+
 }
