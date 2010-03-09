@@ -73,7 +73,6 @@ public class ReadPageAction extends AbstractAction
    void perform() throws RepositoryException
    {
       Session session = null;
-      // TODO: Operation goes here
       try
       {
          session = getSession(anonymous);
