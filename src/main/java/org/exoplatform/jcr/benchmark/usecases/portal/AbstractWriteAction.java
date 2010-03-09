@@ -64,10 +64,10 @@ public abstract class AbstractWriteAction extends AbstractAction
     * @param multiValueSize
     *        How many items will contain multi-valued property
     */
-   public AbstractWriteAction(RepositoryImpl repository, String workspace, String rootName, String stringValue,
-      byte[] binaryValue, int multiValueSize)
+   public AbstractWriteAction(RepositoryImpl repository, String workspace, String rootName, int depth,
+      String stringValue, byte[] binaryValue, int multiValueSize)
    {
-      super(repository, workspace, rootName);
+      super(repository, workspace, rootName, depth);
       this.random = new Random();
       this.binaryValue = binaryValue;
       this.stringValue = stringValue;

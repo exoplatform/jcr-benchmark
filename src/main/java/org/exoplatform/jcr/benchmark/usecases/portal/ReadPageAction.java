@@ -21,6 +21,7 @@ package org.exoplatform.jcr.benchmark.usecases.portal;
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 
 import javax.jcr.Node;
+import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -55,10 +56,10 @@ public class ReadPageAction extends AbstractAction
     * @param anonymous
     *        Is true, then anonymous session is used.
     */
-   public ReadPageAction(RepositoryImpl repository, String workspace, String rootName, int nodeCount,
+   public ReadPageAction(RepositoryImpl repository, String workspace, String rootName, int depth, int nodeCount,
       int propertyCount, boolean anonymous)
    {
-      super(repository, workspace, rootName);
+      super(repository, workspace, rootName, depth);
       this.nodeCount = nodeCount;
       this.propertyCount = propertyCount;
       this.anonymous = anonymous;
@@ -68,6 +69,7 @@ public class ReadPageAction extends AbstractAction
     * @see org.exoplatform.jcr.benchmark.usecases.portal.AbstractAction#perform(javax.jcr.Session)
     */
    @Override
+   public
    void perform() throws RepositoryException
    {
       Session session = null;
@@ -76,13 +78,23 @@ public class ReadPageAction extends AbstractAction
       {
          session = getSession(anonymous);
          Node testRoot = session.getRootNode().getNode(getRootNodeName());
+         // get node configured times
          for (int i = 0; i < nodeCount; i++)
          {
             Node target = nextNode(testRoot);
+            // for each node access properties configured times
             for (int j = 0; j < propertyCount; j++)
             {
-               target.getProperty("a");
-               // TODO: implement property selection
+               try
+               {
+                  // access random property
+                  target.getProperty(nextPropertyName());
+               }
+               catch (PathNotFoundException e)
+               {
+                  // possibly property not exist, but this is still the
+                  // access to the property.
+               }
             }
          }
       }

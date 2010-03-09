@@ -60,7 +60,7 @@ public class InitRepositoryAction extends AbstractWriteAction
    public InitRepositoryAction(Session session, String rootName, String stringValue, byte[] binaryValue,
       int multiValueSize, int depth, int nodesPerLevel)
    {
-      super((RepositoryImpl)session.getRepository(), session.getWorkspace().getName(), rootName, stringValue,
+      super((RepositoryImpl)session.getRepository(), session.getWorkspace().getName(), rootName, depth, stringValue,
          binaryValue, multiValueSize);
       this.session = session;
       this.depth = depth;
@@ -71,7 +71,7 @@ public class InitRepositoryAction extends AbstractWriteAction
     * @see org.exoplatform.jcr.benchmark.usecases.portal.AbstractAction#perform()
     */
    @Override
-   void perform() throws RepositoryException
+   public void perform() throws RepositoryException
    {
       Node testRoot = session.getRootNode().getNode(getRootNodeName());
       recursivelyFill(testRoot, depth, session.getValueFactory());

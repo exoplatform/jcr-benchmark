@@ -21,7 +21,10 @@ package org.exoplatform.jcr.benchmark.usecases.portal;
 import org.exoplatform.services.jcr.core.ExtendedSession;
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 
+import java.util.Random;
+
 import javax.jcr.Node;
+import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -33,12 +36,15 @@ import javax.jcr.Session;
  */
 public abstract class AbstractAction
 {
-
    private RepositoryImpl repository;
 
    private String workspace;
 
    private String rootName;
+
+   private Random random;
+
+   private int depth;
 
    /**
     * @param repository
@@ -48,12 +54,14 @@ public abstract class AbstractAction
     * @param rootName
     *        Test's root node name
     */
-   public AbstractAction(RepositoryImpl repository, String workspace, String rootName)
+   public AbstractAction(RepositoryImpl repository, String workspace, String rootName, int depth)
    {
       super();
       this.repository = repository;
       this.workspace = workspace;
       this.rootName = rootName;
+      this.depth = depth;
+      this.random = new Random();
    }
 
    /**
@@ -81,17 +89,33 @@ public abstract class AbstractAction
    }
 
    /**
+    * Returns next node from hierarchy tree in stochastic (random) order
+    * 
     * @param testRoot
+    *        Node to start from
     * @return
     */
-   public Node nextNode(Node testRoot)
+   public Node nextNode(Node testRoot) throws RepositoryException
    {
       // TODO: implement next node selection
+      // taking in consideration repository initialization depth
       return testRoot;
+   }
+
+   /**
+    * Generates next random property name by selecting random property type and single/multi
+    * value option.
+    * 
+    * @return
+    */
+   public String nextPropertyName()
+   {
+      // we have 9 types of properties, starting from 1 to 9.
+      return PropertyType.nameFromValue(random.nextInt(9) + 1) + (random.nextBoolean() ? "-m" : "-s");
    }
 
    /**
     * Performs action on the page (possibly read, write or what ever)
     */
-   abstract void perform() throws RepositoryException;
+   public abstract void perform() throws RepositoryException;
 }

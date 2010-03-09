@@ -182,7 +182,7 @@ public class PageUsecasesTest extends JCRTestBase
       session.save();
 
       // parse scenario line
-      List<AbstractAction> scenario = parse(scenarioString, repository, session.getWorkspace().getName(), rootNodeName);
+      scenario = parse(scenarioString, repository, session.getWorkspace().getName(), rootNodeName);
 
       // scenario should not be empty
       if (scenario.size() < 1)
@@ -190,24 +190,18 @@ public class PageUsecasesTest extends JCRTestBase
          throw new Exception("Scenario is empty. It must contain at least 1 usecase.");
       }
 
-      // TODO: Synch? Using JGroups? Initialize repository only on one cluster node
+      // TODO: Synch? Using JGroups? Also initialize repository only on one cluster node?
 
-      // testing: check repository is filled correctly
-      printRepo(testRoot, "");
+      // TODO: Remove
+      // (testing) check repository is filled correctly
+      // printRepo(testRoot, "");
    }
 
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
    {
-      // get next usecase (Page) from scenario
-      try
-      {
-         scenario.get(index.getAndIncrement() % scenario.size()).perform();
-      }
-      catch (RepositoryException e)
-      {
-         log.error("Error performing usecase action.", e);
-      }
+      // get next use-case (Page) from scenario
+      scenario.get(index.getAndIncrement() % scenario.size()).perform();
    }
 
    /**
@@ -293,7 +287,8 @@ public class PageUsecasesTest extends JCRTestBase
                if (params.length == 2)
                {
                   // anonymous session
-                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, params[0], params[1], true));
+                  actions
+                     .add(new ReadPageAction(repository, workspace, rootNodeName, depth, params[0], params[1], true));
                }
                else
                {
@@ -309,7 +304,8 @@ public class PageUsecasesTest extends JCRTestBase
                if (params.length == 2)
                {
                   // system session
-                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, params[0], params[1], false));
+                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, depth, params[0], params[1],
+                     false));
                }
                else
                {
