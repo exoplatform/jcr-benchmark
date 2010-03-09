@@ -75,7 +75,7 @@ public class WritePageAction extends AbstractWriteAction
 
          for (int i = 0; i < removeProperties; i++)
          {
-            if (node.hasProperties())
+            if (node.getProperties().getSize() >= 2)
             {
                String propName = null;
                do
@@ -83,7 +83,7 @@ public class WritePageAction extends AbstractWriteAction
                   // randomly get next property name
                   propName = this.nextPropertyName();
                }
-               while (node.hasProperty(propName));
+               while (!node.hasProperty(propName));
 
                node.getProperty(propName).remove();
                node.save();
