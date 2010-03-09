@@ -336,7 +336,7 @@ public class PageUsecasesTest extends JCRTestBase
                         "Wrong arguments for '"
                            + actionName
                            + "' action. Count of removed properties must be less or equal to count of setted properties: '"
-                           + actionName + "(" + params[0] + "," + params[1] + ",_,_,_)'");
+                           + actionName + "(" + params[0] + "," + params[1] + ",_,_)'");
 
                   }
 
@@ -345,7 +345,7 @@ public class PageUsecasesTest extends JCRTestBase
                      // count of removed nodes must be less or equal to count of added nodes
                      throw new Exception("Wrong arguments for '" + actionName
                         + "' action. Count of removed nodes must be less or equal to count of added nodes: '"
-                        + actionName + "(_,_,_," + params[3] + "," + params[4] + ")'");
+                        + actionName + "(_,_," + params[3] + "," + params[4] + ")'");
                   }
 
                   actions.add(new WritePageAction(repository, workspace, rootNodeName, depth, stringValue, binaryValue,
