@@ -21,7 +21,7 @@
       <param name="exo.jaasConf" value="login.conf" />
       <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
       <driver name="JCRdriver">
-         <param name="japex.numberOfThreads" value="1" />
+         <param name="japex.numberOfThreads" value="5" />
       </driver>
    </driverGroup>
 
@@ -43,9 +43,11 @@
       <param name="exo.data.binarySize" value="1024" />
       
       <!-- how to sunchronize cluster nodes. Default value is NONE -->
-      <!--param name="exo.synchronisation" value="manual"/-->
+      <!--param name="exo.synchronisation" value="manual"/>
+      <param name="exo.waitThread" value="5"/-->
 
-      <!--
+
+      <!--d
          String containing scenario in form of usecases separated by ";". Each usecase can have a multiplier, defining
          that this usecase should be perform few times or may not have it, notifying single invocation. Each usecase has
          list of argument. Read and ReadAnon usecases has 2 arguments (Number of nodes and properties to read). Write

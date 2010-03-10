@@ -75,6 +75,8 @@ public class PageUsecasesTest extends JCRTestBase
 
    private static final String PARAM_SYNCHRONISATION_ANYKEY = "manual";
 
+   private static final String PARAM_WAIT_THREADS = "exo.waitThread";
+
    // UseCases names
    private static final String CASE_READ_ANON = "ReadAnon";
 
@@ -112,13 +114,13 @@ public class PageUsecasesTest extends JCRTestBase
 
    private static int i = 0;
 
-   public static synchronized void waitUntilKeyPressed() throws IOException
+   public static synchronized void waitUntilKeyPressed(int timesToWait) throws IOException
    {
-      if (i == 0)
+      i++;
+      if (i >= timesToWait)
       {
          System.out.println("Press any key to continue test.");
          System.in.read();
-         i++;
       }
    }
 
@@ -224,9 +226,15 @@ public class PageUsecasesTest extends JCRTestBase
       if (tc.hasParam(PARAM_SYNCHRONISATION))
       {
          String synch = tc.getParam(PARAM_SYNCHRONISATION);
+
          if (synch.equalsIgnoreCase(PARAM_SYNCHRONISATION_ANYKEY))
          {
-            waitUntilKeyPressed();
+            int thrWait = 1;
+            if (tc.hasParam(PARAM_WAIT_THREADS))
+            {
+               thrWait = tc.getIntParam(PARAM_WAIT_THREADS);
+            }
+            waitUntilKeyPressed(thrWait);
          }
       }
 
