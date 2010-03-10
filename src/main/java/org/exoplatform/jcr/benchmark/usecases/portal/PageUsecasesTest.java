@@ -30,7 +30,6 @@ import org.exoplatform.services.log.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -184,8 +183,16 @@ public class PageUsecasesTest extends JCRTestBase
 
       // root node for the test
       rootNodeName = IdGenerator.generate();
-      Node testRoot = session.getRootNode().addNode(rootNodeName, "exo:genericNode");
+      session.getRootNode().addNode(rootNodeName, "exo:genericNode");
       session.save();
+
+      scenario = parse(scenarioString, repository, session.getWorkspace().getName(), rootNodeName);
+      // scenario should not be empty
+      if (scenario.size() < 1)
+      {
+         throw new Exception("Scenario is empty. It must contain at least 1 usecase.");
+      }
+
       // fill the repository 
       InitRepositoryAction initAction =
          new InitRepositoryAction(session, rootNodeName, stringValue, binaryValue, multiValueSize, depth, nodesPerLevel);
@@ -193,14 +200,6 @@ public class PageUsecasesTest extends JCRTestBase
       // perform initialize action
       initAction.perform();
       session.save();
-
-      scenario = parse(scenarioString, repository, session.getWorkspace().getName(), rootNodeName);
-
-      // scenario should not be empty
-      if (scenario.size() < 1)
-      {
-         throw new Exception("Scenario is empty. It must contain at least 1 usecase.");
-      }
 
       // TODO: Synch? Using JGroups? Also initialize repository only on one cluster node?
    }
@@ -236,7 +235,6 @@ public class PageUsecasesTest extends JCRTestBase
    private List<AbstractAction> parse(String line, RepositoryImpl repository, String workspace, String rootNodeName)
       throws Exception
    {
-      log.info("Found scenario: '" + line + "'. Parsing...");
       List<AbstractAction> actions = new ArrayList<AbstractAction>();
       // matching "22*read(2,5,4,6)"
       Pattern fullNotation = Pattern.compile("(\\d++)\\s*[*]\\s*(\\w++)\\s*[(]([,0-9]*+)[)]");
@@ -285,7 +283,6 @@ public class PageUsecasesTest extends JCRTestBase
                throw new Exception("Illegal scenario element:" + actionLine);
             }
          }
-         log.info("Next usecase in scenario: " + actionName + " x " + times + " " + Arrays.toString(params));
          // Create usecase action object
          for (int i = 0; i < times; i++)
          {

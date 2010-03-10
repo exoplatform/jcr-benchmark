@@ -18,6 +18,8 @@
  */
 package org.exoplatform.jcr.benchmark.usecases.portal;
 
+import org.exoplatform.services.jcr.access.SystemIdentity;
+import org.exoplatform.services.jcr.core.CredentialsImpl;
 import org.exoplatform.services.jcr.core.ExtendedSession;
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 
@@ -85,9 +87,11 @@ public abstract class AbstractAction
    public Session getSession(boolean anonymous) throws RepositoryException
    {
       if (anonymous)
-         return (ExtendedSession)repository.login(workspace);
+         return (ExtendedSession)repository.login(new CredentialsImpl(SystemIdentity.ANONIM, "".toCharArray()),
+            workspace);
       else
-         return (ExtendedSession)repository.getSystemSession(workspace);
+         return (ExtendedSession)repository.login(new CredentialsImpl(SystemIdentity.SYSTEM, "".toCharArray()),
+            workspace);
    }
 
    /**
