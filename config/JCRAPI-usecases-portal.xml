@@ -25,7 +25,6 @@
       </driver>
    </driverGroup>
 
-   <!-- Concurrent read test (https://jira.jboss.org/jira/browse/EXOJCR-281) -->
    <testCase name="PageUsecases">
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.portal.PageUsecasesTest" />
 
