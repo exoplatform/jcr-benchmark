@@ -112,30 +112,19 @@ public class PageUsecasesTest extends JCRTestBase
 
    private static int i = 0;
 
-   public static synchronized void waitUntilKeyPressed()
+   public static synchronized void waitUntilKeyPressed() throws IOException
    {
-
-      try
+      if (i == 0)
       {
-         if (i == 0)
-         {
-            System.out.println("Press any key to continue test.");
-            int c = System.in.read();
-            i++;
-         }
+         System.out.println("Press any key to continue test.");
+         System.in.read();
+         i++;
       }
-      catch (IOException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-
    }
 
    @Override
    public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
    {
-      System.out.println("Do PREPARE");
       super.doPrepare(tc, context);
       // get parameters from context
       if (tc.hasParam(PARAM_DEPTH))
@@ -246,7 +235,6 @@ public class PageUsecasesTest extends JCRTestBase
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
    {
-      System.out.println("Do RUN");
       // get next use-case (Page) from scenario
       scenario.get(index.getAndIncrement() % scenario.size()).perform();
    }

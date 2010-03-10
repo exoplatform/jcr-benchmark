@@ -41,6 +41,9 @@
       <!-- if no binary parameter defined, default value "exo.data.binarySize=1024" is used -->
       <!--param name="exo.data.binaryPath" value="file.txt" /-->
       <param name="exo.data.binarySize" value="1024" />
+      
+      <!-- how to sunchronize cluster nodes. Default value is NONE -->
+      <!--param name="exo.synchronisation" value="manual"/-->
 
       <!--
          String containing scenario in form of usecases separated by ";". Each usecase can have a multiplier, defining
