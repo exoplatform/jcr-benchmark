@@ -29,6 +29,7 @@ import org.exoplatform.services.log.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,6 +69,12 @@ public class PageUsecasesTest extends JCRTestBase
 
    private static final String PARAM_SCENARIO = "exo.scenario.string";
 
+   private static final String PARAM_SYNCHRONISATION = "exo.synchronisation";
+
+   private static final String PARAM_SYNCHRONISATION_NONE = "none";
+
+   private static final String PARAM_SYNCHRONISATION_ANYKEY = "manual";
+
    // UseCases names
    private static final String CASE_READ_ANON = "ReadAnon";
 
@@ -103,9 +110,32 @@ public class PageUsecasesTest extends JCRTestBase
 
    private final AtomicInteger index = new AtomicInteger();
 
+   private static int i = 0;
+
+   public static synchronized void waitUntilKeyPressed()
+   {
+
+      try
+      {
+         if (i == 0)
+         {
+            System.out.println("Press any key to continue test.");
+            int c = System.in.read();
+            i++;
+         }
+      }
+      catch (IOException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+
+   }
+
    @Override
    public void doPrepare(TestCase tc, JCRTestContext context) throws Exception
    {
+      System.out.println("Do PREPARE");
       super.doPrepare(tc, context);
       // get parameters from context
       if (tc.hasParam(PARAM_DEPTH))
@@ -202,11 +232,21 @@ public class PageUsecasesTest extends JCRTestBase
       session.save();
 
       // TODO: Synch? Using JGroups? Also initialize repository only on one cluster node?
+      if (tc.hasParam(PARAM_SYNCHRONISATION))
+      {
+         String synch = tc.getParam(PARAM_SYNCHRONISATION);
+         if (synch.equalsIgnoreCase(PARAM_SYNCHRONISATION_ANYKEY))
+         {
+            waitUntilKeyPressed();
+         }
+      }
+
    }
 
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
    {
+      System.out.println("Do RUN");
       // get next use-case (Page) from scenario
       scenario.get(index.getAndIncrement() % scenario.size()).perform();
    }
@@ -354,8 +394,8 @@ public class PageUsecasesTest extends JCRTestBase
                   throw new Exception(
                      "Missing arguments for '"
                         + actionName
-                        + "' action. Expected 5 arguments: number of JCR nodes and properties to read. Should be defined as '"
-                        + actionName + "(2,5,3,1,3)'");
+                        + "' action. Expected 4 arguments: number of JCR nodes and properties to read. Should be defined as '"
+                        + actionName + "(2,5,1,3)'");
                }
             }
             else
