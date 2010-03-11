@@ -46,6 +46,8 @@
       <!--param name="exo.synchronisation" value="manual"/>
       <param name="exo.waitThread" value="5"/-->
 
+      <!-- Defines whether cleanup created nodes on finish or not. True by default. -->
+      <param name="exo.finish.cleanup" value="false" />
 
       <!--d
          String containing scenario in form of usecases separated by ";". Each usecase can have a multiplier, defining

@@ -69,13 +69,15 @@ public class PageUsecasesTest extends JCRTestBase
 
    private static final String PARAM_SCENARIO = "exo.scenario.string";
 
+   private static final String PARAM_CELANUP = "exo.finish.cleanup";
+
    private static final String PARAM_SYNCHRONISATION = "exo.synchronisation";
+
+   private static final String PARAM_WAIT_THREADS = "exo.waitThread";
 
    private static final String PARAM_SYNCHRONISATION_NONE = "none";
 
    private static final String PARAM_SYNCHRONISATION_ANYKEY = "manual";
-
-   private static final String PARAM_WAIT_THREADS = "exo.waitThread";
 
    // UseCases names
    private static final String CASE_READ_ANON = "ReadAnon";
@@ -407,28 +409,13 @@ public class PageUsecasesTest extends JCRTestBase
    public void doFinish(TestCase tc, JCRTestContext context) throws Exception
    {
       super.doFinish(tc, context);
-      Session session = context.getSession();
-      session.refresh(false);
-      session.getRootNode().getNode(rootNodeName).remove();
-      session.save();
-   }
-
-   /**
-    * Recursively prints repository content
-    * (for testing purposes only)
-    * 
-    * @param root
-    * @param tabs
-    * @throws RepositoryException
-    */
-   private void printRepo(Node root, String tabs) throws RepositoryException
-   {
-      System.out.println(tabs + root.getName());
-      NodeIterator iterator = root.getNodes();
-      while (iterator.hasNext())
+      // if parameter if absent, or true, then remove node
+      if (!tc.hasParam(PARAM_CELANUP) || tc.getBooleanParam(PARAM_CELANUP))
       {
-         printRepo(iterator.nextNode(), tabs + "\t");
+         Session session = context.getSession();
+         session.refresh(false);
+         session.getRootNode().getNode(rootNodeName).remove();
+         session.save();
       }
    }
-
 }
