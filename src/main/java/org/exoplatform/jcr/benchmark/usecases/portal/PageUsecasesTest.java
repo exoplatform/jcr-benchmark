@@ -38,9 +38,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 /**
@@ -409,7 +406,7 @@ public class PageUsecasesTest extends JCRTestBase
    public void doFinish(TestCase tc, JCRTestContext context) throws Exception
    {
       super.doFinish(tc, context);
-      // if parameter if absent, or true, then remove node
+      // if parameter is absent or true, then remove node
       if (!tc.hasParam(PARAM_CELANUP) || tc.getBooleanParam(PARAM_CELANUP))
       {
          Session session = context.getSession();
