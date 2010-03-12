@@ -68,13 +68,19 @@ public class PageUsecasesTest extends JCRTestBase
 
    private static final String PARAM_CELANUP = "exo.finish.cleanup";
 
-   private static final String PARAM_SYNCHRONISATION = "exo.synchronisation";
+   private static final String PARAM_PREPARE_SYNCHRONISATION = "exo.prepare.synchronisation";
 
-   private static final String PARAM_WAIT_THREADS = "exo.waitThread";
+   private static final String PARAM_FINISH_SYNCHRONISATION = "exo.finish.synchronisation";
+
+   private static final String PARAM_FINISH_SYNCHRONISATION_SLEEPTIME = "exo.finish.synchronisation.sleepTime";
+
+   private static final String PARAM_WAIT_THREADS = "exo.synchronisation.waitThread";
 
    private static final String PARAM_SYNCHRONISATION_NONE = "none";
 
-   private static final String PARAM_SYNCHRONISATION_ANYKEY = "manual";
+   private static final String PARAM_SYNCHRONISATION_KEYPRESS = "keypress";
+
+   private static final String PARAM_SYNCHRONISATION_SLEEP = "sleep";
 
    // UseCases names
    private static final String CASE_READ_ANON = "ReadAnon";
@@ -111,15 +117,49 @@ public class PageUsecasesTest extends JCRTestBase
 
    private final AtomicInteger index = new AtomicInteger();
 
-   private static int i = 0;
+   private static int keyPressThreadCounter = 0;
 
+   private static int timeoutThreadCounter = 0;
+
+   /**
+    * Used to synchronize over cluster. Requires Enter pressing.
+    * 
+    * @param timesToWait
+    * @throws IOException
+    */
    public static synchronized void waitUntilKeyPressed(int timesToWait) throws IOException
    {
-      i++;
-      if (i >= timesToWait)
+      keyPressThreadCounter++;
+      if (keyPressThreadCounter >= timesToWait)
       {
-         System.out.println("Press any key to continue test.");
+         System.out.print("Press Enter to continue ...");
          System.in.read();
+         System.out.println("Continuing ...");
+         keyPressThreadCounter = 0;
+      }
+   }
+
+   /**
+    * Used to synchronize over cluster. Sleeps for sleepTime seconds
+    * 
+    * @param timesToWait
+    * @param sleepTime
+    */
+   public static synchronized void waitUntilTimeout(int timesToWait, int sleepTime)
+   {
+      timeoutThreadCounter++;
+      if (timeoutThreadCounter >= timesToWait)
+      {
+         System.out.println("Waiting " + sleepTime / 1000 + "s before continue ...");
+         timeoutThreadCounter = 0;
+         try
+         {
+            Thread.sleep(sleepTime);
+         }
+         catch (InterruptedException e)
+         {
+            // skip
+         }
       }
    }
 
@@ -221,12 +261,12 @@ public class PageUsecasesTest extends JCRTestBase
       initAction.perform();
       session.save();
 
-      // TODO: Synch? Using JGroups? Also initialize repository only on one cluster node?
-      if (tc.hasParam(PARAM_SYNCHRONISATION))
+      // synchronization
+      if (tc.hasParam(PARAM_PREPARE_SYNCHRONISATION))
       {
-         String synch = tc.getParam(PARAM_SYNCHRONISATION);
+         String synch = tc.getParam(PARAM_PREPARE_SYNCHRONISATION);
 
-         if (synch.equalsIgnoreCase(PARAM_SYNCHRONISATION_ANYKEY))
+         if (synch.equalsIgnoreCase(PARAM_SYNCHRONISATION_KEYPRESS))
          {
             int thrWait = 1;
             if (tc.hasParam(PARAM_WAIT_THREADS))
@@ -234,6 +274,14 @@ public class PageUsecasesTest extends JCRTestBase
                thrWait = tc.getIntParam(PARAM_WAIT_THREADS);
             }
             waitUntilKeyPressed(thrWait);
+         }
+         else if (synch.equalsIgnoreCase(PARAM_SYNCHRONISATION_NONE))
+         {
+            // none used
+         }
+         else
+         {
+            log.warn("Unknown prepare synchronization method: " + synch);
          }
       }
 
@@ -414,5 +462,45 @@ public class PageUsecasesTest extends JCRTestBase
          session.getRootNode().getNode(rootNodeName).remove();
          session.save();
       }
+
+      // Synchronization on finish to avoid any cluster-view changes during test run.
+      if (tc.hasParam(PARAM_FINISH_SYNCHRONISATION))
+      {
+         String synch = tc.getParam(PARAM_FINISH_SYNCHRONISATION);
+
+         if (synch.equalsIgnoreCase(PARAM_SYNCHRONISATION_KEYPRESS))
+         {
+            int thrWait = 1;
+            if (tc.hasParam(PARAM_WAIT_THREADS))
+            {
+               thrWait = tc.getIntParam(PARAM_WAIT_THREADS);
+            }
+            waitUntilKeyPressed(thrWait);
+         }
+         else if (synch.equalsIgnoreCase(PARAM_SYNCHRONISATION_SLEEP))
+         {
+            // default sleep is 20 seconds.
+            int sleepTime = 20 * 1000;
+            if (tc.hasParam(PARAM_FINISH_SYNCHRONISATION_SLEEPTIME))
+            {
+               sleepTime = 1000 * tc.getIntParam(PARAM_FINISH_SYNCHRONISATION_SLEEPTIME);
+            }
+            int thrWait = 1;
+            if (tc.hasParam(PARAM_WAIT_THREADS))
+            {
+               thrWait = tc.getIntParam(PARAM_WAIT_THREADS);
+            }
+            waitUntilTimeout(thrWait, sleepTime);
+         }
+         else if (synch.equalsIgnoreCase(PARAM_SYNCHRONISATION_NONE))
+         {
+            // none used
+         }
+         else
+         {
+            log.warn("Unknown finish synchronization method: " + synch);
+         }
+      }
+
    }
 }

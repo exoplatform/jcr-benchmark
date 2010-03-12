@@ -86,7 +86,6 @@ public class WritePageAction extends AbstractWriteAction
                while (!node.hasProperty(propName));
 
                node.getProperty(propName).remove();
-               node.save();
             }
             else
             {
@@ -111,7 +110,6 @@ public class WritePageAction extends AbstractWriteAction
             {
                node.setProperty(propName, values[0], propType);
             }
-            node.save();
          }
 
          Node parentNode = this.nextParent(testRoot);
@@ -123,7 +121,6 @@ public class WritePageAction extends AbstractWriteAction
             {
                iterator.skip(random.nextInt((int)iterator.getSize()));
                iterator.nextNode().remove();
-               parentNode.save();
             }
             else
             {
@@ -136,9 +133,8 @@ public class WritePageAction extends AbstractWriteAction
          for (int i = 0; i < this.addSubNodes; i++)
          {
             createGenericNode(parentNode, session.getValueFactory());
-            parentNode.save();
          }
-
+         session.save();
       }
       finally
       {
