@@ -27,7 +27,7 @@
   <!--testCase name="WebdavAddNodeTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavAddNodeTest" />
   </testCase>
-  <testCase name="WebdavGetNodeByPathTest">
+  <testCase name="WebdavGetNodeTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavGetNodeTest" />
   </testCase>
   <testCase name="WebdavRemoveNodeTest">
@@ -60,8 +60,8 @@
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavNodeCheckinTest" />
   </testCase>
   
-  <testCase name="WebdavNodeCheckinTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavNodeCheckinTest" />
+  <testCase name="WebdavNodeCheckoutTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavNodeCheckoutTest" />
   </testCase>
   
   <testCase name="WebdavReadWriteTest">
