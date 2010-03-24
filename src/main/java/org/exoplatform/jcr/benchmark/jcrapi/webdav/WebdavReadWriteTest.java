@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by The eXo Platform SAS.
@@ -42,12 +43,14 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
 
    private static volatile boolean writersStarted = false;
 
+   private static volatile boolean writersRun = true;
+
    private static PrintWriter reportFile;
 
    private static boolean gatherReport;
 
    private static byte[] writeData;
-   
+
    private static volatile int reportsCounter = 1;
 
    protected int iterator = 0;
@@ -58,8 +61,6 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
 
    private class NodesWriter extends Thread
    {
-      protected volatile boolean run = true;
-
       private final String nodePath;
 
       private int count;
@@ -70,13 +71,17 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
 
       private StringBuilder report = new StringBuilder();
 
-      public NodesWriter(String threadName, String nodePath, int writeDelay, WebdavTestContext context)
+      private CountDownLatch countDownLatch;
+
+      public NodesWriter(String threadName, String nodePath, int writeDelay, WebdavTestContext context,
+         CountDownLatch countDownLatch)
       {
          super(threadName);
          this.nodePath = nodePath;
          this.context = context;
          this.count = 100;
          this.writeDelay = writeDelay;
+         this.countDownLatch = countDownLatch;
       }
 
       /**
@@ -84,10 +89,18 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
        */
       public void run()
       {
+         try
+         {
+            // wait till latch is counted down by creating 
+            countDownLatch.await();
+         }
+         catch (InterruptedException e1)
+         {
+         }
          String subNodePath = null;
          int folderCount = 0;
 
-         while (run)
+         while (writersRun)
          {
             long start = System.currentTimeMillis();
             long dataSize = 0;
@@ -172,11 +185,6 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
          }
       }
 
-      public void setRun(boolean b)
-      {
-         run = b;
-      }
-
       public String getReport()
       {
          return report.toString();
@@ -215,10 +223,10 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
          gatherReport = false;
       }
 
-      JCRWebdavConnectionEx conn = new JCRWebdavConnectionEx(context);
-      try
+      if (!writersStarted)
       {
-         if (!writersStarted)
+         JCRWebdavConnectionEx conn = new JCRWebdavConnectionEx(context);
+         try
          {
             long time = System.currentTimeMillis();
             writersStarted = true;
@@ -251,24 +259,27 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
             //writeData = readData(WebdavReadWriteTest.class.getResourceAsStream("/test-data/average-web-page.html"));
             // use same data
             writeData = readData;
-
+            // Make all threads start writing at the same time
+            CountDownLatch countDownLatch = new CountDownLatch(1);
             // prepare to threads writers 
             for (int j = 0; j < writeThreadsCount; j++)
             {
                String parentNodeName = rootName + "/" + context.generateUniqueName("node_writers");
                conn.addDir(parentNodeName);
 
-               NodesWriter writer = new NodesWriter("ThreadWriter_" + j, parentNodeName, delayWrite, context);
+               NodesWriter writer =
+                  new NodesWriter("ThreadWriter_" + j, parentNodeName, delayWrite, context, countDownLatch);
                writer.start();
                nodesWriters.add(writer);
             }
-
+            // Notify writers to start their job 
+            countDownLatch.countDown();
             System.out.println(Thread.currentThread() + " : Prepare done in " + (System.currentTimeMillis() - time));
          }
-      }
-      finally
-      {
-         conn.stop();
+         finally
+         {
+            conn.stop();
+         }
       }
    }
 
@@ -307,12 +318,12 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
             reportsDir.mkdirs();
             reportFile = new PrintWriter(new File(reportsDir, "report.txt"));
          }
-
+         // stop cycles in threads
+         writersRun = false;
+         // wait for everyone to finish
          for (NodesWriter writer : nodesWriters)
          {
-            writer.setRun(false);
             writer.join();
-
             if (gatherReport)
             {
                reportFile.append(writer.getReport());
