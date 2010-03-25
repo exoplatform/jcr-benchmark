@@ -19,6 +19,7 @@
 package org.exoplatform.jcr.benchmark.usecases.portal;
 
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
+import org.exoplatform.services.jcr.util.IdGenerator;
 
 import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
@@ -40,6 +41,10 @@ public class ReadPageAction extends AbstractAction
 
    private int propertyCount;
 
+   private int missingNodeCount;
+
+   private int missingPropertyCount;
+
    private boolean anonymous;
 
    /**
@@ -57,30 +62,32 @@ public class ReadPageAction extends AbstractAction
     *        Is true, then anonymous session is used.
     */
    public ReadPageAction(RepositoryImpl repository, String workspace, String rootName, int depth, int nodeCount,
-      int propertyCount, boolean anonymous)
+      int propertyCount, int missingNodeCount, int missingPropertyCount, boolean anonymous)
    {
       super(repository, workspace, rootName, depth);
       this.nodeCount = nodeCount;
       this.propertyCount = propertyCount;
       this.anonymous = anonymous;
+      this.missingNodeCount = missingNodeCount;
+      this.missingPropertyCount = missingPropertyCount;
    }
 
    /**
     * @see org.exoplatform.jcr.benchmark.usecases.portal.AbstractAction#perform(javax.jcr.Session)
     */
    @Override
-   public
-   void perform() throws RepositoryException
+   public void perform() throws RepositoryException
    {
       Session session = null;
       try
       {
          session = getSession(anonymous);
          Node testRoot = session.getRootNode().getNode(getRootNodeName());
+         Node target = null;
          // get node configured times
          for (int i = 0; i < nodeCount; i++)
          {
-            Node target = nextNode(testRoot);
+            target = nextNode(testRoot);
             // for each node access properties configured times
             for (int j = 0; j < propertyCount; j++)
             {
@@ -94,6 +101,32 @@ public class ReadPageAction extends AbstractAction
                   // possibly property not exist, but this is still the
                   // access to the property.
                }
+            }
+         }
+         // access missing items
+         target = nextNode(testRoot);
+         for (int i = 0; i < missingPropertyCount; i++)
+         {
+            try
+            {
+               // access missing property
+               target.getProperty(IdGenerator.generate());
+            }
+            catch (PathNotFoundException e)
+            {
+               // this exception is expected
+            }
+         }
+         for (int i = 0; i < missingNodeCount; i++)
+         {
+            try
+            {
+               // access missing node
+               testRoot.getNode(IdGenerator.generate());
+            }
+            catch (PathNotFoundException e)
+            {
+               // this exception is expected
             }
          }
       }

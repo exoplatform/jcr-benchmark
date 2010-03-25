@@ -374,28 +374,28 @@ public class PageUsecasesTest extends JCRTestBase
          {
             if (CASE_READ_ANON.equalsIgnoreCase(actionName))
             {
-               if (params.length == 2)
+               if (params.length == 4)
                {
                   // anonymous session
-                  actions
-                     .add(new ReadPageAction(repository, workspace, rootNodeName, depth, params[0], params[1], true));
+                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, depth, params[0], params[1],
+                     params[2], params[3], true));
                }
                else
                {
                   throw new Exception(
                      "Missing arguments for '"
                         + actionName
-                        + "' action. Expected 2 arguments: number of JCR nodes and properties to read. Should be defined as '"
-                        + actionName + "(2,5)'");
+                        + "' action. Expected 4 arguments: number of JCR nodes and properties to read. Should be defined as '"
+                        + actionName + "(2,5,1,1)'");
                }
             }
             else if (CASE_READ_CONN.equalsIgnoreCase(actionName))
             {
-               if (params.length == 2)
+               if (params.length == 4)
                {
                   // system session
                   actions.add(new ReadPageAction(repository, workspace, rootNodeName, depth, params[0], params[1],
-                     false));
+                     params[2], params[3], false));
                }
                else
                {
@@ -403,7 +403,7 @@ public class PageUsecasesTest extends JCRTestBase
                      "Missing arguments for '"
                         + actionName
                         + "' action. Expected 2 arguments: number of JCR nodes and properties to read. Should be defined as '"
-                        + actionName + "(2,5)'");
+                        + actionName + "(2,5,1,1)'");
                }
             }
             else if (CASE_WRITE_CONN.equalsIgnoreCase(actionName))

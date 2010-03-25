@@ -41,17 +41,17 @@
       <!-- if no binary parameter defined, default value "exo.data.binarySize=1024" is used -->
       <!--param name="exo.data.binaryPath" value="file.txt" /-->
       <param name="exo.data.binarySize" value="1024" />
-      
+
       <!-- how to sunchronize cluster nodes. Default value is NONE -->
       <!-- Should be equals to japex.numberOfThreads value. Default is 1. -->
       <!--param name="exo.synchronisation.waitThread" value="5"/-->
-      
+
       <!-- Synchronization after prepare. Default is none. Allowed: "none","kepress". -->
       <!--param name="exo.prepare.synchronisation" value="keypress"/-->
-      
+
       <!-- Synchronization after finish. Default is none. Allowed: "none","kepress","sleep". -->
       <!--param name="exo.finish.synchronisation" value="sleep"/-->
-      
+
       <!-- If sleep synchronization used, this option defines time to wait value in seconds. Default is 20s -->
       <!--param name="exo.finish.synchronisation.sleepTime" value="20"/-->
 
@@ -61,11 +61,12 @@
       <!--
          String containing scenario in form of usecases separated by ";". Each usecase can have a multiplier, defining
          that this usecase should be perform few times or may not have it, notifying single invocation. Each usecase has
-         list of argument. Read and ReadAnon usecases has 2 arguments (Number of nodes and properties to read). Write
-         usecase has 5 arguments: number of removed, added, modified properties and removed, added nodes. All strings
-         are CASE INSENSITIVE and whitespaces between elements are skipped.
+         list of argument. Read and ReadAnon usecases has 4 arguments (Number of nodes and properties to read and number
+         of missing nodes and properties to read). Write usecase has 5 arguments: number of removed, added, modified
+         properties and removed, added nodes. All strings are CASE INSENSITIVE and whitespaces between elements are
+         skipped.
       -->
-      <param name="exo.scenario.string" value="15*ReadAnon(5,5);15*Read(5,5);Write(2,3,1,1)" />
+      <param name="exo.scenario.string" value="15*ReadAnon(5,5,1,1);15*Read(5,5,1,1);Write(2,3,1,1)" />
 
 
    </testCase>
