@@ -21,13 +21,19 @@ package org.exoplatform.jcr.benchmark.usecases.portal;
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 import org.exoplatform.services.jcr.util.IdGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.query.Query;
+import javax.jcr.query.QueryManager;
+import javax.jcr.query.QueryResult;
 
 /**
- * Accesses the JCR in anonymous/connected mode to x JCR nodes and for each 
+ * Accesses the JCR in anonymous/connected mode to x JCR nodes and for each
  * JCR Node accesses to y JCR properties (x and y are set in the configuration)
  * 
  * @author <a href="mailto:nikolazius@gmail.com">Nikolay Zamosenchuk</a>
@@ -47,6 +53,8 @@ public class ReadPageAction extends AbstractAction
 
    private boolean anonymous;
 
+   private List<String> queires;
+
    /**
     * @param repository
     *        Repository instance
@@ -64,12 +72,41 @@ public class ReadPageAction extends AbstractAction
    public ReadPageAction(RepositoryImpl repository, String workspace, String rootName, int depth, int nodeCount,
       int propertyCount, int missingNodeCount, int missingPropertyCount, boolean anonymous)
    {
+      //List<String> s = Collections.emptyList();
+      this(repository, workspace, rootName, depth, nodeCount, propertyCount, missingNodeCount, missingPropertyCount,
+         anonymous, null);
+   }
+
+   /**
+    * @param repository
+    *        Repository instance
+    * @param workspace
+    *        Workspace name
+    * @param rootName
+    *        Name of test's root node
+    * @param nodeCount
+    *        Number of nodes to read
+    * @param propertyCount
+    *        Number of properties to read
+    * @param anonymous
+    *        Is true, then anonymous session is used.
+    * @param queries
+    *        List of queries to perform inside operation
+    */
+   public ReadPageAction(RepositoryImpl repository, String workspace, String rootName, int depth, int nodeCount,
+      int propertyCount, int missingNodeCount, int missingPropertyCount, boolean anonymous, List<String> queries)
+   {
       super(repository, workspace, rootName, depth);
       this.nodeCount = nodeCount;
       this.propertyCount = propertyCount;
       this.anonymous = anonymous;
       this.missingNodeCount = missingNodeCount;
       this.missingPropertyCount = missingPropertyCount;
+      this.queires = new ArrayList<String>();
+      if (queries != null)
+      {
+         this.queires.addAll(queries);
+      }
    }
 
    /**
@@ -129,6 +166,17 @@ public class ReadPageAction extends AbstractAction
                // this exception is expected
             }
          }
+
+         for (String queryLine : queires)
+         {
+            // get QueryManager
+            QueryManager queryManager = session.getWorkspace().getQueryManager();
+            // make SQL query
+            Query query = queryManager.createQuery(queryLine.trim(), Query.SQL);
+            // execute query
+            QueryResult result = query.execute();
+         }
+
       }
       finally
       {

@@ -66,8 +66,13 @@
          properties and removed, added nodes. All strings are CASE INSENSITIVE and whitespaces between elements are
          skipped.
       -->
-      <param name="exo.scenario.string" value="15*ReadAnon(5,5,1,1);15*Read(5,5,1,1);Write(2,3,1,1)" />
+      <param name="exo.scenario.string" value="15*ReadAnon(5,5,1,1,exo.query.list1);15*Read(5,5,1,1);Write(2,3,1,1)" />
 
+      <!--
+         last 5th parameter in Read and ReadAnon actions is optional. If it is present, then it must point to param in
+         test case describing the list of desired queries (SQL ONLY)
+      -->
+      <param name="exo.query.list1" value="SELECT * FROM nt:base; SELECT * FROM nt:file" />
 
    </testCase>
 

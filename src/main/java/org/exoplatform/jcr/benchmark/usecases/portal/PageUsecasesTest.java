@@ -33,6 +33,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -44,7 +45,7 @@ import javax.jcr.Session;
 
 /**
  * Portal-like JCR usecase test. Originally developed for testing cluster performance and scalability.
- *  
+ * 
  * @author <a href="mailto:nikolazius@gmail.com">Nikolay Zamosenchuk</a>
  * @version $Id: PageUsecases.java 34360 2009-07-22 23:58:59Z nzamosenchuk $
  *
@@ -204,10 +205,10 @@ public class PageUsecasesTest extends JCRTestBase
       {
          throw new Exception(
             "Scenario not found in configuration, but it is mandatory. Please define scenario as testCase parameter '"
-               + PARAM_SCENARIO + "'.");
+            + PARAM_SCENARIO + "'.");
       }
 
-      // initialize STATIC VALUES, synchronize all running threads 
+      // initialize STATIC VALUES, synchronize all running threads
       synchronized (this)
       {
          // Store value in memory, to avoid unnecessary FS IO operations.
@@ -249,14 +250,14 @@ public class PageUsecasesTest extends JCRTestBase
       session.getRootNode().addNode(rootNodeName, "exo:genericNode");
       session.save();
 
-      scenario = parse(scenarioString, repository, session.getWorkspace().getName(), rootNodeName);
+      scenario = parse(tc, scenarioString, repository, session.getWorkspace().getName(), rootNodeName);
       // scenario should not be empty
       if (scenario.size() < 1)
       {
          throw new Exception("Scenario is empty. It must contain at least 1 usecase.");
       }
 
-      // fill the repository 
+      // fill the repository
       InitRepositoryAction initAction =
          new InitRepositoryAction(session, rootNodeName, stringValue, binaryValue, multiValueSize, depth, nodesPerLevel);
 
@@ -318,23 +319,23 @@ public class PageUsecasesTest extends JCRTestBase
     *        List of actions, defined in scenario
     * @throws Exception
     */
-   private List<AbstractAction> parse(String line, RepositoryImpl repository, String workspace, String rootNodeName)
-      throws Exception
-   {
+   private List<AbstractAction> parse(TestCase tc, String line, RepositoryImpl repository, String workspace,
+      String rootNodeName) throws Exception
+      {
       List<AbstractAction> actions = new ArrayList<AbstractAction>();
       // matching "22*read(2,5,4,6)"
-      Pattern fullNotation = Pattern.compile("(\\d++)\\s*[*]\\s*(\\w++)\\s*[(]([,0-9]*+)[)]");
+      Pattern fullNotation = Pattern.compile("(\\d++)\\s*[*]\\s*(\\w++)\\s*[(]([,\\w.]*+)[)]");
       // matching "read(2,5,4,6)"
-      Pattern singleNotation = Pattern.compile("(\\w++)\\s*[(]([,0-9]*+)[)]");
+      Pattern singleNotation = Pattern.compile("(\\w++)\\s*[(]([,\\w.]*+)[)]");
 
-      // split scenario into usecases, skipping whitespaces 
+      // split scenario into usecases, skipping whitespaces
       String[] actionNames = line.split("\\s*+;\\s*+");
       // parse each action string
       for (String actionLine : actionNames)
       {
          int times;
          String actionName;
-         int[] params;
+         String[] params;
 
          // try parse as full notation
          Matcher fullMatcher = fullNotation.matcher(actionLine);
@@ -342,27 +343,17 @@ public class PageUsecasesTest extends JCRTestBase
          {
             times = Integer.parseInt(fullMatcher.group(1));
             actionName = fullMatcher.group(2);
-            String[] paramList = fullMatcher.group(3).split("\\s*+,\\s*+");
-            params = new int[paramList.length];
-            for (int i = 0; i < paramList.length; i++)
-            {
-               params[i] = Integer.parseInt(paramList[i]);
-            }
+            params = fullMatcher.group(3).split("\\s*+,\\s*+");
          }
          else
          {
-            // try parse as notation without multiplier 
+            // try parse as notation without multiplier
             Matcher singleMatcher = singleNotation.matcher(actionLine);
             if (singleMatcher.matches())
             {
                times = 1;
                actionName = singleMatcher.group(1);
-               String[] paramList = singleMatcher.group(2).split("\\s*+,\\s*+");
-               params = new int[paramList.length];
-               for (int i = 0; i < paramList.length; i++)
-               {
-                  params[i] = Integer.parseInt(paramList[i]);
-               }
+               params = singleMatcher.group(2).split("\\s*+,\\s*+");
             }
             else
             {
@@ -377,16 +368,26 @@ public class PageUsecasesTest extends JCRTestBase
                if (params.length == 4)
                {
                   // anonymous session
-                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, depth, params[0], params[1],
-                     params[2], params[3], true));
+                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, depth, Integer
+                     .parseInt(params[0]), Integer.parseInt(params[1]), Integer.parseInt(params[2]), Integer
+                     .parseInt(params[3]), true));
+               }
+               else if (params.length == 5)
+               {
+                  // last 5th param is optional. If it is present, then it must point to param in test case describing the
+                  // list of desired queries (SQL ONLY)
+                  // anonymous session
+                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, depth, Integer
+                     .parseInt(params[0]), Integer.parseInt(params[1]), Integer.parseInt(params[2]), Integer
+                     .parseInt(params[3]), true, Arrays.asList(tc.getParam(params[4].trim()).split(";"))));
                }
                else
                {
                   throw new Exception(
                      "Missing arguments for '"
-                        + actionName
-                        + "' action. Expected 4 arguments: number of JCR nodes and properties to read. Should be defined as '"
-                        + actionName + "(2,5,1,1)'");
+                     + actionName
+                     + "' action. Expected 4 or 5 arguments: number of JCR nodes and properties to read. Should be defined as '"
+                     + actionName + "(2,5,1,1)'" + " or '" + actionName + "(2,5,1,1,exo.query.list_1)'");
                }
             }
             else if (CASE_READ_CONN.equalsIgnoreCase(actionName))
@@ -394,16 +395,26 @@ public class PageUsecasesTest extends JCRTestBase
                if (params.length == 4)
                {
                   // system session
-                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, depth, params[0], params[1],
-                     params[2], params[3], false));
+                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, depth, Integer
+                     .parseInt(params[0]), Integer.parseInt(params[1]), Integer.parseInt(params[2]), Integer
+                     .parseInt(params[3]), false));
+               }
+               else if (params.length == 5)
+               {
+                  // last 5th param is optional. If it is present, then it must point to param in test case describing the
+                  // list of desired queries (SQL ONLY)
+                  // anonymous session
+                  actions.add(new ReadPageAction(repository, workspace, rootNodeName, depth, Integer
+                     .parseInt(params[0]), Integer.parseInt(params[1]), Integer.parseInt(params[2]), Integer
+                     .parseInt(params[3]), false, Arrays.asList(tc.getParam(params[4].trim()).split(";"))));
                }
                else
                {
                   throw new Exception(
                      "Missing arguments for '"
-                        + actionName
-                        + "' action. Expected 2 arguments: number of JCR nodes and properties to read. Should be defined as '"
-                        + actionName + "(2,5,1,1)'");
+                     + actionName
+                     + "' action. Expected 4 or 5 arguments: number of JCR nodes and properties to read. Should be defined as '"
+                     + actionName + "(2,5,1,1)'" + " or '" + actionName + "(2,5,1,1,exo.query.list_1)'");
                }
             }
             else if (CASE_WRITE_CONN.equalsIgnoreCase(actionName))
@@ -412,18 +423,18 @@ public class PageUsecasesTest extends JCRTestBase
                {
                   // system session
 
-                  if (params[0] > params[1])
+                  if (Integer.parseInt(params[0]) > Integer.parseInt(params[1]))
                   {
-                     // count of removed properties must be less or equal to count of added properties                     
+                     // count of removed properties must be less or equal to count of added properties
                      throw new Exception(
                         "Wrong arguments for '"
-                           + actionName
-                           + "' action. Count of removed properties must be less or equal to count of setted properties: '"
-                           + actionName + "(" + params[0] + "," + params[1] + ",_,_)'");
+                        + actionName
+                        + "' action. Count of removed properties must be less or equal to count of setted properties: '"
+                        + actionName + "(" + params[0] + "," + params[1] + ",_,_)'");
 
                   }
 
-                  if (params[2] > params[3])
+                  if (Integer.parseInt(params[2]) > Integer.parseInt(params[3]))
                   {
                      // count of removed nodes must be less or equal to count of added nodes
                      throw new Exception("Wrong arguments for '" + actionName
@@ -432,16 +443,17 @@ public class PageUsecasesTest extends JCRTestBase
                   }
 
                   actions.add(new WritePageAction(repository, workspace, rootNodeName, depth, stringValue, binaryValue,
-                     multiValueSize, params[0], params[1], params[2], params[3]));
+                     multiValueSize, Integer.parseInt(params[0]), Integer.parseInt(params[1]), Integer
+                     .parseInt(params[2]), Integer.parseInt(params[3])));
 
                }
                else
                {
                   throw new Exception(
                      "Missing arguments for '"
-                        + actionName
-                        + "' action. Expected 4 arguments: number of JCR nodes and properties to read. Should be defined as '"
-                        + actionName + "(2,5,1,3)'");
+                     + actionName
+                     + "' action. Expected 4 arguments: number of JCR nodes and properties to read. Should be defined as '"
+                     + actionName + "(2,5,1,3)'");
                }
             }
             else
@@ -451,7 +463,7 @@ public class PageUsecasesTest extends JCRTestBase
          }
       }
       return Collections.unmodifiableList(actions);
-   }
+      }
 
    @Override
    public void doFinish(TestCase tc, JCRTestContext context) throws Exception
