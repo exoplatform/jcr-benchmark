@@ -17,14 +17,13 @@ import com.sun.japex.TestCase;
  * @version $Id: VersionGetPredecessorsTest.java 13537 2008-04-22 08:22:36Z vetalok $
  */
 
-public class VersionGetPredecessorsTest
-   extends AbstractGetVersionTest
+public class VersionGetPredecessorsTest extends AbstractGetVersionTest
 {
 
    @Override
    public void doRun(TestCase tc, JCRTestContext context) throws Exception
    {
-      for (Version p : version.getSuccessors());
+      for (Version p : version.getPredecessors());
    }
 
 }
