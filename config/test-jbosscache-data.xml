@@ -11,12 +11,18 @@
    </clustering>
 
    <!-- Eviction configuration -->
-   <eviction wakeUpInterval="5000">
-      <default algorithmClass="org.jboss.cache.eviction.ExpirationAlgorithm"
-         actionPolicyClass="org.exoplatform.services.jcr.impl.dataflow.persistent.jbosscache.ParentNodeEvictionActionPolicy"
-         eventQueueSize="1000000">
+   <eviction wakeUpInterval="2000">
+      <!-- default algorithmClass="org.jboss.cache.eviction.ExpirationAlgorithm"
+               actionPolicyClass="org.exoplatform.services.jcr.impl.dataflow.persistent.jbosscache.ParentNodeEvictionActionPolicy"
+               eventQueueSize="1000000">
          <property name="maxNodes" value="1000000" />
-	 <property name="warnNoExpirationKey" value="false" />
+	       <property name="warnNoExpirationKey" value="false" />
+      </default -->
+      <default algorithmClass="org.jboss.cache.eviction.LRUAlgorithm"
+               actionPolicyClass="org.exoplatform.services.jcr.impl.dataflow.persistent.jbosscache.ParentNodeEvictionActionPolicy" 
+               eventQueueSize="1000000">
+         <property name="maxNodes" value="1000000" />
+         <property name="timeToLive" value="300000" />
       </default>
    </eviction>
 </jbosscache>
