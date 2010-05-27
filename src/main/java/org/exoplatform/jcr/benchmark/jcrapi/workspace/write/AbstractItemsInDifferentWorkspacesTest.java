@@ -43,9 +43,9 @@ public abstract class AbstractItemsInDifferentWorkspacesTest
    
    protected Session ws2Session = null;
 
-   protected final String WS1 = "collaboration";
+   protected static final String WS1 = "collaboration";
 
-   protected final String WS2 = "system";
+   protected static final String WS2 = "system";
 
    private String testRootNodeName = null;
 
