@@ -316,7 +316,7 @@
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.item.write.ItemSaveTest" />
    </testCase>
 
-   <!--Direct writing to Persistent Storage (move, copy, clone) methods-->
+   <!--Direct writing to Persistent Storage (move, copy, clone, update) methods-->
    <testCase name="WorkspaceMoveTest">
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceMoveTest" />
    </testCase>
@@ -331,6 +331,10 @@
 
    <testCase name="WorkspaceCloneTest">
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCloneTest" />
+   </testCase>
+
+   <testCase name="WorkspaceCorrespondingNodesUpdateTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCorrespondingNodesUpdateTest" />
    </testCase>
 
    <!--Export/import methods-->

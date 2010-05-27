@@ -38,6 +38,10 @@ public abstract class AbstractItemsInDifferentWorkspacesTest
    protected Node ws1RootNode = null;
 
    protected Node ws2RootNode = null;
+   
+   protected Session ws1Session = null;
+   
+   protected Session ws2Session = null;
 
    protected final String WS1 = "collaboration";
 
@@ -60,10 +64,10 @@ public abstract class AbstractItemsInDifferentWorkspacesTest
       }
       testRootNodeName = context.generateUniqueName("testRoot");
       // WS1
-      Session ws1Session = context.getSession().getRepository().login(WS1);
-      Session ws2Session = context.getSession().getRepository().login(WS2);
+      ws1Session = context.getSession().getRepository().login(WS1);      
+      ws2Session = context.getSession().getRepository().login(WS2);
       ws1RootNode = ws1Session.getRootNode().addNode(testRootNodeName);
-      ws2RootNode = ws2Session.getRootNode().addNode(testRootNodeName);
+      ws2RootNode = ws2Session.getRootNode().addNode(testRootNodeName);      
       ws1Session.save();
       ws2Session.save();
       Node ws1Parent = null;
