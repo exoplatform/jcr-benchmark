@@ -21,7 +21,7 @@ import org.exoplatform.jcr.benchmark.JCRTestContext;
  * @author Natasha Vakulenko
  */
 
-public class WorkspaceCorrespondingNodesUpdateTest extends AbstractItemsInDifferentWorkspacesTest
+public class WorkspaceNodeUpdateTest extends AbstractItemsInDifferentWorkspacesTest
 {
    private List<Node> nodesForUpdate = new ArrayList<Node>();
 

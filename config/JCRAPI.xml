@@ -333,8 +333,8 @@
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCloneTest" />
    </testCase>
 
-   <testCase name="WorkspaceCorrespondingNodesUpdateTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceCorrespondingNodesUpdateTest" />
+   <testCase name="WorkspaceNodeUpdateTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceNodeUpdateTest" />
    </testCase>
 
    <!--Export/import methods-->
