@@ -416,6 +416,14 @@
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeMergeTest" />
    </testCase>
 
+   <testCase name="NodeDoneMergeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeDoneMergeTest" />
+   </testCase>
+
+   <testCase name="NodeCancelMergeTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.NodeCancelMergeTest" />
+   </testCase>
+
    <testCase name="VersionHistoryAddVersionLabelTest">
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.VersionHistoryAddVersionLabelTest" />
    </testCase>
