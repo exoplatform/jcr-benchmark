@@ -7,8 +7,6 @@ package org.exoplatform.jcr.benchmark.jcrapi.version;
 import javax.jcr.Node;
 import javax.jcr.version.Version;
 
-import org.exoplatform.jcr.benchmark.jcrapi.version.AbstractFailMergeTest;
-
 import org.exoplatform.jcr.benchmark.JCRTestContext;
 
 import com.sun.japex.TestCase;
