@@ -35,8 +35,8 @@
                 
                 <property name="jbosscache-configuration" value="../config/test-jbosscache-data.xml" />
                 <property name="jgroups-configuration" value="../config/udp-mux.xml" />
-                <property name="jgroups-multiplexer-stack" value="true" />
-                <property name="jbosscache-cluster-name" value="JCR-benchmark-data-system" />
+                <property name="jgroups-multiplexer-stack" value="false" />
+                <property name="jbosscache-cluster-name" value="JCR-benchmark-data" />
                 
             </properties>
           </cache>
@@ -47,8 +47,8 @@
               
               <property name="jbosscache-configuration" value="../config/test-jbosscache-indexer.xml" />
               <property name="jgroups-configuration" value="../config/udp-mux.xml" />
-              <property name="jgroups-multiplexer-stack" value="true" />
-              <property name="jbosscache-cluster-name" value="JCR-benchmark-index-system" />
+              <property name="jgroups-multiplexer-stack" value="false" />
+              <property name="jbosscache-cluster-name" value="JCR-benchmark-index" />
               <property name="max-volatile-time" value="60" />
               
             </properties>
@@ -60,12 +60,12 @@
               <!-- This block should be adopted for each DB, till not implemented programmatically -->
               <property name="jbosscache-configuration" value="../config/test-jbosscache-lock.xml" />
               <property name="jgroups-configuration" value="../config/udp-mux.xml" />
-              <property name="jgroups-multiplexer-stack" value="true" />
-              <property name="jbosscache-cluster-name" value="JCR-benchmark-lock-system" />
-              <property name="jbosscache-cl-cache.jdbc.table.name" value="jcrlocks_system"/>
+              <property name="jgroups-multiplexer-stack" value="false" />
+              <property name="jbosscache-cluster-name" value="JCR-benchmark-lock" />
+              <property name="jbosscache-cl-cache.jdbc.table.name" value="jcrlocks"/>
               <property name="jbosscache-cl-cache.jdbc.table.create" value="true"/>
               <property name="jbosscache-cl-cache.jdbc.table.drop" value="false"/>
-              <property name="jbosscache-cl-cache.jdbc.table.primarykey" value="jcrlocks_system_pk"/>
+              <property name="jbosscache-cl-cache.jdbc.table.primarykey" value="jcrlocks_pk"/>
               <property name="jbosscache-cl-cache.jdbc.fqn.column" value="fqn"/>
               <property name="jbosscache-cl-cache.jdbc.node.column" value="node"/>
               <property name="jbosscache-cl-cache.jdbc.parent.column" value="parent"/>
@@ -104,8 +104,8 @@
  
                 <property name="jbosscache-configuration" value="../config/test-jbosscache-data.xml" />
                 <property name="jgroups-configuration" value="../config/udp-mux.xml" />
-                <property name="jgroups-multiplexer-stack" value="true" />
-                <property name="jbosscache-cluster-name" value="JCR-benchmark-data-collab" />
+                <property name="jgroups-multiplexer-stack" value="false" />
+                <property name="jbosscache-cluster-name" value="JCR-benchmark-data" />
                 
             </properties>
           </cache>
@@ -116,8 +116,8 @@
               
               <property name="jbosscache-configuration" value="../config/test-jbosscache-indexer.xml" />
               <property name="jgroups-configuration" value="../config/udp-mux.xml" />
-              <property name="jgroups-multiplexer-stack" value="true" />
-              <property name="jbosscache-cluster-name" value="JCR-benchmark-index-collab" />
+              <property name="jgroups-multiplexer-stack" value="false" />
+              <property name="jbosscache-cluster-name" value="JCR-benchmark-index" />
               <property name="max-volatile-time" value="60" />
               
                            
@@ -130,12 +130,12 @@
               <!-- This block should be adopted for each DB, till not implemented programmatically -->
               <property name="jbosscache-configuration" value="../config/test-jbosscache-lock.xml" />
               <property name="jgroups-configuration" value="../config/udp-mux.xml" />
-              <property name="jgroups-multiplexer-stack" value="true" />
-              <property name="jbosscache-cluster-name" value="JCR-benchmark-lock-collab" />
-              <property name="jbosscache-cl-cache.jdbc.table.name" value="jcrlocks_collab"/>
+              <property name="jgroups-multiplexer-stack" value="false" />
+              <property name="jbosscache-cluster-name" value="JCR-benchmark-lock" />
+              <property name="jbosscache-cl-cache.jdbc.table.name" value="jcrlocks"/>
               <property name="jbosscache-cl-cache.jdbc.table.create" value="true"/>
               <property name="jbosscache-cl-cache.jdbc.table.drop" value="false"/>
-              <property name="jbosscache-cl-cache.jdbc.table.primarykey" value="jcrlocks_collab_pk"/>
+              <property name="jbosscache-cl-cache.jdbc.table.primarykey" value="jcrlocks_pk"/>
               <property name="jbosscache-cl-cache.jdbc.fqn.column" value="fqn"/>
               <property name="jbosscache-cl-cache.jdbc.node.column" value="node"/>
               <property name="jbosscache-cl-cache.jdbc.parent.column" value="parent"/>
