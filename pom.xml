@@ -20,9 +20,9 @@
    </properties>
    
    <scm>
-      <connection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/trunk</connection>
-      <developerConnection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/trunk</developerConnection>
-      <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark/trunk</url>
+      <connection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/branches/1.12.x</connection>
+      <developerConnection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/branches/1.12.x</developerConnection>
+      <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark/branches/1.12.x</url>
    </scm>
 
    <dependencies>
