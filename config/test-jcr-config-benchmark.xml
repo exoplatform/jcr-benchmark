@@ -37,7 +37,7 @@
                 <property name="jgroups-configuration" value="../config/udp-mux.xml" />
                 <property name="jgroups-multiplexer-stack" value="false" />
                 <property name="jbosscache-cluster-name" value="JCR-benchmark-data" />
-                
+                <property name="jbosscache-shareable" value="true" />
             </properties>
           </cache>
           <query-handler class="org.exoplatform.services.jcr.impl.core.query.lucene.SearchIndex">
@@ -50,7 +50,7 @@
               <property name="jgroups-multiplexer-stack" value="false" />
               <property name="jbosscache-cluster-name" value="JCR-benchmark-index" />
               <property name="max-volatile-time" value="60" />
-              
+              <property name="jbosscache-shareable" value="true" />
             </properties>
           </query-handler>
           <lock-manager class="org.exoplatform.services.jcr.impl.core.lock.jbosscache.CacheableLockManagerImpl">
@@ -70,7 +70,7 @@
               <property name="jbosscache-cl-cache.jdbc.node.column" value="node"/>
               <property name="jbosscache-cl-cache.jdbc.parent.column" value="parent"/>
               <property name="jbosscache-cl-cache.jdbc.datasource" value="jdbcexo"/>
-              
+              <property name="jbosscache-shareable" value="true" />
             </properties>
           </lock-manager>
         </workspace>
@@ -106,7 +106,7 @@
                 <property name="jgroups-configuration" value="../config/udp-mux.xml" />
                 <property name="jgroups-multiplexer-stack" value="false" />
                 <property name="jbosscache-cluster-name" value="JCR-benchmark-data" />
-                
+                <property name="jbosscache-shareable" value="true" />
             </properties>
           </cache>
           <query-handler class="org.exoplatform.services.jcr.impl.core.query.lucene.SearchIndex">
@@ -119,7 +119,7 @@
               <property name="jgroups-multiplexer-stack" value="false" />
               <property name="jbosscache-cluster-name" value="JCR-benchmark-index" />
               <property name="max-volatile-time" value="60" />
-              
+              <property name="jbosscache-shareable" value="true" />
                            
             </properties>
           </query-handler>
@@ -140,7 +140,7 @@
               <property name="jbosscache-cl-cache.jdbc.node.column" value="node"/>
               <property name="jbosscache-cl-cache.jdbc.parent.column" value="parent"/>
               <property name="jbosscache-cl-cache.jdbc.datasource" value="jdbcexo"/>
-
+              <property name="jbosscache-shareable" value="true" />
             </properties>
           </lock-manager>
         </workspace>
