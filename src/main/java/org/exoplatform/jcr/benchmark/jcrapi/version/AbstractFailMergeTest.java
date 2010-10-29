@@ -16,23 +16,23 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi.version;
 
+import com.sun.japex.TestCase;
+
+import org.exoplatform.jcr.benchmark.JCRTestContext;
+import org.exoplatform.jcr.benchmark.jcrapi.AbstractGetItemTest;
+import org.exoplatform.services.jcr.core.CredentialsImpl;
+import org.exoplatform.services.jcr.impl.core.JCRPath;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
+import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.version.Version;
-import javax.jcr.Property;
 import javax.jcr.Value;
-
-import org.exoplatform.jcr.benchmark.JCRTestContext;
-import org.exoplatform.jcr.benchmark.jcrapi.AbstractGetItemTest;
-
-import org.exoplatform.services.jcr.impl.core.JCRPath;
-
-import com.sun.japex.TestCase;
+import javax.jcr.version.Version;
 
 /**
  * Created by The eXo Platform SAS
@@ -67,7 +67,8 @@ public abstract class AbstractFailMergeTest extends AbstractGetItemTest
       vnode.checkout();
 
       // create corr node in system ws with own content
-      sysSession = context.getSession().getRepository().login(context.getCredentials(), workspaceName);
+      CredentialsImpl credentials = new CredentialsImpl("root", "exo".toCharArray());
+      sysSession = context.getSession().getRepository().login(credentials, workspaceName);
 
       if (!sysSession.itemExists(vnode.getParent().getPath()))
       {

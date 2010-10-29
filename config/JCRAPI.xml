@@ -14,7 +14,7 @@
       <param name="japex.classPath" value="../lib/*.jar" />
       <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
       <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
-      <param name="jcr.user" value="root" />
+      <param name="jcr.user" value="mary" />
       <param name="jcr.password" value="exo" />
       <param name="jcr.workspace" value="collaboration" />
       <param name="jcr.sessionPolicy" value="multiple" />
