@@ -16,13 +16,14 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi.workspace.write;
 
-import javax.jcr.Node;
-import javax.jcr.Session;
+import com.sun.japex.TestCase;
 
 import org.exoplatform.jcr.benchmark.JCRTestBase;
 import org.exoplatform.jcr.benchmark.JCRTestContext;
+import org.exoplatform.services.jcr.core.CredentialsImpl;
 
-import com.sun.japex.TestCase;
+import javax.jcr.Node;
+import javax.jcr.Session;
 
 /**
  * Created by The eXo Platform SAS
@@ -45,7 +46,7 @@ public abstract class AbstractItemsInDifferentWorkspacesTest
 
    protected static final String WS1 = "collaboration";
 
-   protected static final String WS2 = "system";
+   protected static final String WS2 = "digital-assets";
 
    private String testRootNodeName = null;
 
@@ -63,13 +64,16 @@ public abstract class AbstractItemsInDifferentWorkspacesTest
          }
       }
       testRootNodeName = context.generateUniqueName("testRoot");
+
       // WS1
-      ws1Session = context.getSession().getRepository().login(WS1);      
-      ws2Session = context.getSession().getRepository().login(WS2);
+      CredentialsImpl credentials = new CredentialsImpl("root", "exo".toCharArray());
+      ws1Session = context.getSession().getRepository().login(credentials, WS1);
+      ws2Session = context.getSession().getRepository().login(credentials, WS2);
       ws1RootNode = ws1Session.getRootNode().addNode(testRootNodeName);
       ws2RootNode = ws2Session.getRootNode().addNode(testRootNodeName);      
       ws1Session.save();
       ws2Session.save();
+
       Node ws1Parent = null;
       Node ws2Parent = null;
       for (int i = 0; i < runIterations; i++)

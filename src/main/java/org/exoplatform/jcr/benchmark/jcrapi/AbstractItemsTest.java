@@ -16,14 +16,14 @@
  */
 package org.exoplatform.jcr.benchmark.jcrapi;
 
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.Session;
+import com.sun.japex.TestCase;
 
 import org.exoplatform.jcr.benchmark.JCRTestBase;
 import org.exoplatform.jcr.benchmark.JCRTestContext;
 
-import com.sun.japex.TestCase;
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.Session;
 
 /**
  * Created by The eXo Platform SAS
