@@ -52,7 +52,7 @@
           <lock-manager class="org.exoplatform.services.jcr.impl.core.lock.infinispan.ISPNCacheableLockManagerImpl">
             <properties>
               <property name="time-out" value="25m" />
-              <property name="infinispan-configuration" value="../config/test-infinispan-config.xml" />
+              <property name="infinispan-configuration" value="../config/test-infinispan-lock.xml" />
               <property name="jgroups-configuration" value="flush-udp.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
               <property name="infinispan-cl-cache.jdbc.table.name" value="jcrlocks" />
@@ -113,7 +113,7 @@
           <lock-manager class="org.exoplatform.services.jcr.impl.core.lock.infinispan.ISPNCacheableLockManagerImpl">
             <properties>
               <property name="time-out" value="25m" />
-              <property name="infinispan-configuration" value="../config/test-infinispan-config.xml" />
+              <property name="infinispan-configuration" value="../config/test-infinispan-lock.xml" />
               <property name="jgroups-configuration" value="flush-udp.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
               <property name="infinispan-cl-cache.jdbc.table.name" value="jcrlocks" />
@@ -174,7 +174,7 @@
           <lock-manager class="org.exoplatform.services.jcr.impl.core.lock.infinispan.ISPNCacheableLockManagerImpl">
             <properties>
               <property name="time-out" value="25m" />
-              <property name="infinispan-configuration" value="../config/test-infinispan-config.xml" />
+              <property name="infinispan-configuration" value="../config/test-infinispan-lock.xml" />
               <property name="jgroups-configuration" value="flush-udp.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
               <property name="infinispan-cl-cache.jdbc.table.name" value="jcrlocks" />
