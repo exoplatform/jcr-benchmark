@@ -81,6 +81,16 @@
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.query.SearchNodesByContentTest" />
   </testCase-->
 
+  <!--testCase name="SearchNodesByPropertyUsingLikePathOperationTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.query.SearchNodesByPropertyUsingLikePathOperationTest" />
+    <param name="jcr.rootPath" value="teststorage/root2" />
+  </testCase-->
+  
+  <!--testCase name="SearchNodesByContentUsingLikePathOperationTest">
+    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.query.SearchNodesByContentUsingLikePathOperationTest" />
+    <param name="jcr.rootPath" value="teststorage/root2" />
+  </testCase-->
+
   <!--testCase name="AddNtFileWithMetadataTest">
     <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.AddNtFileWithMetadataTest" />
   </testCase-->
