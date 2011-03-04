@@ -25,21 +25,16 @@
       xmlns="urn:infinispan:config:4.0">
 
     <global>
-      <globalJmxStatistics jmxDomain="infinispan" enabled="true" allowDuplicateDomains="true"/>
-
-      <transport transportClass="org.infinispan.remoting.transport.jgroups.JGroupsTransport" clusterName="${infinispan-cluster-name}" distributedSyncTimeout="20000">
+      <evictionScheduledExecutor factory="org.infinispan.executors.DefaultScheduledExecutorFactory">
         <properties>
-          <property name="configurationFile" value="${jgroups-configuration}"/>
+          <property name="threadNamePrefix" value="EvictionThread"/>
         </properties>
-      </transport>
+      </evictionScheduledExecutor>
+
+      <globalJmxStatistics jmxDomain="infinispan" enabled="true" allowDuplicateDomains="true"/>
     </global>
 
     <default>
-      <clustering mode="replication">
-        <stateRetrieval timeout="20000" fetchInMemoryState="false" />
-        <sync />
-      </clustering>
-
       <locking isolationLevel="READ_COMMITTED" lockAcquisitionTimeout="20000" writeSkewCheck="false" concurrencyLevel="500"/>
       <transaction transactionManagerLookupClass="org.infinispan.transaction.lookup.JBossStandaloneJTAManagerLookup" syncRollbackPhase="false" syncCommitPhase="false"/>
       <jmxStatistics enabled="true"/>
