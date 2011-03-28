@@ -115,7 +115,7 @@
     <init-params>
       <value-param>
         <name>timeout</name>
-        <value>4000</value>
+        <value>10800</value>
       </value-param>
     </init-params>   
   </component>
