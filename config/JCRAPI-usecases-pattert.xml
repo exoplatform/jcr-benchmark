@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testSuite name="Calculating the average time of execution of the main JCR API methods" xmlns="http://www.sun.com/japex/testSuite">
+
+   <param name="japex.reportsDirectory" value="../reports" />
+   <param name="japex.plotGroupSize" value="5" />
+   <param name="japex.resultUnit" value="tps" />
+   <param name="japex.warmupIterations" value="0" />
+   <param name="japex.runIterations" value="1000" />
+   <!--param name="japex.runTime" value="03" /-->
+   <!-- 10 for 10 sec -->
+   <!-- 15:00 for 15min -->
+
+   <driverGroup name="ThreadDriverGroup" xmlns="http://www.sun.com/japex/testSuite">
+      <param name="japex.classPath" value="../lib/*.jar" />
+      <param name="japex.driverClass" value="org.exoplatform.jcr.benchmark.JCRDriver" />
+      <param name="jcr.initializer" value="org.exoplatform.jcr.benchmark.init.EXOJCRStandaloneInitializer" />
+      <param name="jcr.user" value="mary" />
+      <param name="jcr.password" value="exo" />
+      <param name="jcr.workspace" value="collaboration" />
+      <param name="jcr.sessionPolicy" value="multiple" />
+      <param name="exo.jaasConf" value="login.conf" />
+      <param name="exo.containerConf" value="../config/test-configuration-benchmark.xml" />
+      <driver name="JCRdriver">
+         <param name="japex.numberOfThreads" value="1" />
+      </driver>
+   </driverGroup>
+
+  <testCase name="NodeGetNodesByPattern1000ExactlyNamePaternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000ExactlyNamePaternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern1000ExactlyNamePaternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000ExactlyNamePaternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern1000ExactlyPrefixNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000ExactlyPrefixNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern1000ExactlyPrefixNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000ExactlyPrefixNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern1000WildCardPrefixExectlyNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000WildCardPrefixExectlyNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern1000WildCardPrefixExectlyNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000WildCardPrefixExectlyNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern1000WildCardPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000WildCardPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern1000WildCardPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000WildCardPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern100ExactlyNamePaternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100ExactlyNamePaternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern100ExactlyNamePaternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100ExactlyNamePaternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern100ExactlyPrefixNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100ExactlyPrefixNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern100ExactlyPrefixNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100ExactlyPrefixNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern100WildCardPrefixExectlyNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100WildCardPrefixExectlyNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern100WildCardPrefixExectlyNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100WildCardPrefixExectlyNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern100WildCardPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100WildCardPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern100WildCardPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100WildCardPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10ExactlyNamePaternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10ExactlyNamePaternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10ExactlyNamePaternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10ExactlyNamePaternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10ExactlyPrefixNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10ExactlyPrefixNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10ExactlyPrefixNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10ExactlyPrefixNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10WildCardPrefixExectlyNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10WildCardPrefixExectlyNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10WildCardPrefixExectlyNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10WildCardPrefixExectlyNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10WildCardPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10WildCardPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10WildCardPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10WildCardPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern1000ExactlyNamePaternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000ExactlyNamePaternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern1000ExactlyNamePaternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000ExactlyNamePaternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern1000ExactlyPrefixNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000ExactlyPrefixNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern1000ExactlyPrefixNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000ExactlyPrefixNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern1000WildCardPrefixExectlyNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000WildCardPrefixExectlyNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern1000WildCardPrefixExectlyNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000WildCardPrefixExectlyNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern1000WildCardPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000WildCardPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern1000WildCardPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000WildCardPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern100ExactlyNamePaternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100ExactlyNamePaternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern100ExactlyNamePaternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100ExactlyNamePaternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern100ExactlyPrefixNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100ExactlyPrefixNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern100ExactlyPrefixNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100ExactlyPrefixNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern100WildCardPrefixExectlyNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100WildCardPrefixExectlyNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern100WildCardPrefixExectlyNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100WildCardPrefixExectlyNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern100WildCardPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100WildCardPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern100WildCardPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100WildCardPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10ExactlyNamePaternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10ExactlyNamePaternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10ExactlyNamePaternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10ExactlyNamePaternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10ExactlyPrefixNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10ExactlyPrefixNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10ExactlyPrefixNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10ExactlyPrefixNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10WildCardPrefixExectlyNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10WildCardPrefixExectlyNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10WildCardPrefixExectlyNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10WildCardPrefixExectlyNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10WildCardPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10WildCardPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10WildCardPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10WildCardPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern1000ExectlyPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000ExectlyPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+  
+  <testCase name="NodeGetNodesByPattern1000ExectlyPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern1000ExectlyPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern100ExectlyPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100ExectlyPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+  
+  <testCase name="NodeGetNodesByPattern100ExectlyPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern100ExectlyPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10ExectlyPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10ExectlyPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetNodesByPattern10ExectlyPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesByPattern10ExectlyPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern1000ExectlyPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000ExectlyPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+  
+  <testCase name="NodeGetPropertiesByPattern1000ExectlyPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern1000ExectlyPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern100ExectlyPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100ExectlyPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+  
+  <testCase name="NodeGetPropertiesByPattern100ExectlyPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern100ExectlyPrefixWildCardNamePatternTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10ExectlyPrefixWildCardNamePatternCachedTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10ExectlyPrefixWildCardNamePatternCachedTest" />
+  </testCase>
+
+  <testCase name="NodeGetPropertiesByPattern10ExectlyPrefixWildCardNamePatternTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetPropertiesByPattern10ExectlyPrefixWildCardNamePatternTest" />
+  </testCase>
+
+</testSuite>
