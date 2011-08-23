@@ -107,133 +107,6 @@
    <testCase name="NodeHasPropertiesTest">
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeHasPropertiesTest" />
    </testCase>
-   
-   <!-- Simple node.getNodes() invocation without iterating the result set with small amount of nodes -->
-   <testCase name="GetNodes-nonIterating-smallSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
-      <param name="childNodesNumber" value="30" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="0" />
-   </testCase>
-   <!-- Simple node.getNodesLazily() invocation without iterating the result set with small amount of nodes -->
-   <testCase name="GetNodesLazily-nonIterating-smallSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
-      <param name="childNodesNumber" value="30" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="0" />
-   </testCase>
-
-   <!-- Simple node.getNodes() invocation without iterating the result set with huge amount of nodes -->
-   <testCase name="GetNodes-nonIterating-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="0" />
-   </testCase>
-   <!-- Simple node.getNodesLazily() invocation without iterating the result set with huge amount of nodes -->
-   <testCase name="GetNodesLazily-nonIterating-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="0" />
-   </testCase>
-   <!-- Iterating first 15 nodes of result set, with small amount of nodes -->
-   <testCase name="GetNodes-Iterating-15-smallSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
-      <param name="childNodesNumber" value="30" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="15" />
-   </testCase>
-   <testCase name="GetNodesLazily-Iterating-15-smallSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
-      <param name="childNodesNumber" value="30" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="15" />
-   </testCase>
-
-   <!-- Iterating first 15 nodes of result set, with huge amount of nodes -->
-   <testCase name="GetNodes-Iterating-15-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="15" />
-   </testCase>
-   <testCase name="GetNodesLazily-Iterating-15-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="15" />
-   </testCase>
-   <!-- Iterating 100 nodes of result set, with huge amount of nodes -->
-   <testCase name="GetNodes-Iterating-100-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="100" />
-   </testCase>
-   <testCase name="GetNodesLazily-Iterating-100-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="100" />
-   </testCase>
-   <!-- Iterating 100 nodes of result set, with huge amount of nodes -->
-   <testCase name="GetNodes-Iterating-100-fromMiddle-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="500" />
-      <param name="readNumber" value="100" />
-   </testCase>
-   <testCase name="GetNodesLazily-Iterating-100-fromMiddle-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="500" />
-      <param name="readNumber" value="100" />
-   </testCase>
-   <!-- Iterating all nodes of result set, with small amount of nodes -->
-   <testCase name="GetNodes-Iterating-30-smallSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
-      <param name="childNodesNumber" value="30" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="30" />
-   </testCase>
-   <testCase name="GetNodesLazily-Iterating-30-smallSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
-      <param name="childNodesNumber" value="30" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="30" />
-   </testCase>
-
-   <!-- Iterating all nodes of result set, with huge amount of nodes -->
-   <testCase name="GetNodes-Iterating-1000-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="1000" />
-   </testCase>
-   <testCase name="GetNodesLazily-Iterating-1000-hugeSet">
-      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
-      <param name="childNodesNumber" value="1000" />
-      <param name="childPropertiesNumber" value="3" />
-      <param name="skipNumber" value="0" />
-      <param name="readNumber" value="1000" />
-   </testCase>
-   
 
    <!-- Property read methods -->
    <testCase name="PropertyGetValueTest">
@@ -461,7 +334,7 @@
    </testCase>
 
    <testCase name="WorkspaceNodeUpdateTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceNodeUpdateTest" />
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.workspace.write.WorkspaceNodeUpdateTest" />
    </testCase>
 
    <!--Export/import methods-->
@@ -612,66 +485,195 @@
       <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryResultGetNodesTest" />
    </testCase>
 
-  <testCase name="QueryResultGetRowsTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryResultGetRowsTest" />
-  </testCase>
+   <testCase name="QueryResultGetRowsTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.query.QueryResultGetRowsTest" />
+   </testCase>
 
-  <!-- nodetype tests -->
-  <testCase name="ChangeExistedNodeDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.ChangeExistedNodeDefinition" />
-  </testCase>
-  <testCase name="ChangeExistedPropertyDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.ChangeExistedPropertyDefinition" />
-  </testCase>
-  <testCase name="CreateNodeType">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.CreateNodeType" />
-  </testCase>
-  <testCase name="DeleteExistedNodeDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.DeleteExistedNodeDefinition" />
-  </testCase>
-  <testCase name="DeleteExistedPropertyDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.DeleteExistedPropertyDefinition" />
-  </testCase>
-  <testCase name="UnregisterNodeType">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UnregisterNodeType" />
-  </testCase>
-  <testCase name="UpdateExistedNodeDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedNodeDefinition" />
-  </testCase>
-  <testCase name="UpdateExistedNodeTypeValue">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedNodeTypeValue" />
-  </testCase>
-  <testCase name="UpdateExistedPropertyDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedPropertyDefinition" />
-  </testCase>
-  <testCase name="UpdateExistedSuperTypeDefinition">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedSuperTypeDefinition" />
-  </testCase>
+   <!-- nodetype tests -->
+   <testCase name="ChangeExistedNodeDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.ChangeExistedNodeDefinition" />
+   </testCase>
+   <testCase name="ChangeExistedPropertyDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.ChangeExistedPropertyDefinition" />
+   </testCase>
+   <testCase name="CreateNodeType">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.CreateNodeType" />
+   </testCase>
+   <testCase name="DeleteExistedNodeDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.DeleteExistedNodeDefinition" />
+   </testCase>
+   <testCase name="DeleteExistedPropertyDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.DeleteExistedPropertyDefinition" />
+   </testCase>
+   <testCase name="UnregisterNodeType">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UnregisterNodeType" />
+   </testCase>
+   <testCase name="UpdateExistedNodeDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedNodeDefinition" />
+   </testCase>
+   <testCase name="UpdateExistedNodeTypeValue">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedNodeTypeValue" />
+   </testCase>
+   <testCase name="UpdateExistedPropertyDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedPropertyDefinition" />
+   </testCase>
+   <testCase name="UpdateExistedSuperTypeDefinition">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.nodetype.UpdateExistedSuperTypeDefinition" />
+   </testCase>
 
-  <!-- namespace tests -->
-  <testCase name="AddNamespace">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.AddNamespace" />
-  </testCase>
-  <testCase name="ChangeNamespace">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.ChangeNamespace" />
-  </testCase>
-  <testCase name="DeleteNamespace">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.DeleteNamespace" />
-  </testCase>
+   <!-- namespace tests -->
+   <testCase name="AddNamespace">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.AddNamespace" />
+   </testCase>
+   <testCase name="ChangeNamespace">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.ChangeNamespace" />
+   </testCase>
+   <testCase name="DeleteNamespace">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.namespace.DeleteNamespace" />
+   </testCase>
 
-  <!-- Concurrent read test (https://jira.jboss.org/jira/browse/EXOJCR-281) -->
-  <testCase name="NodeConcurrentReadTest">
-    <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.NodeConcurrentReadTest" />
-  </testCase>
+   <!-- Concurrent read test (https://jira.jboss.org/jira/browse/EXOJCR-281) -->
+   <testCase name="NodeConcurrentReadTest">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.usecases.NodeConcurrentReadTest" />
+   </testCase>
 
-  <!-- Temporary excluded tests -->
-  <!--
-    testCase name="TEMPORARY EXCLUDED"> <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.WorkspaceRestoreTest" /> </testCase
-  -->
+   <!-- Simple node.getNodes() invocation without iterating the result set with small amount of nodes -->
+   <testCase name="GetNodes-nonIterating-smallSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
+      <param name="childNodesNumber" value="30" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="0" />
+   </testCase>
+   <!-- Simple node.getNodesLazily() invocation without iterating the result set with small amount of nodes -->
+   <testCase name="GetNodesLazily-nonIterating-smallSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
+      <param name="childNodesNumber" value="30" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="0" />
+   </testCase>
+
+   <!-- Simple node.getNodes() invocation without iterating the result set with huge amount of nodes -->
+   <testCase name="GetNodes-nonIterating-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="0" />
+   </testCase>
+   <!-- Simple node.getNodesLazily() invocation without iterating the result set with huge amount of nodes -->
+   <testCase name="GetNodesLazily-nonIterating-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="0" />
+   </testCase>
+   <!-- Iterating first 15 nodes of result set, with small amount of nodes -->
+   <testCase name="GetNodes-Iterating-15-smallSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
+      <param name="childNodesNumber" value="30" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="15" />
+   </testCase>
+   <testCase name="GetNodesLazily-Iterating-15-smallSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
+      <param name="childNodesNumber" value="30" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="15" />
+   </testCase>
+
+   <!-- Iterating first 15 nodes of result set, with huge amount of nodes -->
+   <testCase name="GetNodes-Iterating-15-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="15" />
+   </testCase>
+   <testCase name="GetNodesLazily-Iterating-15-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="15" />
+   </testCase>
+   <!-- Iterating 100 nodes of result set, with huge amount of nodes -->
+   <testCase name="GetNodes-Iterating-100-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="100" />
+   </testCase>
+   <testCase name="GetNodesLazily-Iterating-100-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="100" />
+   </testCase>
+   <!-- Iterating 100 nodes of result set, with huge amount of nodes -->
+   <testCase name="GetNodes-Iterating-100-fromMiddle-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="500" />
+      <param name="readNumber" value="100" />
+   </testCase>
+   <testCase name="GetNodesLazily-Iterating-100-fromMiddle-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="500" />
+      <param name="readNumber" value="100" />
+   </testCase>
+   <!-- Iterating all nodes of result set, with small amount of nodes -->
+   <testCase name="GetNodes-Iterating-30-smallSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
+      <param name="childNodesNumber" value="30" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="30" />
+   </testCase>
+   <testCase name="GetNodesLazily-Iterating-30-smallSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
+      <param name="childNodesNumber" value="30" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="30" />
+   </testCase>
+
+   <!-- Iterating all nodes of result set, with huge amount of nodes -->
+   <testCase name="GetNodes-Iterating-1000-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="1000" />
+   </testCase>
+   <testCase name="GetNodesLazily-Iterating-1000-hugeSet">
+      <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.node.read.NodeGetNodesLazilyAdaptiveTest" />
+      <param name="childNodesNumber" value="1000" />
+      <param name="childPropertiesNumber" value="3" />
+      <param name="skipNumber" value="0" />
+      <param name="readNumber" value="1000" />
+   </testCase>
+
 
    <!-- Temporary excluded tests -->
    <!--
-      testCase name="TEMPORARY EXCLUDED"> <param name="exo.testClass" value="org.exoplatform.jcr.benchmark.jcrapi.version.WorkspaceRestoreTest" /> </testCase
+      testCase name="TEMPORARY EXCLUDED"> <param name="exo.testClass"
+      value="org.exoplatform.jcr.benchmark.jcrapi.version.WorkspaceRestoreTest" /> </testCase
+   -->
+
+   <!-- Temporary excluded tests -->
+   <!--
+      testCase name="TEMPORARY EXCLUDED"> <param name="exo.testClass"
+      value="org.exoplatform.jcr.benchmark.jcrapi.version.WorkspaceRestoreTest" /> </testCase
    -->
 
 </testSuite>
