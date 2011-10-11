@@ -114,6 +114,9 @@ public abstract class AbstractMembershipTest extends AbstractOrganizationTest
             Membership m =
                mHandler.findMembershipByUserGroupAndType(user.getUserName(), "/" + g.getGroupName(), mt.getName());
             memberships.add(m);
+
+            // Warming up JCR's cache. It can be empty because of Organization Service's cache
+            mHandler.findMembershipsByUser(user.getUserName());
          }
       }
    }
