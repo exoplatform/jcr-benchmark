@@ -23,6 +23,7 @@ import org.exoplatform.jcr.benchmark.JCRTestContext;
 import org.exoplatform.services.jcr.impl.core.SessionImpl;
 import org.exoplatform.services.jcr.impl.storage.jdbc.JDBCStorageConnection;
 import org.exoplatform.services.jcr.impl.storage.jdbc.JDBCWorkspaceDataContainer;
+import org.exoplatform.services.jcr.impl.storage.jdbc.statistics.StatisticsJDBCStorageConnection;
 import org.exoplatform.services.jcr.storage.WorkspaceStorageConnection;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
@@ -124,7 +125,13 @@ public class ImportOwnSubtreeDocViewCleanDBOracleTest extends JCRTestBase
             {
                workspaceStorageConnection = workspaceDataContainer.reuseConnection(workspaceStorageConnection);
             }
-            storageConnection = (JDBCStorageConnection)workspaceStorageConnection;
+            WorkspaceStorageConnection wsc = workspaceStorageConnection;
+            if (wsc instanceof StatisticsJDBCStorageConnection)
+            {
+               wsc = ((StatisticsJDBCStorageConnection)wsc).getNestedWorkspaceStorageConnection();
+            }
+            
+            storageConnection = (JDBCStorageConnection) wsc;
             dbConnection = storageConnection.getJdbcConnection();
             // =============ORACLE=============
             List<String> oracleQueryList = new ArrayList<String>();
