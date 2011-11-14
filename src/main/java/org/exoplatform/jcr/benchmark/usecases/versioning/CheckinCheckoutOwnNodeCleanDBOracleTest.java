@@ -16,22 +16,23 @@
  */
 package org.exoplatform.jcr.benchmark.usecases.versioning;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
+import com.sun.japex.TestCase;
 
-import javax.jcr.Node;
-
-import org.exoplatform.services.log.Log;
 import org.exoplatform.jcr.benchmark.JCRTestBase;
 import org.exoplatform.jcr.benchmark.JCRTestContext;
 import org.exoplatform.services.jcr.impl.core.SessionImpl;
 import org.exoplatform.services.jcr.impl.storage.jdbc.JDBCStorageConnection;
 import org.exoplatform.services.jcr.impl.storage.jdbc.JDBCWorkspaceDataContainer;
+import org.exoplatform.services.jcr.impl.storage.jdbc.statistics.StatisticsJDBCStorageConnection;
 import org.exoplatform.services.jcr.storage.WorkspaceStorageConnection;
 import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
-import com.sun.japex.TestCase;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.jcr.Node;
 
 /**
  * Created by The eXo Platform SAS
@@ -103,7 +104,13 @@ public class CheckinCheckoutOwnNodeCleanDBOracleTest
             {
                workspaceStorageConnection = workspaceDataContainer.reuseConnection(workspaceStorageConnection);
             }
-            storageConnection = (JDBCStorageConnection) workspaceStorageConnection;
+            WorkspaceStorageConnection wsc = workspaceStorageConnection;
+            if (wsc instanceof StatisticsJDBCStorageConnection)
+            {
+               wsc = ((StatisticsJDBCStorageConnection)wsc).getNestedWorkspaceStorageConnection();
+            }
+            
+            storageConnection = (JDBCStorageConnection) wsc;
             dbConnection = storageConnection.getJdbcConnection();
             // =============ORACLE=============
             List<String> oracleQueryList = new ArrayList<String>();
