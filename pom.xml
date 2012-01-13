@@ -117,7 +117,6 @@
       </dependency>
  
       <!-- For Oracle 10g support (local-jcr repository) -->
-      <dependencies>
          <dependency>
             <groupId>ojdbc</groupId>
             <artifactId>ojdbc</artifactId>
@@ -129,8 +128,7 @@
             <artifactId>orai18n</artifactId>
             <version>11.2.0.1.0</version>
             <scope>test</scope>
-         </dependency>
-      </dependencies>
+        </dependency>
    </dependencies>
 
    <build>
