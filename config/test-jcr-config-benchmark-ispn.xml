@@ -71,7 +71,7 @@
           <container class="org.exoplatform.services.jcr.impl.storage.jdbc.optimisation.CQJDBCWorkspaceDataContainer">
             <properties>
               <property name="source-name" value="jdbcexo" />
-              <property name="multi-db" value="false" />
+              <property name="db-structure-type" value="single" />
               <property name="max-buffer-size" value="200k" />
               <property name="swap-directory" value="../temp/swap/collaboration" />
             </properties>
@@ -133,7 +133,7 @@
           <container class="org.exoplatform.services.jcr.impl.storage.jdbc.optimisation.CQJDBCWorkspaceDataContainer">
             <properties>
               <property name="source-name" value="jdbcexo" />
-              <property name="multi-db" value="false" />
+              <property name="db-structure-type" value="single" />
               <property name="max-buffer-size" value="200k" />
               <property name="swap-directory" value="../temp/swap/digital-assets" />
             </properties>
