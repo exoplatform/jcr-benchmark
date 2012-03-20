@@ -8,21 +8,21 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.exoplatform.benchmark</groupId>
    <artifactId>exo-jcr-benchmark</artifactId>
-   <version>1.14.8-GA-SNAPSHOT</version>
+   <version>1.15.0-Beta01-SNAPSHOT</version>
    <packaging>jar</packaging>
    <name>eXo JCR :: Benchmark</name>
    
    <properties>
       <exo.product.name>exo-benchmark</exo.product.name>
       <exo.product.specification>1.14</exo.product.specification>
-      <org.exoplatform.jcr.version>1.14.8-GA-SNAPSHOT</org.exoplatform.jcr.version>
-      <org.exoplatform.ws.version>2.2.8-GA-SNAPSHOT</org.exoplatform.ws.version>
+      <org.exoplatform.jcr.version>1.15.0-Beta01-SNAPSHOT</org.exoplatform.jcr.version>
+      <org.exoplatform.ws.version>2.3.0-Beta01-SNAPSHOT</org.exoplatform.ws.version>
    </properties>
    
    <scm>
-      <connection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/trunk</connection>
-      <developerConnection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/trunk</developerConnection>
-      <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark/trunk</url>
+      <connection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/branches/1.15.x</connection>
+      <developerConnection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/branches/1.15.x</developerConnection>
+      <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark/branches/1.15.x</url>
    </scm>
 
    <dependencies>
@@ -117,19 +117,18 @@
       </dependency>
  
       <!-- For Oracle 10g support (local-jcr repository) -->
-      <dependency>
-         <groupId>ojdbc</groupId>
-         <artifactId>ojdbc</artifactId>
-         <version>14</version>
-         <scope>compile</scope>
-      </dependency>
-
-      <dependency>
-         <groupId>ojdbc</groupId>
-         <artifactId>orai18n</artifactId>
-         <version>14</version>
-         <scope>compile</scope>
-      </dependency>
+         <dependency>
+            <groupId>ojdbc</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>10.2.0.4</version>
+            <scope>compile</scope>
+         </dependency>
+         <dependency>
+            <groupId>ojdbc</groupId>
+            <artifactId>orai18n</artifactId>
+            <version>10.2.0.4</version>
+            <scope>compile</scope>
+        </dependency>
    </dependencies>
 
    <build>
