@@ -17,6 +17,9 @@
       <exo.product.specification>1.14</exo.product.specification>
       <org.exoplatform.jcr.version>1.15.0-Beta01-SNAPSHOT</org.exoplatform.jcr.version>
       <org.exoplatform.ws.version>2.3.0-Beta01-SNAPSHOT</org.exoplatform.ws.version>
+
+      <version.release.plugin>2.2.1</version.release.plugin>
+      <version.buildnumber.plugin>1.0</version.buildnumber.plugin>
    </properties>
    
    <scm>
