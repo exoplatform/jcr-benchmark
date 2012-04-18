@@ -20,9 +20,9 @@
    </properties>
    
    <scm>
-      <connection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/branches/1.14.x</connection>
-      <developerConnection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/branches/1.14.x</developerConnection>
-      <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark/branches/1.14.x</url>
+      <connection>scm:git:ssh://github.com/exodev/jcr-benchmark.git</connection>
+      <developerConnection>scm:git:ssh://github.com/exodev/jcr-benchmark.git</developerConnection>
+      <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark</url>
    </scm>
 
    <dependencies>
