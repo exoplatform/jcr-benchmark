@@ -20,9 +20,9 @@
    </properties>
    
    <scm>
-      <connection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/trunk</connection>
-      <developerConnection>scm:svn:http://svn.exoplatform.org/projects/jcr-benchmark/trunk</developerConnection>
-      <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark/trunk</url>
+      <connection>scm:git:ssh://github.com/exodev/jcr-benchmark.git</connection>
+      <developerConnection>scm:git:ssh://github.com/exodev/jcr-benchmark.git</developerConnection>
+      <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark</url>
    </scm>
 
    <dependencies>
