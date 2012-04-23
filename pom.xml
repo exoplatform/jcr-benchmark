@@ -23,8 +23,8 @@
    </properties>
    
    <scm>
-      <connection>scm:git:ssh://github.com/exodev/jcr-benchmark.git</connection>
-      <developerConnection>scm:git:ssh://github.com/exodev/jcr-benchmark.git</developerConnection>
+      <connection>scm:git:git://github.com/exoplatform/jcr-benchmark.git</connection>
+      <developerConnection>scm:git:git@github.com/exoplatform/jcr-benchmark.git</developerConnection>
       <url>http://fisheye.exoplatform.org/browse/projects/jcr-benchmark</url>
    </scm>
 
