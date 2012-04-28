@@ -10,6 +10,7 @@
             <properties>
               <property name="source-name" value="jdbcexo" />
               <property name="db-structure-type" value="isolated" />
+              <property name="db-tablename-suffix" value="SYS" />
               <property name="max-buffer-size" value="200k" />
               <property name="swap-directory" value="../temp/swap/system" />
             </properties>
@@ -72,6 +73,7 @@
             <properties>
               <property name="source-name" value="jdbcexo" />
               <property name="db-structure-type" value="isolated" />
+              <property name="db-tablename-suffix" value="COLAB" />
               <property name="max-buffer-size" value="200k" />
               <property name="swap-directory" value="../temp/swap/collaboration" />
             </properties>
@@ -134,6 +136,7 @@
             <properties>
               <property name="source-name" value="jdbcexo" />
               <property name="db-structure-type" value="isolated" />
+              <property name="db-tablename-suffix" value="DIGIT" />
               <property name="max-buffer-size" value="200k" />
               <property name="swap-directory" value="../temp/swap/digital-assets" />
             </properties>
