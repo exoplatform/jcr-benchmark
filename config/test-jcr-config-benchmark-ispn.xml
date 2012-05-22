@@ -9,7 +9,7 @@
           <container class="org.exoplatform.services.jcr.impl.storage.jdbc.optimisation.CQJDBCWorkspaceDataContainer">
             <properties>
               <property name="source-name" value="jdbcexo" />
-              <property name="db-structure-type" value="isolated" />
+              <property name="db-structure-type" value="single" />
               <property name="db-tablename-suffix" value="SYS" />
               <property name="max-buffer-size" value="200k" />
               <property name="swap-directory" value="../temp/swap/system" />
@@ -72,7 +72,7 @@
           <container class="org.exoplatform.services.jcr.impl.storage.jdbc.optimisation.CQJDBCWorkspaceDataContainer">
             <properties>
               <property name="source-name" value="jdbcexo" />
-              <property name="db-structure-type" value="isolated" />
+              <property name="db-structure-type" value="single" />
               <property name="db-tablename-suffix" value="COLAB" />
               <property name="max-buffer-size" value="200k" />
               <property name="swap-directory" value="../temp/swap/collaboration" />
@@ -135,7 +135,7 @@
           <container class="org.exoplatform.services.jcr.impl.storage.jdbc.optimisation.CQJDBCWorkspaceDataContainer">
             <properties>
               <property name="source-name" value="jdbcexo" />
-              <property name="db-structure-type" value="isolated" />
+              <property name="db-structure-type" value="single" />
               <property name="db-tablename-suffix" value="DIGIT" />
               <property name="max-buffer-size" value="200k" />
               <property name="swap-directory" value="../temp/swap/digital-assets" />
