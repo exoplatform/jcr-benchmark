@@ -197,4 +197,88 @@
          </plugin>
       </plugins>
    </build>
+   <profiles>
+      <profile>
+         <id>ispn</id>
+         <dependencies>
+           <dependency>
+              <groupId>org.exoplatform.jcr</groupId>
+              <artifactId>exo.jcr.component.core.impl.infinispan.v5</artifactId>
+              <version>${org.exoplatform.jcr.version}</version>
+              <scope>compile</scope>
+           </dependency>
+           <dependency>
+              <groupId>org.exoplatform.jcr</groupId>
+              <artifactId>exo.jcr.component.core</artifactId>
+              <version>${org.exoplatform.jcr.version}</version>
+              <exclusions>
+                 <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging-spi</artifactId>
+                 </exclusion>
+              </exclusions>
+           </dependency>
+         </dependencies>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-antrun-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <phase>install</phase>
+                        <goals>
+                           <goal>run</goal>
+                        </goals>
+                     </execution>
+                  </executions>
+                  <configuration>
+                     <tasks>
+                        <copy file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-ispn.xml"
+                              tofile="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark.xml"/>
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-ispn.xml" />
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-jbc.xml" />
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-jbosscache-data.xml" />
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-jbosscache-indexer.xml" />
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-jbosscache-lock.xml" />
+                        <chmod dir="target/exo-jcr-benchmark-binary/bin" perm="+x" includes="*.sh" />
+                     </tasks>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+      <profile>
+         <id>jboss</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-antrun-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <phase>install</phase>
+                        <goals>
+                           <goal>run</goal>
+                        </goals>
+                     </execution>
+                  </executions>
+                  <configuration>
+                     <tasks>
+                        <copy file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-jbc.xml"
+                              tofile="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark.xml"/>
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-ispn.xml" />
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-jbc.xml" />
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-infinispan-config.xml" />
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-infinispan-indexer.xml" />
+                        <delete file="target/exo-jcr-benchmark-binary/config/test-infinispan-lock.xml" />
+                        <chmod dir="target/exo-jcr-benchmark-binary/bin" perm="+x" includes="*.sh" />
+                     </tasks>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
 </project>
