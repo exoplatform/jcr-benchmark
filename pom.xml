@@ -31,28 +31,16 @@
    <dependencies>
       <dependency>
          <groupId>org.exoplatform.jcr</groupId>
-         <artifactId>exo.jcr.component.core</artifactId>
-         <version>${org.exoplatform.jcr.version}</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.exoplatform.jcr</groupId>
-         <artifactId>exo.jcr.component.ext</artifactId>
-         <version>${org.exoplatform.jcr.version}</version>
-         <scope>compile</scope>
-      </dependency>
-      <!-- dependency>
-         <groupId>org.exoplatform.ws</groupId>
-         <artifactId>exo.ws.commons</artifactId>
-         <version>${org.exoplatform.ws.version}</version>
-         <scope>compile</scope>
-      </dependency -->      
-      <dependency>
-         <groupId>org.exoplatform.jcr</groupId>
          <artifactId>exo.jcr.cluster.testclient</artifactId>
          <version>${org.exoplatform.jcr.version}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>org.exoplatform.jcr</groupId>
+               <artifactId>exo.jcr.component.core</artifactId>
+            </exclusion>
+         </exclusions>
          <scope>compile</scope>
-      </dependency>
+      </dependency>      
       <dependency>
          <groupId>com.sun.japex</groupId>
          <artifactId>japex</artifactId>
@@ -208,16 +196,11 @@
               <scope>compile</scope>
            </dependency>
            <dependency>
-              <groupId>org.exoplatform.jcr</groupId>
-              <artifactId>exo.jcr.component.core</artifactId>
-              <version>${org.exoplatform.jcr.version}</version>
-              <exclusions>
-                 <exclusion>
-                    <groupId>org.jboss.logging</groupId>
-                    <artifactId>jboss-logging-spi</artifactId>
-                 </exclusion>
-              </exclusions>
-           </dependency>
+               <groupId>org.exoplatform.jcr</groupId>
+               <artifactId>exo.jcr.component.ext</artifactId>
+               <version>${org.exoplatform.jcr.version}</version>
+               <scope>compile</scope>
+            </dependency>
          </dependencies>
          <build>
             <plugins>
@@ -248,10 +231,24 @@
          </build>
       </profile>
       <profile>
-         <id>jboss</id>
+         <id>jbc</id>
          <activation>
             <activeByDefault>true</activeByDefault>
          </activation>
+         <dependencies>         
+            <dependency>
+               <groupId>org.exoplatform.jcr</groupId>
+               <artifactId>exo.jcr.component.core</artifactId>
+               <version>${org.exoplatform.jcr.version}</version>
+               <scope>compile</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.exoplatform.jcr</groupId>
+               <artifactId>exo.jcr.component.ext</artifactId>
+               <version>${org.exoplatform.jcr.version}</version>
+               <scope>compile</scope>
+            </dependency>
+         </dependencies>
          <build>
             <plugins>
                <plugin>

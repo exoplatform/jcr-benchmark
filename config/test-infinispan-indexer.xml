@@ -21,7 +21,7 @@
 -->
 <infinispan
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-      xsi:schemaLocation="urn:infinispan:config:5.1 http://www.infinispan.org/schemas/infinispan-config-5.1.xsd"
+      xsi:schemaLocation="urn:infinispan:config:5.1 http://www.infinispan.org/schemas/infinispan-config-5.1.xsd" 
       xmlns="urn:infinispan:config:5.1">
 
     <global>
@@ -32,12 +32,23 @@
       </evictionScheduledExecutor>
 
       <globalJmxStatistics jmxDomain="exo" enabled="true" allowDuplicateDomains="true"/>
+
+      <transport transportClass="org.infinispan.remoting.transport.jgroups.JGroupsTransport" clusterName="${infinispan-cluster-name}" distributedSyncTimeout="20000">
+        <properties>
+          <property name="configurationFile" value="${jgroups-configuration}"/>
+        </properties>
+      </transport>
     </global>
-    
+
     <default>
+      <clustering mode="replication">
+        <stateTransfer timeout="20000" fetchInMemoryState="false" />
+        <sync replTimeout="20000"/>
+      </clustering>
+
       <locking isolationLevel="READ_COMMITTED" lockAcquisitionTimeout="20000" writeSkewCheck="false" concurrencyLevel="500" useLockStriping="false"/>
+      <transaction transactionManagerLookupClass="org.exoplatform.services.transaction.infinispan.JBossStandaloneJTAManagerLookup" syncRollbackPhase="true" syncCommitPhase="true" transactionMode="TRANSACTIONAL"/>
       <jmxStatistics enabled="true"/>
-      <transaction transactionManagerLookupClass="org.exoplatform.services.transaction.infinispan.JBossStandaloneJTAManagerLookup" syncRollbackPhase="true" syncCommitPhase="true"/>
       <eviction strategy="NONE"/>
 
       <loaders passivation="false" shared="false" preload="false">
