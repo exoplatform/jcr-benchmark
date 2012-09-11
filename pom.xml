@@ -24,7 +24,7 @@
    
    <scm>
       <connection>scm:git:git://github.com/exoplatform/jcr-benchmark.git</connection>
-      <developerConnection>scm:git:git@github.com/exoplatform/jcr-benchmark.git</developerConnection>
+      <developerConnection>scm:git:git@github.com:exoplatform/jcr-benchmark.git</developerConnection>
       <url>https://fisheye.exoplatform.org/browse/jcr-benchmark</url>
    </scm>
 
