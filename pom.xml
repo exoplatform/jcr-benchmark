@@ -29,15 +29,15 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.exoplatform.benchmark</groupId>
    <artifactId>exo-jcr-benchmark</artifactId>
-   <version>1.15.0-CR1-SNAPSHOT</version>
+   <version>1.15.0-CR2-SNAPSHOT</version>
    <packaging>jar</packaging>
    <name>eXo JCR :: Benchmark</name>
    
    <properties>
       <exo.product.name>exo-benchmark</exo.product.name>
       <exo.product.specification>1.14</exo.product.specification>
-      <org.exoplatform.jcr.version>1.15.0-CR1-SNAPSHOT</org.exoplatform.jcr.version>
-      <org.exoplatform.ws.version>2.3.0-CR1-SNAPSHOT</org.exoplatform.ws.version>
+      <org.exoplatform.jcr.version>1.15.0-CR2-SNAPSHOT</org.exoplatform.jcr.version>
+      <org.exoplatform.ws.version>2.3.0-CR2-SNAPSHOT</org.exoplatform.ws.version>
 
       <version.release.plugin>2.2.1</version.release.plugin>
       <version.buildnumber.plugin>1.0</version.buildnumber.plugin>
