@@ -37,7 +37,6 @@
       <exo.product.name>exo-benchmark</exo.product.name>
       <exo.product.specification>1.14</exo.product.specification>
       <org.exoplatform.jcr.version>1.15.0-CR2-SNAPSHOT</org.exoplatform.jcr.version>
-      <org.exoplatform.core.version>2.5.0-CR2-SNAPSHOT</org.exoplatform.core.version>
       <org.exoplatform.ws.version>2.3.0-CR2-SNAPSHOT</org.exoplatform.ws.version>
 
       <version.release.plugin>2.2.1</version.release.plugin>
@@ -63,42 +62,6 @@
          </exclusions>
          <scope>compile</scope>
       </dependency>      
-      <dependency>
-        <groupId>org.exoplatform.core</groupId>
-        <artifactId>exo.core.component.document</artifactId>
-        <version>${org.exoplatform.core.version}</version>
-
-        <exclusions>
-            <exclusion>
-               <groupId>javassist</groupId>
-               <artifactId>javassist</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>stax</groupId>
-               <artifactId>stax-api</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.apache.geronimo.specs</groupId>
-               <artifactId>geronimo-stax-api_1.0_spec</artifactId>
-            </exclusion>
-         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.exoplatform.core</groupId>
-        <artifactId>exo.core.component.organization.api</artifactId>
-        <version>${org.exoplatform.core.version}</version>
-
-        <exclusions>
-            <exclusion>
-               <groupId>org.jboss.spec.javax.transaction</groupId>
-               <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.jboss.logging</groupId>
-               <artifactId>jboss-logging</artifactId>
-            </exclusion>
-         </exclusions>
-      </dependency>
       <dependency>
          <groupId>com.sun.japex</groupId>
          <artifactId>japex</artifactId>
