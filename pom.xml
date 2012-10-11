@@ -20,11 +20,11 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <parent>
-      <groupId>org.exoplatform</groupId>
-      <artifactId>exo.parent</artifactId>
-      <version>8.1</version>
-   </parent>
+  <parent>
+    <groupId>org.exoplatform</groupId>
+    <artifactId>foundation-parent</artifactId>
+    <version>12-SNAPSHOT</version>
+  </parent>
 
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.exoplatform.benchmark</groupId>
@@ -236,7 +236,7 @@
                      </execution>
                   </executions>
                   <configuration>
-                     <tasks>
+                     <target>
                         <copy file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-ispn.xml"
                               tofile="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark.xml"/>
                         <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-ispn.xml" />
@@ -245,7 +245,7 @@
                         <delete file="target/exo-jcr-benchmark-binary/config/test-jbosscache-indexer.xml" />
                         <delete file="target/exo-jcr-benchmark-binary/config/test-jbosscache-lock.xml" />
                         <chmod dir="target/exo-jcr-benchmark-binary/bin" perm="+x" includes="*.sh" />
-                     </tasks>
+                     </target>
                   </configuration>
                </plugin>
             </plugins>
@@ -283,7 +283,7 @@
                      </execution>
                   </executions>
                   <configuration>
-                     <tasks>
+                     <target>
                         <copy file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-jbc.xml"
                               tofile="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark.xml"/>
                         <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-ispn.xml" />
@@ -292,7 +292,7 @@
                         <delete file="target/exo-jcr-benchmark-binary/config/test-infinispan-indexer.xml" />
                         <delete file="target/exo-jcr-benchmark-binary/config/test-infinispan-lock.xml" />
                         <chmod dir="target/exo-jcr-benchmark-binary/bin" perm="+x" includes="*.sh" />
-                     </tasks>
+                     </target>
                   </configuration>
                </plugin>
             </plugins>
