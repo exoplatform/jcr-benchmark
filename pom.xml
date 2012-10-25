@@ -133,13 +133,13 @@
          <dependency>
             <groupId>ojdbc</groupId>
             <artifactId>ojdbc</artifactId>
-            <version>10.2.0.4</version>
+            <version>11.1.0.6.0</version>
             <scope>compile</scope>
          </dependency>
          <dependency>
             <groupId>ojdbc</groupId>
             <artifactId>orai18n</artifactId>
-            <version>10.2.0.4</version>
+            <version>11.1.0.6.0</version>
             <scope>compile</scope>
         </dependency>
    </dependencies>
