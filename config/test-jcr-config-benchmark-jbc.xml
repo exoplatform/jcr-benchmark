@@ -87,6 +87,7 @@
               <property name="max-buffer-size" value="200k" />
               <property name="batch-size" value="1000" />
               <property name="swap-directory" value="../temp/swap/collaboration" />
+              <property name="batch-size" value="1000" />
             </properties>
             <value-storages>
               <value-storage id="1" class="org.exoplatform.services.jcr.impl.storage.value.fs.TreeFileValueStorage">
@@ -157,6 +158,7 @@
               <property name="max-buffer-size" value="200k" />
               <property name="batch-size" value="1000" />
               <property name="swap-directory" value="../temp/swap/digital-assets" />
+              <property name="batch-size" value="1000" />
             </properties>
             <value-storages>
               <value-storage id="1" class="org.exoplatform.services.jcr.impl.storage.value.fs.TreeFileValueStorage">
