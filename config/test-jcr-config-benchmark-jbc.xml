@@ -13,6 +13,7 @@
               <property name="db-tablename-suffix" value="SYS" />
               <property name="max-buffer-size" value="200k" />
               <property name="swap-directory" value="../temp/swap/system" />
+              <property name="batch-size" value="1000" />
             </properties>
             <value-storages>
               <value-storage id="1" class="org.exoplatform.services.jcr.impl.storage.value.fs.TreeFileValueStorage">
@@ -83,6 +84,7 @@
               <property name="db-structure-type" value="isolated" />
               <property name="db-tablename-suffix" value="COLAB" />
               <property name="max-buffer-size" value="200k" />
+              <property name="batch-size" value="1000" />
               <property name="swap-directory" value="../temp/swap/collaboration" />
             </properties>
             <value-storages>
@@ -152,6 +154,7 @@
               <property name="db-structure-type" value="isolated" />
               <property name="db-tablename-suffix" value="DIGIT" />
               <property name="max-buffer-size" value="200k" />
+              <property name="batch-size" value="1000" />
               <property name="swap-directory" value="../temp/swap/digital-assets" />
             </properties>
             <value-storages>
