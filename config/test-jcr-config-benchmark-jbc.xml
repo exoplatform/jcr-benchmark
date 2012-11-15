@@ -3,6 +3,7 @@
     <repository name="repository" system-workspace="system" default-workspace="collaboration">
       <security-domain>exo-domain</security-domain>
       <access-control>optional</access-control>
+      <session-max-age>1h</session-max-age>
       <authentication-policy>org.exoplatform.services.jcr.impl.core.access.JAASAuthenticator</authentication-policy>
       <workspaces>
         <workspace name="system" auto-init-permissions="">
