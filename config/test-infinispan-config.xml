@@ -43,7 +43,7 @@
     <default>
       <clustering mode="replication">
         <stateTransfer timeout="20000" fetchInMemoryState="false" />
-        <sync replTimeout="20000"/>
+        <sync replTimeout="60000"/>
       </clustering>
 
       <locking isolationLevel="READ_COMMITTED" lockAcquisitionTimeout="20000" writeSkewCheck="false" concurrencyLevel="500" useLockStriping="false"/>
