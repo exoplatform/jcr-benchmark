@@ -1,2 +1,2 @@
-/usr/lib/java6_x64/jre/bin/java -Xmx12g -Djava.net.preferIPv4Stack=true -Dlog4j.configuration=file:../config/log4j.properties -Duser.language=en -Dexo.jcr.allow.closed.session.usage=true -Duser.region=us -jar ../lib/exo-jcr-benchmark-1.15.2-GA-SNAPSHOT.jar ../config/JCRAPI.xml -last -line
-/usr/lib/java6_x64/jre/bin/java -cp ../lib/exo-jcr-benchmark-1.15.2-GA-SNAPSHOT.jar org.exoplatform.jcr.benchmark.helpers.SimpleReportHelper
+/usr/lib/java6_x64/jre/bin/java -Xmx12g -Djava.net.preferIPv4Stack=true -Dlog4j.configuration=file:../config/log4j.properties -Duser.language=en -Dexo.jcr.allow.closed.session.usage=true -Duser.region=us -jar ../lib/exo-jcr-benchmark-1.15.3-GA-SNAPSHOT.jar ../config/JCRAPI.xml -last -line
+/usr/lib/java6_x64/jre/bin/java -cp ../lib/exo-jcr-benchmark-1.15.3-GA-SNAPSHOT.jar org.exoplatform.jcr.benchmark.helpers.SimpleReportHelper
