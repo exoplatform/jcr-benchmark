@@ -38,10 +38,7 @@
       <unpack>false</unpack>
       <scope>runtime</scope>
       <excludes>
-        <exclude>xalan:xalan</exclude>
-        <exclude>xerces:xerces</exclude>
         <exclude>xerces:xercesImpl</exclude>
-        <exclude>com.sun.xml.parsers:jaxp-ri</exclude>
       </excludes>
     </dependencySet>
   </dependencySets>

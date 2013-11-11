@@ -53,6 +53,18 @@
    <dependencies>
       <dependency>
          <groupId>org.exoplatform.jcr</groupId>
+         <artifactId>exo.jcr.component.core</artifactId>
+         <version>${org.exoplatform.jcr.version}</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.exoplatform.jcr</groupId>
+         <artifactId>exo.jcr.component.ext</artifactId>
+         <version>${org.exoplatform.jcr.version}</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.exoplatform.jcr</groupId>
          <artifactId>exo.jcr.cluster.testclient</artifactId>
          <version>${org.exoplatform.jcr.version}</version>
          <exclusions>
@@ -109,7 +121,7 @@
       <dependency>
          <groupId>mysql</groupId>
          <artifactId>mysql-connector-java</artifactId>
-         <version>5.1.14</version>
+         <version>5.1.18</version>
          <scope>compile</scope>
       </dependency>
 
@@ -117,7 +129,7 @@
       <dependency>
          <groupId>postgresql</groupId>
          <artifactId>postgresql</artifactId>
-         <version>8.3-606.jdbc3</version>
+         <version>9.1-902.jdbc4</version>
          <scope>compile</scope>
       </dependency>
 
@@ -125,7 +137,7 @@
       <dependency>
           <groupId>org.hsqldb</groupId>
           <artifactId>hsqldb</artifactId>
-          <version>2.0.0</version>
+          <version>2.3.0</version>
           <scope>compile</scope>
       </dependency>
  
@@ -220,99 +232,22 @@
                <finalName>exo-jcr-benchmark</finalName>
             </configuration>
          </plugin>
+         <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+               <execution>
+                  <phase>install</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <target>
+                  <chmod dir="target/exo-jcr-benchmark-binary/bin" perm="+x" includes="*.sh" />
+               </target>
+            </configuration>
+         </plugin>
       </plugins>
    </build>
-   <profiles>
-      <profile>
-         <id>ispn</id>
-         <dependencies>
-           <dependency>
-              <groupId>org.exoplatform.jcr</groupId>
-              <artifactId>exo.jcr.component.core.impl.infinispan.v5</artifactId>
-              <version>${org.exoplatform.jcr.version}</version>
-              <scope>compile</scope>
-           </dependency>
-           <dependency>
-               <groupId>org.exoplatform.jcr</groupId>
-               <artifactId>exo.jcr.component.ext</artifactId>
-               <version>${org.exoplatform.jcr.version}</version>
-               <scope>compile</scope>
-            </dependency>
-         </dependencies>
-         <build>
-            <plugins>
-               <plugin>
-                  <artifactId>maven-antrun-plugin</artifactId>
-                  <executions>
-                     <execution>
-                        <phase>install</phase>
-                        <goals>
-                           <goal>run</goal>
-                        </goals>
-                     </execution>
-                  </executions>
-                  <configuration>
-                     <target>
-                        <copy file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-ispn.xml"
-                              tofile="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark.xml"/>
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-ispn.xml" />
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-jbc.xml" />
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-jbosscache-data.xml" />
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-jbosscache-indexer.xml" />
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-jbosscache-lock.xml" />
-                        <chmod dir="target/exo-jcr-benchmark-binary/bin" perm="+x" includes="*.sh" />
-                     </target>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
-      <profile>
-         <id>jbc</id>
-         <activation>
-            <activeByDefault>true</activeByDefault>
-         </activation>
-         <dependencies>         
-            <dependency>
-               <groupId>org.exoplatform.jcr</groupId>
-               <artifactId>exo.jcr.component.core</artifactId>
-               <version>${org.exoplatform.jcr.version}</version>
-               <scope>compile</scope>
-            </dependency>
-            <dependency>
-               <groupId>org.exoplatform.jcr</groupId>
-               <artifactId>exo.jcr.component.ext</artifactId>
-               <version>${org.exoplatform.jcr.version}</version>
-               <scope>compile</scope>
-            </dependency>
-         </dependencies>
-         <build>
-            <plugins>
-               <plugin>
-                  <artifactId>maven-antrun-plugin</artifactId>
-                  <executions>
-                     <execution>
-                        <phase>install</phase>
-                        <goals>
-                           <goal>run</goal>
-                        </goals>
-                     </execution>
-                  </executions>
-                  <configuration>
-                     <target>
-                        <copy file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-jbc.xml"
-                              tofile="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark.xml"/>
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-ispn.xml" />
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-jcr-config-benchmark-jbc.xml" />
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-infinispan-config.xml" />
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-infinispan-indexer.xml" />
-                        <delete file="target/exo-jcr-benchmark-binary/config/test-infinispan-lock.xml" />
-                        <chmod dir="target/exo-jcr-benchmark-binary/bin" perm="+x" includes="*.sh" />
-                     </target>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
-   </profiles>
 </project>

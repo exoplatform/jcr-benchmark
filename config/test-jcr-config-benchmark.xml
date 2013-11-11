@@ -2,7 +2,6 @@
   <repositories>
     <repository name="repository" system-workspace="system" default-workspace="collaboration">
       <security-domain>exo-domain</security-domain>
-      <session-max-age>1h</session-max-age>
       <access-control>optional</access-control>
       <session-max-age>1h</session-max-age>
       <authentication-policy>org.exoplatform.services.jcr.impl.core.access.JAASAuthenticator</authentication-policy>
@@ -39,7 +38,7 @@
             class="org.exoplatform.services.jcr.impl.dataflow.persistent.infinispan.ISPNCacheWorkspaceStorageCache">
             <properties>
               <property name="infinispan-configuration" value="../config/test-infinispan-config.xml" />
-              <property name="jgroups-configuration" value="jar:/conf/udp-mux-v3.xml" />
+              <property name="jgroups-configuration" value="../config/udp-mux.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
             </properties>
           </cache>
@@ -48,7 +47,7 @@
               <property name="index-dir" value="../temp/index/db/system" />
               <property name="changesfilter-class" value="org.exoplatform.services.jcr.impl.core.query.ispn.ISPNIndexChangesFilter" />
               <property name="infinispan-configuration" value="../config/test-infinispan-indexer.xml" />
-              <property name="jgroups-configuration" value="jar:/conf/udp-mux-v3.xml" />
+              <property name="jgroups-configuration" value="../config/udp-mux.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
               <property name="max-volatile-time" value="60" />
               <property name="rdbms-reindexing" value="false" />
@@ -58,7 +57,7 @@
             <properties>
               <property name="time-out" value="25m" />
               <property name="infinispan-configuration" value="../config/test-infinispan-lock.xml" />
-              <property name="jgroups-configuration" value="jar:/conf/udp-mux-v3.xml" />
+              <property name="jgroups-configuration" value="../config/udp-mux.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
               <property name="infinispan-cl-cache.jdbc.table.name" value="lk" />
               <property name="infinispan-cl-cache.jdbc.table.create" value="true" />
@@ -67,7 +66,7 @@
               <property name="infinispan-cl-cache.jdbc.data.column" value="data" />
               <property name="infinispan-cl-cache.jdbc.timestamp.column" value="timestamp" />
               <property name="infinispan-cl-cache.jdbc.datasource" value="jdbcexo" />
-              <property name="infinispan-cl-cache.jdbc.connectionFactory" value="org.infinispan.loaders.jdbc.connectionfactory.ManagedConnectionFactory" />
+              <property name="infinispan-cl-cache.jdbc.connectionFactory" value="org.exoplatform.services.jcr.infinispan.ManagedConnectionFactory" />
             </properties>
           </lock-manager>
         </workspace>
@@ -103,7 +102,7 @@
             class="org.exoplatform.services.jcr.impl.dataflow.persistent.infinispan.ISPNCacheWorkspaceStorageCache">
             <properties>
               <property name="infinispan-configuration" value="../config/test-infinispan-config.xml" />
-              <property name="jgroups-configuration" value="jar:/conf/udp-mux-v3.xml" />
+              <property name="jgroups-configuration" value="../config/udp-mux.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
             </properties>
           </cache>
@@ -112,7 +111,7 @@
               <property name="index-dir" value="../temp/index/db/collaboration" />
               <property name="changesfilter-class" value="org.exoplatform.services.jcr.impl.core.query.ispn.ISPNIndexChangesFilter" />
               <property name="infinispan-configuration" value="../config/test-infinispan-indexer.xml" />
-              <property name="jgroups-configuration" value="jar:/conf/udp-mux-v3.xml" />
+              <property name="jgroups-configuration" value="../config/udp-mux.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
               <property name="max-volatile-time" value="60" />
               <property name="rdbms-reindexing" value="false" />
@@ -122,7 +121,7 @@
             <properties>
               <property name="time-out" value="25m" />
               <property name="infinispan-configuration" value="../config/test-infinispan-lock.xml" />
-              <property name="jgroups-configuration" value="jar:/conf/udp-mux-v3.xml" />
+              <property name="jgroups-configuration" value="../config/udp-mux.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
               <property name="infinispan-cl-cache.jdbc.table.name" value="lk" />
               <property name="infinispan-cl-cache.jdbc.table.create" value="true" />
@@ -131,7 +130,7 @@
               <property name="infinispan-cl-cache.jdbc.data.column" value="data" />
               <property name="infinispan-cl-cache.jdbc.timestamp.column" value="timestamp" />
               <property name="infinispan-cl-cache.jdbc.datasource" value="jdbcexo" />
-              <property name="infinispan-cl-cache.jdbc.connectionFactory" value="org.infinispan.loaders.jdbc.connectionfactory.ManagedConnectionFactory" />
+              <property name="infinispan-cl-cache.jdbc.connectionFactory" value="org.exoplatform.services.jcr.infinispan.ManagedConnectionFactory" />
             </properties>
           </lock-manager>
         </workspace>
@@ -167,7 +166,7 @@
             class="org.exoplatform.services.jcr.impl.dataflow.persistent.infinispan.ISPNCacheWorkspaceStorageCache">
             <properties>
               <property name="infinispan-configuration" value="../config/test-infinispan-config.xml" />
-              <property name="jgroups-configuration" value="jar:/conf/udp-mux-v3.xml" />
+              <property name="jgroups-configuration" value="../config/udp-mux.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
             </properties>
           </cache>
@@ -176,7 +175,7 @@
               <property name="index-dir" value="../temp/index/db/digital-assets" />
               <property name="changesfilter-class" value="org.exoplatform.services.jcr.impl.core.query.ispn.ISPNIndexChangesFilter" />
               <property name="infinispan-configuration" value="../config/test-infinispan-indexer.xml" />
-              <property name="jgroups-configuration" value="jar:/conf/udp-mux-v3.xml" />
+              <property name="jgroups-configuration" value="../config/udp-mux.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
               <property name="max-volatile-time" value="60" />
               <property name="rdbms-reindexing" value="false" />
@@ -186,7 +185,7 @@
             <properties>
               <property name="time-out" value="25m" />
               <property name="infinispan-configuration" value="../config/test-infinispan-lock.xml" />
-              <property name="jgroups-configuration" value="jar:/conf/udp-mux-v3.xml" />
+              <property name="jgroups-configuration" value="../config/udp-mux.xml" />
               <property name="infinispan-cluster-name" value="JCR-benchmark-cluster" />
               <property name="infinispan-cl-cache.jdbc.table.name" value="lk" />
               <property name="infinispan-cl-cache.jdbc.table.create" value="true" />
@@ -195,7 +194,7 @@
               <property name="infinispan-cl-cache.jdbc.data.column" value="data" />
               <property name="infinispan-cl-cache.jdbc.timestamp.column" value="timestamp" />
               <property name="infinispan-cl-cache.jdbc.datasource" value="jdbcexo" />
-              <property name="infinispan-cl-cache.jdbc.connectionFactory" value="org.infinispan.loaders.jdbc.connectionfactory.ManagedConnectionFactory" />
+              <property name="infinispan-cl-cache.jdbc.connectionFactory" value="org.exoplatform.services.jcr.infinispan.ManagedConnectionFactory" />
             </properties>
           </lock-manager>
         </workspace>
