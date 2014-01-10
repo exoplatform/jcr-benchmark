@@ -25,6 +25,8 @@ import org.exoplatform.jcr.benchmark.jcrapi.webdav.WebdavTestContext;
 
 import com.sun.japex.JapexDriverBase;
 import com.sun.japex.TestCase;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 /**
  * Created by The eXo Platform SAS.
@@ -37,6 +39,8 @@ import com.sun.japex.TestCase;
 public class WebdavDriver
    extends JapexDriverBase
 {
+   private static final Log LOG = ExoLogger.getLogger(WebdavDriver.class);
+
    public static final String WEBDAV_HOST = "webdav.host";
 
    public static final String WEBDAV_PORT = "webdav.port";
@@ -86,7 +90,7 @@ public class WebdavDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -100,7 +104,7 @@ public class WebdavDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
       }
    }
 
@@ -113,7 +117,7 @@ public class WebdavDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -130,9 +134,9 @@ public class WebdavDriver
          return (AbstractWebdavTest) Class.forName(testCaseName).newInstance();
 
       }
-      catch (Throwable exception)
+      catch (Throwable exception)//NOSONAR
       {
-         exception.printStackTrace();
+         LOG.error(exception.getMessage(), exception);
          throw new RuntimeException(exception.getMessage(), exception);
       }
    }

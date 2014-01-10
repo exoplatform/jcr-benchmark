@@ -145,6 +145,7 @@ public class AddNtFileWithMetadataTestCleanDBOracle
                }
                catch (Exception e)
                {
+                   LOG.error(e.getMessage(), e);
                }
             }
             // ================================
@@ -154,7 +155,7 @@ public class AddNtFileWithMetadataTestCleanDBOracle
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }

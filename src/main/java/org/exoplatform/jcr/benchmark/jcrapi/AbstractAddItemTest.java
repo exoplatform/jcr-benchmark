@@ -95,6 +95,7 @@ public abstract class AbstractAddItemTest
          catch (InvalidItemStateException e)
          {
             // was deleted or discarded
+            LOG.error(e.getMessage(), e);
          }
          rootNode.save();
       }

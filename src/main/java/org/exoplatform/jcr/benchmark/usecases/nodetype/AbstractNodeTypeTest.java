@@ -79,7 +79,7 @@ public abstract class AbstractNodeTypeTest
             extNodeTypeManager.getNodeType(nt.getName());
             extNodeTypeManager.unregisterNodeType(nt.getName());
          }
-         catch (NoSuchNodeTypeException e)
+         catch (NoSuchNodeTypeException e)//NOSONAR
          {
             // ok
          }

@@ -56,7 +56,7 @@ public class EXOJCRStandaloneInitializer
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
       }
    }
 

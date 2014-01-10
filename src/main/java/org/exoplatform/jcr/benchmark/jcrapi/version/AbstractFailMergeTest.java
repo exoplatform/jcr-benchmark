@@ -130,7 +130,7 @@ public abstract class AbstractFailMergeTest extends AbstractGetItemTest
       }
       catch (RepositoryException e)
       {
-         e.printStackTrace();
+          LOG.error(e.getMessage(), e);
       }
    }
 }

@@ -17,11 +17,9 @@
 package org.exoplatform.jcr.benchmark.usecases;
 
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.Random;
 
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
 import javax.jcr.PathNotFoundException;
 
 import org.exoplatform.jcr.benchmark.JCRTestBase;
@@ -96,8 +94,8 @@ public class RandomReadNtFileWithMetadataTest
       }
       catch (PathNotFoundException e)
       {
-         System.out.println("[error] can not find property for node, parent is : " + node.getPath());
-         e.printStackTrace();
+         LOG.info("[error] can not find property for node, parent is : " + node.getPath());
+         LOG.error(e.getMessage(), e);
       }
    }
 

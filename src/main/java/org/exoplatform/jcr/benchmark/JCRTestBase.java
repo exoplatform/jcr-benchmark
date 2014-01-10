@@ -31,7 +31,7 @@ import com.sun.japex.TestCase;
 public abstract class JCRTestBase
 {
 
-   protected static Log log = ExoLogger.getLogger("jcr.benchmark");
+   protected static Log LOG = ExoLogger.getLogger("jcr.benchmark");
 
    /**
     * @param tc

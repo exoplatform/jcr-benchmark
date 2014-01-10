@@ -109,7 +109,7 @@ public class NodeMergeTest
       }
       catch (RepositoryException e)
       {
-         e.printStackTrace();
+          LOG.error(e.getMessage(), e);
       }
    }
 

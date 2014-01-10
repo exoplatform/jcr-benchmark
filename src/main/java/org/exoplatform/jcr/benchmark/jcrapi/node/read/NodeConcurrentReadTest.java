@@ -86,7 +86,7 @@ public class NodeConcurrentReadTest extends JCRTestBase
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
       }
 
    }
@@ -108,7 +108,7 @@ public class NodeConcurrentReadTest extends JCRTestBase
          }
          catch (Exception e)
          {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
          }
 
       }

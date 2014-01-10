@@ -42,7 +42,7 @@ public abstract class AbstractGetVersionTest
       {
          context.getSession().getNodeByUUID(vhistory.getVersionableUUID()).checkout();
       }
-      catch (RepositoryException e)
+      catch (RepositoryException e)//NOSONAR
       {
          // skip it
       }

@@ -20,6 +20,8 @@ package org.exoplatform.jcr.benchmark.usecases.portal;
 
 import org.exoplatform.services.jcr.impl.core.RepositoryImpl;
 import org.exoplatform.services.jcr.util.IdGenerator;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,8 @@ import javax.jcr.query.QueryResult;
  */
 public class ReadPageAction extends AbstractAction
 {
+
+   private static final Log LOG = ExoLogger.getLogger(ReadPageAction.class);
 
    private int nodeCount;
 
@@ -137,6 +141,7 @@ public class ReadPageAction extends AbstractAction
                {
                   // possibly property not exist, but this is still the
                   // access to the property.
+                  LOG.error(e.getMessage(), e);
                }
             }
          }
@@ -149,7 +154,7 @@ public class ReadPageAction extends AbstractAction
                // access missing property
                target.getProperty(IdGenerator.generate());
             }
-            catch (PathNotFoundException e)
+            catch (PathNotFoundException e)//NOSONAR
             {
                // this exception is expected
             }
@@ -161,7 +166,7 @@ public class ReadPageAction extends AbstractAction
                // access missing node
                testRoot.getNode(IdGenerator.generate());
             }
-            catch (PathNotFoundException e)
+            catch (PathNotFoundException e)//NOSONAR
             {
                // this exception is expected
             }

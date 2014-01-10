@@ -28,6 +28,8 @@ import javax.jcr.SimpleCredentials;
 import org.exoplatform.container.StandaloneContainer;
 import org.exoplatform.services.jcr.RepositoryService;
 import org.exoplatform.services.jcr.impl.core.SessionImpl;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 /**
  * Created by The eXo Platform SAS
@@ -41,6 +43,7 @@ public class AddNtFileWithMetadataNoJapex
     * This test calculates the time (ms or tps) of adding of one nodes of type nt:file (including
     * addNode(), setProperty(), addMixin(), save() methods).
     */
+   private static final Log LOG = ExoLogger.getLogger(AddNtFileWithMetadataNoJapex.class);
 
    private static final int NUMBER_OF_ITERATIONS = 500;
 
@@ -74,11 +77,11 @@ public class AddNtFileWithMetadataNoJapex
          long end = System.currentTimeMillis();
          rootNode.remove();
          session.save();
-         System.out.println("===AddNtFileWithMetadataNoJapex, TIME : " + (end - start) / NUMBER_OF_ITERATIONS + " ms");
+         LOG.info("===AddNtFileWithMetadataNoJapex, TIME : " + (end - start) / NUMBER_OF_ITERATIONS + " ms");
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          System.exit(1);
       }
       System.exit(0);

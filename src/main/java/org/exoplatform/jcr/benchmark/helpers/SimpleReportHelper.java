@@ -16,6 +16,9 @@
  */
 package org.exoplatform.jcr.benchmark.helpers;
 
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,6 +38,8 @@ public class SimpleReportHelper
 {
 
    public static Date TODAY = new Date();
+
+    private static final Log LOG = ExoLogger.getLogger(SimpleReportHelper.class);
 
    /**
     * @param args
@@ -69,10 +74,10 @@ public class SimpleReportHelper
       }
       catch (IOException e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          message += "ERROR";
       }
-      System.out.println(message);
+      LOG.info(message);
       // renaming reports directory
       message = "Renaming of 'last' directory passed ";
       DateFormat df = new SimpleDateFormat("yyyy_MM_dd_HH_mm");
@@ -88,7 +93,7 @@ public class SimpleReportHelper
       {
          message += "ERROR";
       }
-      System.out.println(message);
+      LOG.info(message);
    }
 
 }

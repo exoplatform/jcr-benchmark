@@ -64,7 +64,7 @@ public class EditLockedCommonNodeTest
          context.getSession().save();
          throw new RuntimeException("LockException must be here");
       }
-      catch (LockException e)
+      catch (LockException e)//NOSONAR
       {
          // as expected
       }
@@ -74,7 +74,7 @@ public class EditLockedCommonNodeTest
          context.getSession().save();
          throw new RuntimeException("LockException must be here");
       }
-      catch (LockException e)
+      catch (LockException e)//NOSONAR
       {
          // as expected
       }
@@ -104,7 +104,7 @@ public class EditLockedCommonNodeTest
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -125,7 +125,7 @@ public class EditLockedCommonNodeTest
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }

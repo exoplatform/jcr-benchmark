@@ -19,6 +19,8 @@ package org.exoplatform.jcr.benchmark.init;
 import javax.jcr.Repository;
 
 import com.sun.japex.Params;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 /**
  * Created by The eXo Platform SAS . Abstract class encapsulates mechanizm of repository
@@ -30,6 +32,8 @@ import com.sun.japex.Params;
 
 public abstract class JCRInitializer
 {
+
+   protected static final Log LOG = ExoLogger.getLogger(JCRInitializer.class);
 
    protected Repository repository;
 
