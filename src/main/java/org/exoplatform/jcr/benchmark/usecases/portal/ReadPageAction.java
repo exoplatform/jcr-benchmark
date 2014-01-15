@@ -141,7 +141,7 @@ public class ReadPageAction extends AbstractAction
                {
                   // possibly property not exist, but this is still the
                   // access to the property.
-                  LOG.error(e.getMessage(), e);
+                  LOG.debug(e.getMessage(), e);
                }
             }
          }
