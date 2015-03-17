@@ -101,26 +101,26 @@ public class MultiWriteTest
       }
       out.close();
 
-      System.out.println(file.getAbsolutePath() + "   added");
+      LOG.info(file.getAbsolutePath() + "   added");
 
       Session session = context.getSession();
       Node rootNode = session.getRootNode();
       if (rootNode.hasNode("parentNode"))
       {
          parent = rootNode.getNode("parentNode");
-         System.out.println(curnum + " get node");
+         LOG.info(curnum + " get node");
       }
       else
       {
          parent = rootNode.addNode("parentNode");
          session.save();
-         System.out.println(curnum + " ADD node");
+         LOG.info(curnum + " ADD node");
       }
 
       if (parent.hasProperty("prop"))
       {
          prop = parent.getProperty("prop");
-         System.out.println(curnum + " get prop");
+         LOG.info(curnum + " get prop");
       }
       else
       {
@@ -133,11 +133,11 @@ public class MultiWriteTest
             out.write(buf);
          }
          out.close();
-         System.out.println(f.getAbsolutePath() + "   added");
+         LOG.info(f.getAbsolutePath() + "   added");
 
          prop = parent.setProperty("prop", new FileInputStream(f));
          session.save();
-         System.out.println(curnum + " ADD prop");
+         LOG.info(curnum + " ADD prop");
       }
 
    }
@@ -146,16 +146,15 @@ public class MultiWriteTest
    {
       try
       {
-         System.out.println("doRun " + curnum);
+         LOG.info("doRun " + curnum);
          prop.setValue(getStream());
          parent.save();
-         System.out.println(" save finished " + curnum);
+         LOG.info(" save finished " + curnum);
       }
       catch (Exception e)
       {
-         System.out.println("====================" + curnum + " thread : ");
-         e.printStackTrace();
-         // throw new Exception(e);
+         LOG.info("====================" + curnum + " thread : ");
+         LOG.error(e.getMessage(), e);
       }
    }
 
@@ -170,7 +169,7 @@ public class MultiWriteTest
       byte[] buf = new byte[4];
       in.read(buf);
       in.close();
-      System.out.println(curnum + " - " + new String(buf));
+      LOG.info(curnum + " - " + new String(buf));
    }
 
    private byte[] createBuf(int size, String val)

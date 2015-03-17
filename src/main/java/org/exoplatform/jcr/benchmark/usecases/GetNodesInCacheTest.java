@@ -122,7 +122,7 @@ public class GetNodesInCacheTest extends JCRTestBase
             }
             catch (Exception e)
             {
-               e.printStackTrace();
+               LOG.error(e.getMessage(), e);
             }
          }
          // ================================
@@ -130,7 +130,7 @@ public class GetNodesInCacheTest extends JCRTestBase
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
       finally
@@ -143,7 +143,7 @@ public class GetNodesInCacheTest extends JCRTestBase
             }
             catch (SQLException e)
             {
-               e.printStackTrace();
+               LOG.error(e.getMessage(), e);
             }
          }
       }

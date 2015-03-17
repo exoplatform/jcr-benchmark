@@ -81,7 +81,7 @@ public abstract class AbstractNamespaceTest
             namespaceRegistry.getNamespaceURIByPrefix(ns);
             namespaceRegistry.unregisterNamespace(ns);
          }
-         catch (NamespaceException e)
+         catch (NamespaceException e)//NOSONAR
          {
             // ok
          }

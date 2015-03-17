@@ -52,7 +52,7 @@ import javax.jcr.Session;
  */
 public class PageUsecasesTest extends JCRTestBase
 {
-   static final Log log = ExoLogger.getLogger(PageUsecasesTest.class.getName());
+   static final Log LOG = ExoLogger.getLogger(PageUsecasesTest.class.getName());
 
    // Option names
    private static final String PARAM_DEPTH = "exo.prepare.depth";
@@ -135,10 +135,10 @@ public class PageUsecasesTest extends JCRTestBase
       keyPressThreadCounter++;
       if (keyPressThreadCounter >= timesToWait)
       {
-         System.out.print("Press Enter to continue ...");
+         LOG.info("Press Enter to continue ...");
          BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
          in.readLine();
-         System.out.println("Continuing ...");
+         LOG.info("Continuing ...");
          keyPressThreadCounter = 0;
       }
    }
@@ -154,13 +154,13 @@ public class PageUsecasesTest extends JCRTestBase
       timeoutThreadCounter++;
       if (timeoutThreadCounter >= timesToWait)
       {
-         System.out.println("Waiting " + sleepTime / 1000 + "s before continue ...");
+         LOG.info("Waiting " + sleepTime / 1000 + "s before continue ...");
          timeoutThreadCounter = 0;
          try
          {
             Thread.sleep(sleepTime);
          }
-         catch (InterruptedException e)
+         catch (InterruptedException e)//NOSONAR
          {
             // skip
          }
@@ -285,7 +285,7 @@ public class PageUsecasesTest extends JCRTestBase
          }
          else
          {
-            log.warn("Unknown prepare synchronization method: " + synch);
+            LOG.warn("Unknown prepare synchronization method: " + synch);
          }
       }
 
@@ -513,7 +513,7 @@ public class PageUsecasesTest extends JCRTestBase
          }
          else
          {
-            log.warn("Unknown finish synchronization method: " + synch);
+            LOG.warn("Unknown finish synchronization method: " + synch);
          }
       }
 

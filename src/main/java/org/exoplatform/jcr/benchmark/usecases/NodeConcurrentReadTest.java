@@ -80,8 +80,7 @@ public class NodeConcurrentReadTest extends JCRTestBase
       {
          if (writersList.size() == 0)
          {
-            System.out.println();
-            System.out.println("========= prepare test =========");
+            LOG.info("========= prepare test =========");
              
             // initial nodes
             
@@ -97,7 +96,7 @@ public class NodeConcurrentReadTest extends JCRTestBase
             {
                nodes = 100;
             }
-            System.out.println("exo.numberOfNodes " + nodes);
+            LOG.info("exo.numberOfNodes " + nodes);
 
             for (int i = 0; i < nodes; i++)
             {
@@ -128,9 +127,9 @@ public class NodeConcurrentReadTest extends JCRTestBase
             {
                pause = 50;
             }
-            
-            System.out.println("exo.numberOfWriters " + writers);
-            System.out.println("exo.writerPause " + pause);
+
+            LOG.info("exo.numberOfWriters " + writers);
+            LOG.info("exo.writerPause " + pause);
             
             for (int i = 0; i < writers; i++)
             {
@@ -139,7 +138,7 @@ public class NodeConcurrentReadTest extends JCRTestBase
                w.start();
             }
             
-            System.out.println("===================================");
+            LOG.info("===================================");
          }
       }
 
@@ -173,16 +172,16 @@ public class NodeConcurrentReadTest extends JCRTestBase
          if (writersList.size() > 0)
          {
             String msg = "Ran readers " + threads + " writers " + writersList.size();
-            System.out.print("Finishing... ");
-            System.out.print("stopping writers... ");
+            LOG.info("Finishing... ");
+            LOG.info("stopping writers... ");
             for (Writer w : writersList)
             {
                w.join(1000);
             }
             writersList.clear();
-            
-            System.out.println("done.");
-            System.out.println(msg);
+
+            LOG.info("done.");
+            LOG.info(msg);
          }
       }
       
@@ -234,7 +233,7 @@ public class NodeConcurrentReadTest extends JCRTestBase
          }
          catch (Exception e)
          {
-            log.error("Writer stopped: " + e.getMessage(), e);
+            LOG.error("Writer stopped: " + e.getMessage(), e);
          }
          finally
          {

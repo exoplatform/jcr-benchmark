@@ -29,6 +29,8 @@ import com.sun.japex.JapexDriverBase;
 import com.sun.japex.Params;
 import com.sun.japex.ParamsImpl;
 import com.sun.japex.TestCase;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 /**
  * Created by The eXo Platform SAS .
@@ -40,6 +42,8 @@ import com.sun.japex.TestCase;
 public class JCRDriver
    extends JapexDriverBase
 {
+
+   protected static final Log LOG = ExoLogger.getLogger(JCRDriver.class);
 
    protected Repository repository;
 
@@ -83,7 +87,7 @@ public class JCRDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -103,7 +107,7 @@ public class JCRDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -117,7 +121,7 @@ public class JCRDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          try
          {
             Session s = context.getSession();
@@ -126,7 +130,7 @@ public class JCRDriver
          }
          catch (RepositoryException e1)
          {
-            System.err.println("Can not refresh test session. Reason: " + e1.getMessage());
+            LOG.error("Can not refresh test session. Reason: " + e1.getMessage(), e1);
          }
       }
    }
@@ -141,7 +145,7 @@ public class JCRDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -158,9 +162,9 @@ public class JCRDriver
          return (JCRTestBase) Class.forName(testCaseName).newInstance();
 
       }
-      catch (Throwable exception)
+      catch (Throwable exception)//NOSONAR
       {
-         exception.printStackTrace();
+         LOG.error(exception.getMessage(), exception);
          throw new RuntimeException(exception.getMessage(), exception);
       }
    }

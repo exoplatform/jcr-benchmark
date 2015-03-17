@@ -40,7 +40,7 @@ public class EditLockedCommonDeepNodeTest
     * This test measures performance of lock mechanism, each thread has common level1 node
     */
 
-   public static Log log = ExoLogger.getLogger("jcr.benchmark");
+   public static Log LOG = ExoLogger.getLogger("jcr.benchmark");
 
    public static boolean rootNodeCreated = false;
 
@@ -71,7 +71,7 @@ public class EditLockedCommonDeepNodeTest
          context.getSession().save();
          throw new RuntimeException("LockException must be here");
       }
-      catch (LockException e)
+      catch (LockException e)//NOSONAR
       {
          // as expected
       }
@@ -81,7 +81,7 @@ public class EditLockedCommonDeepNodeTest
          context.getSession().save();
          throw new RuntimeException("LockException must be here");
       }
-      catch (LockException e)
+      catch (LockException e)//NOSONAR
       {
          // as expected
       }
@@ -114,7 +114,7 @@ public class EditLockedCommonDeepNodeTest
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -135,7 +135,7 @@ public class EditLockedCommonDeepNodeTest
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }

@@ -54,7 +54,7 @@ public class ImportOwnSubtreeSysViewCleanDBOracleTest extends JCRTestBase
     * node subtree of nodes
     */
 
-   public static Log log = ExoLogger.getLogger("jcr.benchmark");
+   public static Log LOG = ExoLogger.getLogger("jcr.benchmark");
 
    public static WorkspaceStorageConnection workspaceStorageConnection = null;
 
@@ -107,9 +107,9 @@ public class ImportOwnSubtreeSysViewCleanDBOracleTest extends JCRTestBase
       {
          if (!dataBaseDropped)
          {
-            log.info("sleep 10 sec");
+            LOG.info("sleep 10 sec");
             Thread.sleep(10000);
-            log.info("sleep 10 sec done");
+            LOG.info("sleep 10 sec done");
             Connection dbConnection;
             JDBCStorageConnection storageConnection;
             JDBCWorkspaceDataContainer workspaceDataContainer =
@@ -147,6 +147,7 @@ public class ImportOwnSubtreeSysViewCleanDBOracleTest extends JCRTestBase
                }
                catch (Exception e)
                {
+                   LOG.error(e.getMessage(), e);
                }
             }
             dbConnection.commit();
@@ -155,13 +156,13 @@ public class ImportOwnSubtreeSysViewCleanDBOracleTest extends JCRTestBase
             boolean successfullyDeleted = deleteDir(new File("../temp"));
             if (successfullyDeleted)
             {
-               log.info("Folder 'temp' successfully deleted");
+               LOG.info("Folder 'temp' successfully deleted");
             }
          }
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -176,7 +177,7 @@ public class ImportOwnSubtreeSysViewCleanDBOracleTest extends JCRTestBase
             boolean success = deleteDir(new File(dir, children[i]));
             if (!success)
             {
-               log.warn("Can not delete: " + dir + ", " + children[i]);
+               LOG.warn("Can not delete: " + dir + ", " + children[i]);
                return false;
             }
          }

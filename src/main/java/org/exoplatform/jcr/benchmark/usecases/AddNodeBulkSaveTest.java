@@ -50,7 +50,7 @@ public class AddNodeBulkSaveTest
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          session.refresh(false);
       }
    }

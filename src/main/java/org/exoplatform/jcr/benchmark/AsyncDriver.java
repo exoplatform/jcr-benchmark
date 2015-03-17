@@ -17,21 +17,20 @@
 package org.exoplatform.jcr.benchmark;
 
 import javax.jcr.Credentials;
-import javax.jcr.LoginException;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 
-import org.exoplatform.container.StandaloneContainer;
 import org.exoplatform.jcr.benchmark.ext.asyncrep.AsyncTestBase;
 import org.exoplatform.jcr.benchmark.ext.asyncrep.AsyncTestContext;
-import org.exoplatform.services.jcr.RepositoryService; //import org.exoplatform.services.jcr.ext.replication.async.AsyncReplication;
 
 import com.sun.japex.JapexDriverBase;
 import com.sun.japex.Params;
 import com.sun.japex.ParamsImpl;
 import com.sun.japex.TestCase;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 /**
  * Created by The eXo Platform SAS.
@@ -44,6 +43,8 @@ import com.sun.japex.TestCase;
 public class AsyncDriver
    extends JapexDriverBase
 {
+
+   private static final Log LOG = ExoLogger.getLogger(AsyncDriver.class);
 
    protected Repository repository;
 
@@ -85,7 +86,7 @@ public class AsyncDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -105,7 +106,7 @@ public class AsyncDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -119,7 +120,7 @@ public class AsyncDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          try
          {
             Session s = context.getSession();
@@ -128,7 +129,7 @@ public class AsyncDriver
          }
          catch (RepositoryException e1)
          {
-            System.err.println("Can not refresh test session. Reason: " + e1.getMessage());
+            LOG.error("Can not refresh test session. Reason: " + e1.getMessage(), e1);
          }
       }
    }
@@ -143,7 +144,7 @@ public class AsyncDriver
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }
@@ -160,9 +161,9 @@ public class AsyncDriver
          return (AsyncTestBase) Class.forName(testCaseName).newInstance();
 
       }
-      catch (Throwable exception)
+      catch (Throwable exception)//NOSONAR
       {
-         exception.printStackTrace();
+         LOG.error(exception.getMessage(), exception);
          throw new RuntimeException(exception.getMessage(), exception);
       }
    }

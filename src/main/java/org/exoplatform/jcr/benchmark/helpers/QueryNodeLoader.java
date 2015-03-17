@@ -28,6 +28,8 @@ import javax.jcr.SimpleCredentials;
 import org.exoplatform.container.StandaloneContainer;
 import org.exoplatform.services.jcr.RepositoryService;
 import org.exoplatform.services.jcr.impl.core.SessionImpl;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 /**
  * Created by The eXo Platform SAS
@@ -43,6 +45,8 @@ public class QueryNodeLoader
     */
 
    private static final int NUMBER_OF_NODES = 10;
+
+   private static final Log LOG = ExoLogger.getLogger(SimpleReportHelper.class);
 
    public static void main(String[] args)
    {
@@ -74,11 +78,11 @@ public class QueryNodeLoader
             session.save();
          }
          session.save();
-         System.out.println("===Nodes for query tests loaded successfuly");
+         LOG.info("===Nodes for query tests loaded successfuly");
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          System.exit(1);
       }
       System.exit(0);

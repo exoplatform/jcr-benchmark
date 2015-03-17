@@ -48,7 +48,7 @@ public class CheckinCheckoutOwnNodeCleanDBOracleTest
     * should be some node operations like adding) many times.
     */
 
-   public static Log log = ExoLogger.getLogger("jcr.benchmark");
+   public static Log LOG = ExoLogger.getLogger("jcr.benchmark");
 
    public static WorkspaceStorageConnection workspaceStorageConnection = null;
 
@@ -128,6 +128,7 @@ public class CheckinCheckoutOwnNodeCleanDBOracleTest
                }
                catch (Exception e)
                {
+                   LOG.error(e.getMessage(), e);
                }
             }
             // ================================
@@ -137,7 +138,7 @@ public class CheckinCheckoutOwnNodeCleanDBOracleTest
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
          throw new RuntimeException(e);
       }
    }

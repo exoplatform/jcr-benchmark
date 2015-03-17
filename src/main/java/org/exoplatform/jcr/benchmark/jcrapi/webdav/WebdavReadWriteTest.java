@@ -120,8 +120,8 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
                   }
                   catch (Exception e)
                   {
-                     System.out.println(this.getName() + " : Can not add node with path : " + subNodePath);
-                     e.printStackTrace();
+                     LOG.info(this.getName() + " : Can not add node with path : " + subNodePath);
+                     LOG.error(e.getMessage(), e);
                      continue;
                   }
                }
@@ -134,7 +134,7 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
 
                   if (response.getStatusCode() != 201)
                   {
-                     System.out.println(this.getName() + " : Can not add (response code " + response.getStatusCode()
+                     LOG.info(this.getName() + " : Can not add (response code " + response.getStatusCode()
                         + new String(response.getData()) + " ) node with path : " + nodePath);
                   }
                   else
@@ -144,8 +144,8 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
                }
                catch (Exception e)
                {
-                  System.out.println(this.getName() + " : Can not add node with path : " + path);
-                  e.printStackTrace();
+                  LOG.info(this.getName() + " : Can not add node with path : " + path);
+                  LOG.error(e.getMessage(), e);
                   continue;
                }
             }
@@ -179,7 +179,7 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
                }
                catch (InterruptedException e)
                {
-                  e.printStackTrace();
+                  LOG.error(e.getMessage(), e);
                }
             }
          }
@@ -274,7 +274,7 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
             }
             // Notify writers to start their job 
             countDownLatch.countDown();
-            System.out.println(Thread.currentThread() + " : Prepare done in " + (System.currentTimeMillis() - time));
+            LOG.info(Thread.currentThread() + " : Prepare done in " + (System.currentTimeMillis() - time));
          }
          finally
          {
@@ -355,7 +355,7 @@ public class WebdavReadWriteTest extends AbstractWebdavTest
          HTTPResponse response = conn.getNode(nodePath);
          if (response.getStatusCode() != 200)
          {
-            System.out.println("Can not get (response code " + response.getStatusCode()
+            LOG.info("Can not get (response code " + response.getStatusCode()
                + new String(response.getData()) + " ) node with path : " + nodePath);
          }
          else

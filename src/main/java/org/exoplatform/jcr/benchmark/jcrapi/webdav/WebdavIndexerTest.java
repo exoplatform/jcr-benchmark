@@ -65,7 +65,7 @@ public class WebdavIndexerTest extends AbstractWebdavTest
          }
          catch (Exception exc)
          {
-            exc.printStackTrace();
+            LOG.error(exc.getMessage(), exc);
          }
          finally
          {
@@ -100,7 +100,7 @@ public class WebdavIndexerTest extends AbstractWebdavTest
       }
       catch (ModuleException e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
       }
       finally
       {
@@ -136,13 +136,13 @@ public class WebdavIndexerTest extends AbstractWebdavTest
 
          if (response.getStatusCode() != HTTPStatus.CREATED)
          {
-            System.out.println("Server returned Status " + response.getStatusCode() + " : "
-               + new String(response.getData()));
+            LOG.info("Server returned Status " + response.getStatusCode() + " : "
+                     + new String(response.getData()));
          }
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         LOG.error(e.getMessage(), e);
       }
       finally
       {

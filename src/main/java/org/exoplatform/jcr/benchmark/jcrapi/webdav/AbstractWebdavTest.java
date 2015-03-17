@@ -22,6 +22,8 @@ import java.util.List;
 import org.exoplatform.common.http.client.CookieModule;
 
 import com.sun.japex.TestCase;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 /**
  * @author <a href="mailto:dmitry.kataev@exoplatform.com">Dmytro Katayev</a>
@@ -30,6 +32,8 @@ import com.sun.japex.TestCase;
  */
 public abstract class AbstractWebdavTest
 {
+
+   protected static final Log LOG = ExoLogger.getLogger(AbstractWebdavTest.class);
 
    protected JCRWebdavConnectionEx item;
    
